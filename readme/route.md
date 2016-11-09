@@ -1,0 +1,22 @@
+# HTTP 路由
+## 自定义路由
+
+*文件名称：app/Providers/RouteServiceProvider.php*
+
+		public function map(){
+	       	//自定义会员中心路由
+			$this->mapUserRoutes();
+		}
+		
+		/**
+		 * 自定义会员中心路由
+		 * @return void
+		 */
+		protected function mapUserRoutes(){
+			Route::group([
+				'middleware' => 'user',
+				'namespace' => $this->namespace,
+			], function ($router) {
+				require base_path('routes/user.php');
+			});
+		}

@@ -1,4 +1,4 @@
-@extends('admin.public.base')
+@extends('admin.layouts.base')
 @section('style')
 @stop
 @section('script')
@@ -19,30 +19,30 @@
                 <div class="panel-body">
                     <div class="clearfix">
                         <div class="btn-group">
-                            <a href="{{ url('admin/menu/add?pid='.$pages['pid']) }}" class="btn btn-primary ajax-update">
+                            <a href="javascript:void(0)" url="{{ route('admin.menu.create',[$pid]) }}" class="btn btn-primary ajax-update">
                                 新增 <i class="fa icon-plus"></i>
                             </a>
-                        </div>
-                        <div class="btn-group">
-                            <a href="{{ url('admin/menu/batch/'.$pages['pid']) }}" class="btn btn-info ajax-update">
-                                导入 <i class="fa icon-location-arrow"></i>
-                            </a>
+                        {{--</div>--}}
+                        {{--<div class="btn-group">--}}
+                            {{--<a href="{{ url('admin/menu/batch/'.$pages['pid']) }}" class="btn btn-info ajax-update">--}}
+                                {{--导入 <i class="fa icon-location-arrow"></i>--}}
+                            {{--</a>--}}
                         </div>
                     </div>
                 </div>
                 <div id="sample_1_wrapper" class="dataTables_wrapper form-inline" role="grid">
                     <div class="row">
                         <div class="col-sm-12">
-                            {!! Form::open(['url' => 'admin/menu/index','method'=>'get']) !!}
-                            <div class="dataTables_filter" id="sample_1_filter">
-                                <button class="btn btn-primary" type="submit"><i class="fa icon-search"></i>搜索</button>
-                            </div>
-                            <div class="dataTables_filter" id="sample_1_filter">
-                                <label>
-                                    菜单名称：<input type="text" name="title" aria-controls="sample_1" value="{{ $pages['title'] }}" class="form-control">
-                                </label>
-                            </div>
-                            {!!Form::close()!!}
+                            {{--{!! Form::open(['url' => 'admin/menu/index','method'=>'get']) !!}--}}
+                            {{--<div class="dataTables_filter" id="sample_1_filter">--}}
+                                {{--<button class="btn btn-primary" type="submit"><i class="fa icon-search"></i>搜索</button>--}}
+                            {{--</div>--}}
+                            {{--<div class="dataTables_filter" id="sample_1_filter">--}}
+                                {{--<label>--}}
+                                    {{--菜单名称：<input type="text" name="title" aria-controls="sample_1" value="{{ $pages['title'] }}" class="form-control">--}}
+                                {{--</label>--}}
+                            {{--</div>--}}
+                            {{--{!!Form::close()!!}--}}
                         </div>
                     </div>
                     <table class="table table-striped border-top" id="sample_1">
@@ -61,32 +61,24 @@
                         </tr>
                         </thead>
                         <tbody>
-                        @foreach($datas as $data)
+                        @foreach($lists as $item)
                             <tr class="odd gradeX">
-                                <td><input type="checkbox" class="checkboxes" value="{{ $data->id }}"/></td>
-                                <td>{{ $data->id }}</td>
-                                <td><a href="{{ url('admin/menu/index?pid='. $data->id) }}">{{ $data->title }}</a></td>
-                                <td class="hidden-phone">{{ $data->up_title }}</td>
-                                <td class="hidden-phone">{{ $data->group }}</td>
-                                <td class="center hidden-phone">{{ $data->url }}</td>
-                                <td class="hidden-phone">{{ $data->sort }}</td>
-                                <td class="hidden-phone">{{ $data->hide_text }}</td>
+                                <td><input type="checkbox" class="checkboxes" value="{{ $item['id'] }}"/></td>
+                                <td>{{ $item['id'] }}</td>
+                                <td><a href="{{ url('admin/menu/index?pid='. $item['id']) }}">{{ $item['title'] }}</a></td>
+                                <td class="hidden-phone">{{ $item['up_title'] }}</td>
+                                <td class="hidden-phone">{{ $item['group'] }}</td>
+                                <td class="center hidden-phone">{{ $item['url'] }}</td>
+                                <td class="hidden-phone">{{ $item['sort'] }}</td>
+                                <td class="hidden-phone">{{ $item['hide_text'] }}</td>
                                 <td class="hidden-phone">
-                                    <a class="btn btn-primary btn-xs ajax-update" href="{{ url('admin/menu/edit',[$data->id]) }}"><i class="icon-pencil"></i> 修改</a>
-                                    <a class="btn btn-danger btn-xs ajax-confirm destroy" href="{{ url('admin/menu/destroy',[$data->id]) }}"><i class="icon-trash "></i> 删除</a>
+                                    <a class="btn btn-primary btn-xs ajax-update" href="javascript:void(0)" url="{{ url('admin/menu/edit',[$item['id']]) }}"><i class="icon-pencil"></i> 修改</a>
+                                    <a class="btn btn-danger btn-xs ajax-confirm destroy" href="javascript:void(0)" url="{{ url('admin/menu/destroy',[$item['id']]) }}"><i class="icon-trash "></i> 删除</a>
                                 </td>
                             </tr>
                         @endforeach
                         </tbody>
                     </table>
-                    <div class="row">
-                        <div class="col-sm-6">
-                            <div class="dataTables_info" id="sample_1_info">共 {{ $datas->total() }} 条记录</div>
-                        </div>
-                        <div class="col-sm-6" style="text-align: right;position: relative;top:-25px;height: 39px">
-                            {!! $datas->appends($pages)->render() !!}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                        </div>
-                    </div>
                 </div>
             </section>
         </div>

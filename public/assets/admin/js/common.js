@@ -4,15 +4,14 @@ $(function(){
      */
     //自定义弹出层样式
     layer.config({
-        extend:'../../public-static/layer/skin/admin/style.css'
+        extend:'../../static/layer/skin/admin/style.css'
     });
 
     //更新操作
     $('body').on('click','.ajax-update',function(){
         layer.closeAll();
-        var target = $(this).attr('href') || $(this).attr('url');
-        var that = this;
-        $.get(target).success(function(data){
+        var target = $(this).attr('url');
+        $.get(target,function(data){
             if(data.status == 1){
                 layer.open({
                     type    : 1,
@@ -21,17 +20,16 @@ $(function(){
                     title   : data.title,
                     area    : ['650px'],
                     btn     : ['确定', '取消'],
-                    shade   : false,
-                    content : data.html,
+                    content : data.info,
                     yes     : function(index){
                         var form = $('.form-datas');
                         var url = form.get(0).action;
                         var query = form.serialize();
                         $.post(url,query,function(datas){
                             if(datas.status==1){
-                                updateAlert(datas.success + ' 页面即将自动跳转~','alert-success',datas.url);
+                                updateAlert(datas.info + ' 页面即将自动跳转~','alert-success',datas.url);
                             }else{
-                                updateAlert(datas.error);
+                                updateAlert(datas.info);
                             }
                         });
                     }
@@ -39,7 +37,7 @@ $(function(){
             }else{
                 updateAlert(data.error);
             }
-        });
+        },'json');
         return false;
     });
 

@@ -6,21 +6,21 @@
     <meta name="keyword" content="">
     <title>网红后台管理系统</title>
     <!-- Bootstrap core CSS -->
-    <link href="{{ asset('admin-assets/css/bootstrap.min.css') }}" rel="stylesheet">
-    <link href="{{ asset('admin-assets/css/bootstrap-reset.css') }}" rel="stylesheet">
+    <link href="{{ asset('assets/admin/css/bootstrap.min.css') }}" rel="stylesheet">
+    <link href="{{ asset('assets/admin/css/bootstrap-reset.css') }}" rel="stylesheet">
     <!--external css-->
-    <link href="{{ asset('admin-assets/assets/font-awesome/css/font-awesome.css') }}" rel="stylesheet" />
-    <link href="{{ asset('admin-assets/assets/jquery-easy-pie-chart/jquery.easy-pie-chart.css') }}" rel="stylesheet" type="text/css" media="screen"/>
-    <link href="{{ asset('admin-assets/css/owl.carousel.css') }}" rel="stylesheet" type="text/css" />
+    <link href="{{ asset('assets/admin/assets/font-awesome/css/font-awesome.css') }}" rel="stylesheet" />
+    <link href="{{ asset('assets/admin/assets/jquery-easy-pie-chart/jquery.easy-pie-chart.css') }}" rel="stylesheet" type="text/css" media="screen"/>
+    <link href="{{ asset('assets/admin/css/owl.carousel.css') }}" rel="stylesheet" type="text/css" />
     <!-- Custom styles for this template -->
-    <link href="{{ asset('admin-assets/css/style.css') }}" rel="stylesheet" />
-    <link href="{{ asset('admin-assets/css/style-responsive.css') }}" rel="stylesheet" />
+    <link href="{{ asset('assets/admin/css/style.css') }}" rel="stylesheet" />
+    <link href="{{ asset('assets/admin/css/style-responsive.css') }}" rel="stylesheet" />
     <!-- Custom styles for this template -->
     @yield('style')
 </head>
 <body>
 <section id="container" class="">
-@include('admin.public.head')
+@include('admin.layouts.head')
 <!--main content start-->
     <section id="main-content">
         <section class="wrapper">
@@ -200,22 +200,22 @@
                 </div>
             </div>
         <!--footer section start-->
-        @include('admin.public.footer')
+        @include('admin.layouts.footer')
         <!--footer section end-->
         </section>
     </section>
     <!--main content end-->
 </section>
 <!-- js placed at the end of the document so the pages load faster -->
-<script src="{{ asset('admin-assets/js/jquery.js') }}"></script>
-<script src="{{ asset('admin-assets/js/jquery-1.8.3.min.js') }}"></script>
-<script src="{{ asset('admin-assets/js/bootstrap.min.js') }}"></script>
+<script src="{{ asset('assets/admin/js/jquery.js') }}"></script>
+<script src="{{ asset('assets/admin/js/jquery-1.8.3.min.js') }}"></script>
+<script src="{{ asset('assets/admin/js/bootstrap.min.js') }}"></script>
 <!--common script for all pages-->
-<script src="{{ asset('admin-assets/js/common-scripts.js') }}"></script>
+<script src="{{ asset('assets/admin/js/common-scripts.js') }}"></script>
 <!-- 自定义js -->
-<script src="{{ asset('admin-assets/js/common.js') }}"></script>
+<script src="{{ asset('assets/admin/js/common.js') }}"></script>
 
-<script src="{{ asset('public-static/layer/layer.js') }}"></script>
+<script src="{{ asset('assets/static/layer/layer.js') }}"></script>
 @yield('script')
 </body>
 </html>

@@ -1,85 +1,99 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers\Admin\System;
 
-use App\Models\SysConfig;
-use App\Http\Controllers\Controller;
-use Response;
-use Request;
-use Illuminate\Http\Request as HttpRequest;
+use App\Http\Controllers\Admin\CommonController;
 use App\Http\Requests\Admin\ConfigRequest;
-use Illuminate\Support\Facades\Input;
-use URL;
-use Cache;
 
-class ConfigController extends Controller{
-
-    protected $type = array();  //配置类型
-    protected $group = array(); //配置分组
+class ConfigController extends CommonController{
+    /*
+       |--------------------------------------------------------------------------
+       | Config Controller
+       | @author xingyonghe
+       | @date 2016-11-14
+       |--------------------------------------------------------------------------
+       |
+       | 网站配置/设置控制器
+       |
+       */
 
     public function __construct(){
-        $this->type = parse_config_attr(C('CONFIG_TYPE_LIST'));
-        $this->group = parse_config_attr(C('CONFIG_GROUP_LIST'));
+        view()->composer(['admin.config.edit'],function($view){
+            //配置类型/配置分组
+            $view->with('config_type',parse_config_attr(C('CONFIG_TYPE_LIST')))
+                ->with('config_group',parse_config_attr(C('CONFIG_GROUP_LIST')));
+        });
     }
 
     /**
      * 网站配置
+     * @author xingyonghe
+     * @date 2016-11-14
      */
     public function index(){
-        $map = array();
-        $name = Input::get('name') ?? '';
-        if(!empty($name)){
-            $map[] = ['name','like','%'.$name.'%'];
-        }
-        $datas = SysConfig::getLists($map);
-        $pages = array('name'=>$name);
-        return view('admin.config.index',compact('datas','pages'));
+        $name = (string)request()->get('name','');
+        $lists = D('SysConfig')
+            ->select(['id', 'title', 'name','sort','type','group','value','extra','remark'])
+            ->where(function ($query) use($name) {
+                if($name){
+                    $query->where('name','like','%'.$name.'%');
+                }
+            })
+            ->orderBy('created_at','desc')
+            ->paginate(C('SYSTEM_LIST_LIMIT') ?? 10);
+        $this->intToString($lists,array(
+            'group'=>parse_config_attr(C('CONFIG_GROUP_LIST')),
+            'type'=>parse_config_attr(C('CONFIG_TYPE_LIST'))
+        ));
+        $params = array('name'=>$name);
+        return view('admin.config.index',compact('lists','params'));
     }
 
     /**
      * 新增
+     * @author xingyonghe
+     * @date 2016-11-14
      */
-    public function add(){
-        $type =  $this->type;
-        $group = $this->group;
-        return view('admin.config.add',compact('type','group'));
+    public function create(){
+        return view('admin.config.edit');
     }
 
     /**
      * 编辑
+     * @author xingyonghe
+     * @date 2016-11-14
      */
-    public function edit($id){
-        if(empty($id) || !is_numeric($id)){
-            return redirect()->back()->with('error','参数错误');
-        }
-        $type =  $this->type;
-        $group = $this->group;
-        $info = SysConfig::find($id);
-        if(empty($info)){
-            return redirect()->back()->with('error','抱歉，您要查找的数据不存在');
-        }
-        return view('admin.config.edit',compact('info','type','group'));
+    public function edit(int $id){
+        $info = D('SysConfig')->findOrFail($id);
+        return view('admin.config.edit',compact('info'));
     }
 
     /**
-     * 更新
-     * URL::previous() 获取上一次请求地址
+     * 配置更新
+     * @author xingyonghe
+     * @date 2016-11-14
+     * @param ConfigRequest $request
+     * @return
      */
     public function update(ConfigRequest $request){
-        $res = SysConfig::updateData($request);
-        if($res){
-            return redirect('admin/config/index')->withSuccess($res['id']?'配置信息修改成功':'配置信息新增成功');
+        $resualt = D('SysConfig')->updateData($request->all());
+        if($resualt){
+            cache()->forget('CONFIG_LIST');//更新配置缓存
+            return $this->ajaxReturn(isset($resualt['id'])?'配置信息修改成功':'配置信息新增成功',1,route('admin.config.index'));
         }else{
-            return redirect()->back()->with('error',$res['id']?'配置信息更新失败':'配置信息新增失败');
+            return $this->ajaxReturn(D('SysConfig')->getError());
         }
     }
 
     /**
      * 删除
+     * @author xingyonghe
+     * @date 2016-11-14
      */
     public function destroy($id){
-        $datas = SysConfig::find($id);
-        if($datas->delete()){
+        $resualt = D('SysConfig')->destroy($id);
+        if($resualt){
+            cache()->forget('CONFIG_LIST');//更新配置缓存
             return redirect()->back()->withSuccess('删除信息成功!');
         }else{
             return redirect()->back()->with('error','删除信息失败');
@@ -87,54 +101,60 @@ class ConfigController extends Controller{
     }
 
     /**
-     * 排序
+     * 排序（未做）
      */
     public function sort(){
-        if(Request::ajax()){
-            $datas = SysChannel::orderBy('sort','asc')->get()->toArray();
-            $view = view('admin.channel.sort',compact('datas'));
-            return Response::json(array('html'=>$view->render(),'status'=>1,'title'=>'导航排序'));
-        }else{
-            return redirect()->back()->with('error','请求超时');
-        }
+//        $datas = SysChannel::orderBy('sort','asc')->get()->toArray();
+//        $view = view('admin.channel.sort',compact('datas'));
+//        return Response::json(array('html'=>$view->render(),'status'=>1,'title'=>'导航排序'));
     }
 
     /**
-     * 更新排序
+     * 更新排序（未做）
      * @param Request $request
      */
-    public function postSort(HttpRequest $request){
-        $ids = $request->ids;
-        $ids = explode(',', $ids);
-        foreach ($ids as $sort=>$id){
-            $channel = SysChannel::find($id);
-            $res = $channel->update(array('sort'=>$sort+1));
-        }
-        return Response::json(array('success'=> '导航信息排序成功','status'=>1,'url'=>URL::previous()));
+    public function postSort(){
+//        $ids = $request->ids;
+//        $ids = explode(',', $ids);
+//        foreach ($ids as $sort=>$id){
+//            $channel = SysChannel::find($id);
+//            $res = $channel->update(array('sort'=>$sort+1));
+//        }
+//        return Response::json(array('success'=> '导航信息排序成功','status'=>1,'url'=>URL::previous()));
     }
 
     /**
      * 网站设置
      */
-    public function setting($group = 1){
-        $type   =   $this->group;
-        $list = SysConfig::where(array(['group','=',$group]))->orderBy('sort','asc')->get();
-        return view('admin.config.setting',compact('list','type','group'));
+    public function setting(int $group_id = 1){
+        //取出所有配置分组
+        $group = parse_config_attr(C('CONFIG_GROUP_LIST'));
+        //这里只显示基本和系统的配置，其余的放在各自的模型去管理
+        $group = array_where($group, function ($value, $key) {
+            return $key<3;
+        });
+        $lists = D('SysConfig')
+            ->where('group',$group_id)
+            ->orderBy('sort','asc')
+            ->get(['id','title', 'name','sort','type','group','value','extra','remark']);
+        return view('admin.config.setting',compact('lists','group','group_id'));
     }
 
     /**
      * 更新网站设置
-     * @param HttpRequest $request
+     * @author: xingyonghe
+     * @date: 2016-11-17
+     * @return mixed
      */
-    public function post(HttpRequest $request){
-        $config = $request->config;
+    public function post(){
+        $config = request()->config;
         if($config && is_array($config)){
             foreach ($config as $name => $value) {
-                $info = SysConfig::where(array('name' => $name))->first();
+                $info = D('SysConfig')->where(array('name' => $name))->first();
                 $info->update(array('value'=>$value));
             }
         }
-        Cache::forget('CONFIG_LIST');
+        cache()->forget('CONFIG_LIST');//更新配置缓存
         return redirect()->back()->withSuccess('更新网站设置成功!');
     }
 }

@@ -4,16 +4,18 @@
         <div data-original-title="Toggle Navigation" data-placement="right" class="icon-reorder tooltips"></div>
     </div>
     <!--logo start-->
-    <a href="{{ url('admin/index/index') }}" class="logo">BoHan<span>CMS</span></a>
+    <a href="{{ route('admin.index.index') }}" class="logo">BoHan<span>CMS</span></a>
     <!--logo end-->
     <div class="nav notify-row" id="top_menu" >
         <!-- 顶部菜单 start -->
         <nav class="navbar-menu" role="navigation">
             <!-- Brand and toggle get grouped for better mobile display -->
             <div class="navbar-header">
-                {{--@foreach($menus['main'] as $menu)--}}
-                    {{--<a class="navbar-brand {{ $menu['current'] }}" href="{{ url($menu['url']) }}"><i class="{{ $menu['icon'] }}"></i> {{ $menu['title'] }}</a>--}}
-                {{--@endforeach--}}
+                @foreach($menus['main'] as $menu)
+                    <a class="navbar-brand {{ $menu['current'] }}" href="{{ route($menu['url']) }}">
+                        <i class="{{ $menu['icon'] }}"></i>
+                        {{ $menu['title'] }}</a>
+                @endforeach
             </div>
         </nav>
         <!-- 顶部菜单 end -->
@@ -27,15 +29,15 @@
             <!-- user login dropdown start-->
             <li class="dropdown">
                 <a data-toggle="dropdown" class="dropdown-toggle">
-                    {{--<span>{{ Auth::guard('admin')->user()->username }}</span>--}}
+                    <span>{{ auth()->guard('admin')->user()->nickname }}</span>
                     <b class="caret"></b>
                 </a>
                 <ul class="dropdown-menu extended logout">
                     <div class="log-arrow-up"></div>
                     {{--<li><a href="#"><i class=" icon-suitcase"></i>Profile</a></li>--}}
-                    {{--<li><a href="#"><i class="icon-cog"></i> Settings</a></li>--}}
-                    {{--<li><a href="#"><i class="icon-bell-alt"></i> Notification</a></li>--}}
-                    <li><a href="{{ url('admin/logout') }}"><i class="icon-key"></i> 退出</a></li>
+                    <li><a href="javascript:void(0)" url="{{ route('admin.warden.resetpass') }}"><i class="icon-edit-sign"></i> 修改密码</a></li>
+                    <li><a href="{{ route('home.index.index') }}" target="_blank"><i class="icon-home"></i> 网站首页</a></li>
+                    <li><a href="{{ route('admin.login.logout') }}"><i class="icon-key"></i> 退出</a></li>
                 </ul>
             </li>
             <!-- user login dropdown end -->

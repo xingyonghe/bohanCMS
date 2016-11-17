@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="description" content="">
     <meta name="keyword" content="">
-    <title>网红后台管理系统</title>
+    <title>BoHanCMS管理系统</title>
     <!-- Bootstrap core CSS -->
     <link href="{{ asset('assets/admin/css/bootstrap.min.css') }}" rel="stylesheet">
     <link href="{{ asset('assets/admin/css/bootstrap-reset.css') }}" rel="stylesheet">
@@ -79,6 +79,7 @@
 <script src="{{ asset('assets/admin/js/jquery-1.8.3.min.js') }}"></script>
 <script src="{{ asset('assets/admin/js/bootstrap.min.js') }}"></script>
 <!--common script for all pages-->
+<script src="{{ asset('assets/admin/js/jquery.nicescroll.js') }}"></script>
 <script src="{{ asset('assets/admin/js/common-scripts.js') }}"></script>
 <!-- layer插件 -->
 <script src="{{ asset('assets/static/layer/layer.js') }}"></script>

@@ -6,9 +6,15 @@ $vendorDir = dirname(dirname(__FILE__));
 $baseDir = dirname($vendorDir);
 
 return array(
-    'CreatePasswordResetsTable' => $baseDir . '/database/2014_10_12_100000_create_password_resets_table.php',
+    'CreateMobileSmsTable' => $baseDir . '/database/migrations/2016_11_17_044956_create_mobile_sms_table.php',
+    'CreateSysAdminsTable' => $baseDir . '/database/migrations/2016_11_15_015708_create_sys_admins_table.php',
+    'CreateSysAuthGroupsTable' => $baseDir . '/database/migrations/2016_11_16_022506_create_sys_auth_groups_table.php',
+    'CreateSysAuthRulesTable' => $baseDir . '/database/migrations/2016_11_16_072156_create_sys_auth_rules_table.php',
+    'CreateSysConfigsTable' => $baseDir . '/database/migrations/2016_11_14_123645_create_sys_configs_table.php',
     'CreateSysMenuTable' => $baseDir . '/database/migrations/2016_11_10_053338_create_sys_menu_table.php',
-    'CreateUsersTable' => $baseDir . '/database/migrations/2016_11_10_000000_create_users_table.php',
+    'CreateUsersTable' => $baseDir . '/database/migrations/2014_11_17_052565_create_users_table.php',
+    'DatabaseAdmin' => $baseDir . '/database/seeds/DatabaseAdmin.php',
+    'DatabaseAuthGroup' => $baseDir . '/database/seeds/DatabaseAuthGroup.php',
     'DatabaseSeeder' => $baseDir . '/database/seeds/DatabaseSeeder.php',
     'File_Iterator' => $vendorDir . '/phpunit/php-file-iterator/src/Iterator.php',
     'File_Iterator_Facade' => $vendorDir . '/phpunit/php-file-iterator/src/Facade.php',

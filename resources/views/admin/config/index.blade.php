@@ -1,10 +1,10 @@
-@extends('admin.public.base')
+@extends('admin.layouts.base')
 @section('style')
 @stop
 @section('script')
     <script type="text/javascript">
         $(function () {
-            highlight_subnav("{{ url('admin/config/index') }}");
+            highlight_subnav("{{ route('admin.config.index') }}");
         })
     </script>
 @stop
@@ -19,7 +19,7 @@
                 <div class="panel-body">
                     <div class="clearfix">
                         <div class="btn-group">
-                            <a href="{{ url('admin/config/add') }}" class="btn btn-primary">
+                            <a href="{{ route('admin.config.create') }}" class="btn btn-primary">
                                 新增 <i class="fa icon-plus"></i>
                             </a>
                         </div>
@@ -33,13 +33,13 @@
                 <div id="sample_1_wrapper" class="dataTables_wrapper form-inline" role="grid">
                     <div class="row">
                         <div class="col-sm-12">
-                            {!! Form::open(['url' => 'admin/config/index','method'=>'get']) !!}
+                            {!! Form::open(['url' => route('admin.config.index'),'method'=>'get']) !!}
                             <div class="dataTables_filter" id="sample_1_filter">
                                 <button class="btn btn-primary" type="submit"><i class="fa icon-search"></i>搜索</button>
                             </div>
                             <div class="dataTables_filter" id="sample_1_filter">
                                 <label>
-                                    配置名称：<input type="text" name="name" aria-controls="sample_1" value="{{ $pages['name'] }}" class="form-control">
+                                    配置名称：<input type="text" name="name" aria-controls="sample_1" value="{{ $params['name'] }}" class="form-control">
                                 </label>
                             </div>
                             {!!Form::close()!!}
@@ -59,7 +59,7 @@
                         </tr>
                         </thead>
                         <tbody>
-                        @foreach($datas as $data)
+                        @foreach($lists as $data)
                             <tr class="odd gradeX">
                                 <td><input type="checkbox" class="checkboxes" value="{{ $data->id }}"/></td>
                                 <td>{{ $data->id }}</td>
@@ -68,8 +68,8 @@
                                 <td class="hidden-phone">{{ $data->group_text }}</td>
                                 <td class="center hidden-phone">{{ $data->type_text }}</td>
                                 <td class="hidden-phone">
-                                    <a class="btn btn-primary btn-xs" href="{{ url('admin/config/edit',[$data->id]) }}"><i class="icon-pencil"></i> 修改</a>
-                                    <a class="btn btn-danger btn-xs ajax-confirm destroy" href="{{ url('admin/config/destroy',[$data->id]) }}"><i class="icon-trash "></i> 删除</a>
+                                    <a class="btn btn-primary btn-xs" href="{{ route('admin.config.edit',[$data->id]) }}"><i class="icon-pencil"></i> 修改</a>
+                                    <a class="btn btn-danger btn-xs ajax-confirm destroy" href="{{ route('admin.config.destroy',[$data->id]) }}"><i class="icon-trash "></i> 删除</a>
                                 </td>
                             </tr>
                         @endforeach
@@ -77,10 +77,10 @@
                     </table>
                     <div class="row">
                         <div class="col-sm-6">
-                            <div class="dataTables_info" id="sample_1_info">共 {{ $datas->total() }} 条记录</div>
+                            <div class="dataTables_info" id="sample_1_info">共 {{ $lists->total() }} 条记录</div>
                         </div>
                         <div class="col-sm-6" style="text-align: right;position: relative;top:-25px;height: 39px">
-                            {!! $datas->appends($pages)->render() !!}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            {!! $lists->appends($params)->render() !!}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                         </div>
                     </div>
                 </div>

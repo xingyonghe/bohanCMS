@@ -2,15 +2,19 @@
 
 namespace App\Http\Requests\Admin;
 
-use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Contracts\Validation\Validator;
-use Response;
+use App\Http\Requests\CommonRequest;
 
-class AdminRequest extends FormRequest{
-
-    public function authorize(){
-        return true;
-    }
+class AdminRequest extends CommonRequest{
+    /*
+    |--------------------------------------------------------------------------
+    | Admin Request
+    | @author xingyonghe
+    | @date 2016-11-16
+    |--------------------------------------------------------------------------
+    |
+    | 管理员新增http请求
+    |
+    */
 
     public function rules(){
         $id = $this->get('id');
@@ -20,7 +24,7 @@ class AdminRequest extends FormRequest{
             'password' => 'required|min:6|confirmed',
         ];
     }
-    
+
     public function messages(){
         return [
             'username.required'   => '请填写账号名称',
@@ -29,16 +33,5 @@ class AdminRequest extends FormRequest{
             'password.min'        => '账号密码不能低于6位数',
             'password.confirmed'  => '密码确认不一致',
         ];
-    }
-
-    protected function formatErrors(Validator $validator){
-        $return['error'] = $validator->errors()->first();
-        $return['status'] = 0;
-        return $return;
-
-    }
-
-    public function response(array $errors){
-        return Response::json($errors);
     }
 }

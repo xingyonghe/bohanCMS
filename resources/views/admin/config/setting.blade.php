@@ -1,4 +1,4 @@
-@extends('admin.public.base')
+@extends('admin.layouts.base')
 @section('style')
     <style type="text/css">
         .nav-tabs .active{
@@ -15,7 +15,7 @@
     <script type="text/javascript" src="{{ asset('public-static/plupload/plupload.full.min.js') }}"></script>
     <script type="text/javascript">
         $(function () {
-            highlight_subnav("{{ url('admin/config/index') }}");
+            highlight_subnav("{{ route('admin.config.setting') }}");
             
             //分组跳转
             $('.nav-tabs li').click(function () {
@@ -80,9 +80,9 @@
             <section class="panel" style=" margin-top: 15px;margin-left: 14px">
                 <header class="panel-heading">
                     <ul class="nav nav-tabs">
-                        @foreach($type as $key=>$item)
-                            <li @if($group == $key) class="active" @endif>
-                                <a data-toggle="tab" href="{{ url('admin/config/setting',[$key]) }}"> {{ $item }}</a>
+                        @foreach($group as $key=>$item)
+                            <li @if($group_id == $key) class="active" @endif>
+                                <a data-toggle="tab" href="{{ route('admin.config.setting',[$key]) }}"> {{ $item }}</a>
                             </li>
                         @endforeach
                     </ul>
@@ -90,8 +90,8 @@
             </section>
             <div class="panel-body">
                 <div class=" form">
-                    {!! Form::open(['url' => 'admin/config/post','class'=>'cmxform form-horizontal tasi-form form-datas']) !!}
-                    @foreach($list as $item)
+                    {!! Form::open(['url' => route('admin.config.post'),'class'=>'cmxform form-horizontal tasi-form form-datas']) !!}
+                    @foreach($lists as $item)
                         <div class="form-group ">
                             <label for="cname" class="control-label col-lg-2">{{ $item->title }}</label>
                             <div class="col-lg-10 radios has-js">
@@ -102,7 +102,7 @@
                                 @elseif($item->type == 3)
                                     <textarea class="form-control " rows="6" placeholder="{{ $item->remark }}" type="text" name="config[{{ $item->name }}]" />{{ $item->value }}</textarea>
                                 @elseif($item->type == 4)
-                                    {!! Form::radios("config[$item->name]", parse_config_attr($item->extra), $item->value) !!}
+                                    {!! Form::adminRadios("config[$item->name]", parse_config_attr($item->extra), $item->value) !!}
                                 @elseif($item->type == 5)
                                     <span href="{{ url('admin/config/add') }}" class="btn btn-primary" id="photo">
                                         上传图片 <i class="icon-upload-alt"></i>

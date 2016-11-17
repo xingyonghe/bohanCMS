@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers\Admin\System;
 
-use App\Models\SysMenu;
 use App\Http\Controllers\Admin\CommonController;
 use App\Http\Requests\Admin\MenuRequest;
 
@@ -46,9 +45,11 @@ class MenuController extends CommonController{
                 } else{
                     $val['up_title'] = '无';
                 }
+                $group = explode(':',$val['group']);
+                $val['group'] = $group[0];
             }
         }
-        $this->int_to_string($lists,array('hide'=>array(1=>'隐藏',0=>'显示')));
+        $this->intToString($lists,array('hide'=>array(1=>'隐藏',0=>'显示')));
         return view('admin.menu.index',compact('lists','pid'));
     }
 
@@ -88,7 +89,8 @@ class MenuController extends CommonController{
     public function update(MenuRequest $request){
         $resualt = D('SysMenu')->updateData($request->all());
         if($resualt){
-            cache()->forget('MENUS_LIST');
+            cache()->forget('MENUS_LIST');//更新菜单缓存
+            session()->forget('ADMIN_MENU_LIST');//更新菜单session
             return $this->ajaxReturn(isset($resualt['id'])?'菜单信息修改成功':'菜单信息新增成功',1,url()->previous());
         }else{
             return $this->ajaxReturn(D('SysMenu')->getError());
@@ -97,10 +99,15 @@ class MenuController extends CommonController{
 
     /**
      * 菜单删除
+     * @author xingyonghe
+     * @date 2016-11-16
      */
-    public function destroy($id){
-        $datas = SysMenu::find($id);
-        if($datas->delete()){
+    public function destroy(int $id){
+        $resualt = D('SysMenu')->destroy($id);
+        if($resualt){
+            cache()->forget('RULES_LIST');//更新权限规则缓存
+            cache()->forget('MENUS_LIST');//更新菜单缓存
+            session()->forget('ADMIN_MENU_LIST');//更新菜单session
             return redirect()->back()->withSuccess('删除信息成功!');
         }else{
             return redirect()->back()->with('error','删除信息失败');
@@ -109,37 +116,47 @@ class MenuController extends CommonController{
 
     /**
      * 批量菜单新增
+     * @author xingyonghe
+     * @date 2016-11-16
      */
-    public function batch($pid){
-        if(Request::ajax()){
-            $view = view('admin.menu.batch',compact('pid'));
-            return Response::json(array('html'=>$view->render(),'status'=>1,'title'=>'批量新增菜单'));
-        }else{
-            return redirect()->back()->with('error','请求超时');
-        }
+    public function batch(int $pid=0){
+      $menus = D('SysMenu')->returnMenus();
+      $menus = array_pluck($menus,'title','id');
+      if($menus){
+          if($pid){
+              $up_title = $menus[$pid];
+          } else{
+              $up_title = '顶级菜单';
+          }
+      }
+      $view = view('admin.menu.batch',compact('pid','up_title'));
+      return $this->ajaxReturn($view->render(),1,'','批量新增菜单');
     }
 
     /**
      * 批量菜单更新
+     * @author xingyonghe
+     * @date 2016-11-16
      */
-    public function batchUpdate(HttpRequest $request){
-        $tree = $request->menus;
+    public function submit(){
+        $tree = request()->menus;
         $lists = explode(',',str_replace(array("\r\n","\n","\r"),',',$tree));
         if($lists == array('0'=>'')){
-            return Response::json(array('error'=> '请按格式填写批量导入的至少一条菜单信息','status'=>0));
+            return $this->ajaxReturn('请按格式填写批量导入的至少一条菜单信息');
         }
         foreach ($lists as $key => $item) {
             $record = explode('|', $item);
-            SysMenu::create(array(
-                'title'=>$record[0],
-                'url'=>$record[2],
-                'pid'=>$request->pid,
-                'sort'=>$record[1],
-                'hide'=>$record[3],
-                'group'=>$record[4]?$record[4]:'',
+            D('SysMenu')->create(array(
+                'title'=> $record[0],
+                'url'  => $record[2],
+                'pid'  => request()->pid,
+                'sort' => $record[1],
+                'hide' => $record[3],
+                'icon' => $record[4] ?? '',
+                'group'=> $record[5] ?? '',
             ));
         }
-        return Response::json(array('success'=> '菜单批量新增成功','status'=>1,'url'=>URL::previous()));
+        return $this->ajaxReturn('菜单批量新增成功',1,url()->previous());
     }
 
 

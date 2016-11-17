@@ -21,7 +21,7 @@ class Controller extends BaseController{
      * @return
      */
     protected function ajaxReturn($info='', $status=0, $url='', $title=''){
-        return response()->json(array('status'=>1, 'info'=>$info, 'url'=>$url, 'title'=>$title));
+        return response()->json(array('status'=>$status, 'info'=>$info, 'url'=>$url, 'title'=>$title));
     }
 
     /**
@@ -32,7 +32,7 @@ class Controller extends BaseController{
      * @param array $map
      * return $data
      */
-    protected function int_to_string(&$data,$map=array('status'=>array(1=>'正常',-1=>'删除'))) {
+    protected function intToString(&$data,$map=array('status'=>array(1=>'正常',-1=>'删除'))) {
         foreach ($data as $key => &$row){
             foreach ($map as $col=>$pair){
                 if(isset($row[$col]) && isset($pair[$row[$col]])){
@@ -42,6 +42,18 @@ class Controller extends BaseController{
             }
         }
         return $data;
+    }
+
+    /**
+     * ajax字段验证
+     * 返回第一条错误信息和错误信息关联字段名称
+     * @param $validator
+     * @return \Illuminate\Http\JsonResponse
+     */
+    protected function ajaxValidator($validator){
+        //错误字段集合，每个字段对应相应html元素ID
+        $errorIds = $validator->messages()->keys();
+        return response()->json(array('status'=>0,'info'=>$validator->messages()->first(),'id'=>$errorIds[0]));
     }
 
 

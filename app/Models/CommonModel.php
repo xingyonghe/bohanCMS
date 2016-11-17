@@ -58,14 +58,14 @@ class CommonModel extends Model{
             //新增
             $resualt = $this->create($data);
             if($resualt === false){
-                $this->error = '信息失败';
+                $this->error = '新增信息失败';
                 return false;
             }
         }else{
             //编辑
             $info = $this->find($data['id']);
             if(empty($info) || $info->update($data)===false){
-                $this->error = '信息失败';
+                $this->error = '修改信息失败';
                 return false;
             }
         }

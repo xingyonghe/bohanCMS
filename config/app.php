@@ -64,7 +64,7 @@ return [
     |
     */
 
-    'timezone' => 'UTC',
+    'timezone' => 'Asia/Shanghai',
 
     /*
     |--------------------------------------------------------------------------
@@ -181,6 +181,9 @@ return [
         Barryvdh\Debugbar\ServiceProvider::class,//Debugbar调试
         Intervention\Image\ImageServiceProvider::class,//图片处理
         Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider::class,//提示助手
+        //自定义扩展
+        App\Providers\FormExtendServiceProvider::class,//表单控件扩展
+        App\Providers\ValidateExtendServiceProvider::class,//验证扩展
     ],
 
     /*

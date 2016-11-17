@@ -2,15 +2,19 @@
 
 namespace App\Http\Requests\Admin;
 
-use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Contracts\Validation\Validator;
-use Response;
+use App\Http\Requests\CommonRequest;
 
-class ConfigRequest extends FormRequest{
-
-    public function authorize(){
-        return true;
-    }
+class ConfigRequest extends CommonRequest{
+    /*
+    |--------------------------------------------------------------------------
+    | Config Request
+    | @author xingyonghe
+    | @date 2016-11-14
+    |--------------------------------------------------------------------------
+    |
+    | 网站配置http请求
+    |
+    */
 
     public function rules(){
         $id = $this->get('id');
@@ -26,15 +30,5 @@ class ConfigRequest extends FormRequest{
             'name.required'   => '请填写配置标识',
             'name.unique'   => '配置标识已经存在',
         ];
-    }
-
-    protected function formatErrors(Validator $validator){
-        $return['error'] = $validator->errors()->first();
-        $return['status'] = 0;
-        return $return;
-    }
-
-    public function response(array $errors){
-        return redirect()->back()->withInput()->with('error',$errors['error']);
     }
 }

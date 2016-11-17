@@ -17,21 +17,45 @@
     <link href="{{ asset('assets/admin/css/style-responsive.css') }}" rel="stylesheet" />
 
     <!-- HTML5 shim and Respond.js IE8 support of HTML5 tooltipss and media queries -->
-    <!--[if lt IE 9]>
-    <script src="{{ asset('assets/admin/js/html5shiv.js') }}"></script>
-    <script src="{{ asset('assets/admin/js/respond.min.js') }}"></script>
-    <![endif]-->
+    <script src="{{ asset('assets/admin/js/jquery.js') }}"></script>
+    <script src="{{ asset('assets/admin/js/jquery-1.8.3.min.js') }}"></script>
+    <script src="{{ asset('assets/static/layer/layer.js') }}"></script>
+    <script type="text/javascript">
+        $(function () {
+            $('body').on('click','.btn-login',function(){
+                var form  = $('.form-datas');
+                var url   = form.get(0).action;
+                var query = form.serialize();
+                var that  = this;
+//                $(that).addClass('disabled').prop('disabled',true);
+                $.post(url,query,function(datas){
+                    if(datas.status == 1){
+//                        $(that).removeClass('disabled').prop('disabled',false);
+                        setTimeout(function(){
+                            location.href = datas.url;
+                        },1500);
+                    }else{
+//                        $(that).removeClass('disabled').prop('disabled',false);
+                        layer.msg(datas.info,{
+                            time:3000,icon:2,
+                        });
+                    }
+                },'json');
+                return false;
+            });
+        })
+    </script>
 </head>
 
 <body class="login-body">
 
 <div class="container" style="margin-top: 150px">
-    {!! Form::open(['url' => route('admin.login.post'),'class'=>'form-signin']) !!}
+    {!! Form::open(['url' => route('admin.login.post'),'class'=>'form-signin form-datas']) !!}
         <h2 class="form-signin-heading">BoHan后台管理系统</h2>
         <div class="login-wrap">
             <input type="text" class="form-control" placeholder="请输入管理员账号" name="username">
             <input type="password" class="form-control" placeholder="请输入密码" name="password">
-            <button class="btn btn-lg btn-login btn-block" type="submit">登 录</button>
+            <button class="btn btn-lg btn-login btn-block" autocomplete="off">登 录</button>
         </div>
     {!!Form::close()!!}
 </div>

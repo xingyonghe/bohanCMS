@@ -335,9 +335,15 @@ class ComposerStaticInit9747052fc3f0dd1f1627d42f1cd97f49
     );
 
     public static $classMap = array (
-        'CreatePasswordResetsTable' => __DIR__ . '/../..' . '/database/2014_10_12_100000_create_password_resets_table.php',
+        'CreateMobileSmsTable' => __DIR__ . '/../..' . '/database/migrations/2016_11_17_044956_create_mobile_sms_table.php',
+        'CreateSysAdminsTable' => __DIR__ . '/../..' . '/database/migrations/2016_11_15_015708_create_sys_admins_table.php',
+        'CreateSysAuthGroupsTable' => __DIR__ . '/../..' . '/database/migrations/2016_11_16_022506_create_sys_auth_groups_table.php',
+        'CreateSysAuthRulesTable' => __DIR__ . '/../..' . '/database/migrations/2016_11_16_072156_create_sys_auth_rules_table.php',
+        'CreateSysConfigsTable' => __DIR__ . '/../..' . '/database/migrations/2016_11_14_123645_create_sys_configs_table.php',
         'CreateSysMenuTable' => __DIR__ . '/../..' . '/database/migrations/2016_11_10_053338_create_sys_menu_table.php',
-        'CreateUsersTable' => __DIR__ . '/../..' . '/database/migrations/2016_11_10_000000_create_users_table.php',
+        'CreateUsersTable' => __DIR__ . '/../..' . '/database/migrations/2014_11_17_052565_create_users_table.php',
+        'DatabaseAdmin' => __DIR__ . '/../..' . '/database/seeds/DatabaseAdmin.php',
+        'DatabaseAuthGroup' => __DIR__ . '/../..' . '/database/seeds/DatabaseAuthGroup.php',
         'DatabaseSeeder' => __DIR__ . '/../..' . '/database/seeds/DatabaseSeeder.php',
         'File_Iterator' => __DIR__ . '/..' . '/phpunit/php-file-iterator/src/Iterator.php',
         'File_Iterator_Facade' => __DIR__ . '/..' . '/phpunit/php-file-iterator/src/Facade.php',

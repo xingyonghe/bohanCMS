@@ -39,6 +39,12 @@
                         </div>
                     </div>
                     <div class="form-group ">
+                        <label for="curl" class="control-label col-lg-2">样式图标</label>
+                        <div class="col-lg-10">
+                            <input class="form-control " placeholder="菜单修饰图标" type="text" name="icon" value="{{ $info->icon ?? '' }}"/>
+                        </div>
+                    </div>
+                    <div class="form-group ">
                         <label for="curl" class="control-label col-lg-2">分组</label>
                         <div class="col-lg-10 radios has-js">
                             <input class="form-control " placeholder="用于左侧分组的二级菜单" type="text" name="group" value="{{$info->group ?? ''}}"/>

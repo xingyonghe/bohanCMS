@@ -15,34 +15,119 @@ Route::group(['namespace'=>'Admin'],function(){
         //登录页面
         Route::get('/', 'LoginController@showLoginForm')->name('admin.login.form');
         //登录提交
-        Route::post('login', 'LoginController@login')->name('admin.login.post');
+        Route::post('post', 'LoginController@login')->name('admin.login.post');
         //退出登录
         Route::get('logout', 'LoginController@logout')->name('admin.login.logout');
     });
-    /**--**--**--**--**--**--**--**--**--**首页**--**--**--**--**--**--**--**--**--**--**/
-    Route::group(['namespace'=>'Index'],function(){
-        //首页
-        Route::get('index/index', 'IndexController@index')->name('admin.index.index');
-    });
-    /**--**--**--**--**--**--**--**--**--**系统**--**--**--**--**--**--**--**--**--**--**/
-    Route::group(['namespace'=>'System'],function(){
-        //菜单管理
-        //列表
-        Route::get ('menu/index',       'MenuController@index')->name('admin.menu.index');
-        //新增
-        Route::get ('menu/create/{pid}','MenuController@create')->name('admin.menu.create')->where('pid','\d+');
-        //修改
-        Route::get ('menu/edit/{id}',   'MenuController@edit')->name('admin.menu.edit')->where('id','\d+');
-        //更新
-        Route::post('menu/update',      'MenuController@update')->name('admin.menu.update');
-        //删除
-        Route::get ('menu/destroy/{id}','MenuController@destroy')->name('admin.menu.destroy')->where('id','\d+');
-        //批量新增
-        Route::get ('menu/batch/{pid?}','MenuController@batch')->name('admin.menu.batch')->where('id','\d+');
-        //批量更新
-        Route::post('menu/post',        'MenuController@post')->name('admin.menu.post');
-    });
 
+    Route::group(['middleware'=>['admin.auth','menu']],function(){
+        /**--**--**--**--**--**--**--**--**--**首页**--**--**--**--**--**--**--**--**--**--**/
+        Route::group(['namespace'=>'Index'],function(){
+            //首页
+            Route::get('index/index', 'IndexController@index')->name('admin.index.index');
+        });
+        /**--**--**--**--**--**--**--**--**--**系统**--**--**--**--**--**--**--**--**--**--**/
+        Route::group(['namespace'=>'System'],function(){
+            /**--菜单管理--**/
+            //列表
+            Route::get ('menu/index',       'MenuController@index')->name('admin.menu.index');
+            //新增
+            Route::get ('menu/create/{pid}','MenuController@create')->name('admin.menu.create')->where('pid','\d+');
+            //修改
+            Route::get ('menu/edit/{id}',   'MenuController@edit')->name('admin.menu.edit')->where('id','\d+');
+            //更新
+            Route::post('menu/update',      'MenuController@update')->name('admin.menu.update');
+            //删除
+            Route::get ('menu/destroy/{id}','MenuController@destroy')->name('admin.menu.destroy')->where('id','\d+');
+            //批量新增
+            Route::get ('menu/batch/{pid?}','MenuController@batch')->name('admin.menu.batch')->where('pid','\d+');
+            //批量更新
+            Route::post('menu/submit',      'MenuController@submit')->name('admin.menu.submit');
+
+            /**--系统配置--**/
+            //配置列表
+            Route::get ('config/index',           'ConfigController@index')->name('admin.config.index');
+            //新增配置
+            Route::get ('config/create',          'ConfigController@create')->name('admin.config.create');
+            //修改配置
+            Route::get ('config/edit/{id}',       'ConfigController@edit')->name('admin.config.edit')->where('id','\d+');
+            //更新配置
+            Route::post('config/update',          'ConfigController@update')->name('admin.config.update');
+            //删除配置
+            Route::get ('config/destroy/{id}',    'ConfigController@destroy')->name('admin.config.destroy')->where('id','\d+');
+            //配置排序
+            Route::get ('config/sort',            'ConfigController@sort')->name('admin.config.sort');
+            //更新排序
+            Route::post('config/order',           'ConfigController@postSort')->name('admin.config.order');
+            //网站设置
+            Route::get ('config/setting/{group?}','ConfigController@setting')->name('admin.config.setting');
+            //更新设置
+            Route::post('config/post',             'ConfigController@post')->name('admin.config.post');
+        });
+        /**--**--**--**--**--**--**--**--**--**用户管理**--**--**--**--**--**--**--**--**--**--**/
+        Route::group(['namespace'=>'User'],function(){
+            /**--管理员--**/
+            //管理员列表
+            Route::get ('warden/index',         'WardenController@index')->name('admin.warden.index');
+            //新增
+            Route::get ('warden/create',        'WardenController@create')->name('admin.warden.create');
+            //添加管理员
+            Route::post('warden/add',           'WardenController@add')->name('admin.warden.add');
+            //修改
+            Route::get ('warden/edit/{id}',     'WardenController@edit')->name('admin.warden.edit')->where('id','\d+');
+            //修改管理员
+            Route::post('warden/update',        'WardenController@update')->name('admin.warden.update');
+            //禁用
+            Route::get ('warden/forbid/{id}',   'WardenController@forbid')->name('admin.warden.forbid')->where('id','\d+');
+            //启用
+            Route::get ('warden/resume/{id}',   'WardenController@resume')->name('admin.warden.resume')->where('id','\d+');
+            //删除
+            Route::get ('warden/destroy/{id}',  'WardenController@destroy')->name('admin.warden.destroy')->where('id','\d+');
+            //重置密码
+            Route::get ('warden/resetpass',     'WardenController@resetpass')->name('admin.warden.resetpass');
+            //更新密码
+            Route::post('warden/change',        'WardenController@change')->name('admin.warden.change');
+            /**--用户组--**/
+            //用户组列表
+            Route::get ('group/index',         'GroupController@index')->name('admin.group.index');
+            //新增用户组
+            Route::get ('group/create',        'GroupController@create')->name('admin.group.create');
+            //修改用户组
+            Route::get ('group/edit/{id}',     'GroupController@edit')->name('admin.group.edit')->where('id','\d+');
+            //更新用户组
+            Route::post('group/update',        'GroupController@update')->name('admin.group.update');
+            //删除用户组
+            Route::get ('group/destroy/{id}',  'GroupController@destroy')->name('admin.group.destroy')->where('id','\d+');
+            //用户组授权
+            Route::get ('group/access/{id}',   'GroupController@access')->name('admin.group.access')->where('id','\d+');
+            //用户组授权写入
+            Route::post('group/write',         'GroupController@write')->name('admin.group.write');
+
+            //普通会员
+            //普通会员管理
+            Route::get ('personal/index',              'PersonalController@index')->name('admin.user.index');
+            //添加
+            Route::get ('personal/add',                'PersonalController@add');
+            //修改
+            Route::get ('personal/edit/{id}',          'PersonalController@edit');
+            //更新
+            Route::post('personal/post',               'PersonalController@post');
+            //新增
+            Route::post('personal/update',             'PersonalController@update');
+            //删除
+            Route::get ('personal/destroy/{id}',       'PersonalController@destroy');
+            //禁用
+            Route::get ('personal/forbid/{id}',        'PersonalController@forbid');
+            //启用
+            Route::get ('personal/resume/{id}',        'PersonalController@resume');
+            //审核
+            Route::get ('personal/verify/{id}',        'PersonalController@verify');
+            //添加客服
+            Route::get ('personal/addCustom/{id}',     'PersonalController@addCustom');
+            //更新客服
+            Route::post('personal/postCustom',         'PersonalController@postCustom');
+        });
+    });
 //    //后台用户认证
 //    Route::group(['namespace'=>'Auth'],function(){
 //        //登录页面

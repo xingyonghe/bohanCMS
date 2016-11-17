@@ -6,6 +6,24 @@ $(function(){
     layer.config({
         extend:'../../static/layer/skin/admin/style.css'
     });
+    //ajax post 提交
+    $('body').on('click','.ajax-post',function(){
+        var form = $('.form-datas');
+        var url = form.get(0).action;
+        var query = form.serialize();
+        var that = this;
+        $(that).addClass('disabled').attr('autocomplete','off').prop('disabled',true);
+        $.post(url,query,function(datas){
+            if(datas.status==1){
+                $(that).removeClass('disabled').prop('disabled',false);
+                updateAlert(datas.info + ' 页面即将自动跳转~','alert-success',datas.url);
+            }else{
+                $(that).removeClass('disabled').prop('disabled',false);
+                updateAlert(datas.info);
+            }
+        });
+        return false;
+    });
 
     //更新操作
     $('body').on('click','.ajax-update',function(){
@@ -44,7 +62,7 @@ $(function(){
     //删除确认
     $('body').on('click','.ajax-confirm',function(){
         layer.closeAll();
-        var target = $(this).attr('href');
+        var target = $(this).attr('url');
         if($(this).hasClass('destroy')){
             confirmDialog('确认要删除该信息吗?',target);
         }
@@ -220,20 +238,6 @@ $(function(){
             alert_msg.hide();
         },1500);
     }
-
-    // if(text){
-    //     top_alert.find('.message').text(text);
-    //     top_alert.show().slideDown(200);
-    //     if ( c ) {
-    //         top_alert.removeClass('alert-block alert-danger').addClass(c);
-    //     }
-    //     setTimeout(function(){
-    //         top_alert.hide();
-    //         if(u){
-    //             location.href=u;
-    //         }
-    //     },1500);
-    // }
 
     //单选按钮效果重写
     $('body').on('click','.label_radio',function(){

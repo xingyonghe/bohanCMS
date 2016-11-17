@@ -4,7 +4,7 @@
 @section('script')
     <script type="text/javascript">
         $(function () {
-            highlight_subnav("{{ url('admin/menu/index') }}");
+            highlight_subnav("{{ route('admin.menu.index') }}");
         })
     </script>
 @stop
@@ -22,11 +22,11 @@
                             <a href="javascript:void(0)" url="{{ route('admin.menu.create',[$pid]) }}" class="btn btn-primary ajax-update">
                                 新增 <i class="fa icon-plus"></i>
                             </a>
-                        {{--</div>--}}
-                        {{--<div class="btn-group">--}}
-                            {{--<a href="{{ url('admin/menu/batch/'.$pages['pid']) }}" class="btn btn-info ajax-update">--}}
-                                {{--导入 <i class="fa icon-location-arrow"></i>--}}
-                            {{--</a>--}}
+                        </div>
+                        <div class="btn-group">
+                            <a href="javascript:void(0)" url="{{ route('admin.menu.batch',[$pid]) }}" class="btn btn-info ajax-update">
+                                批量 <i class="fa icon-location-arrow"></i>
+                            </a>
                         </div>
                     </div>
                 </div>

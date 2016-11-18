@@ -1,14 +1,19 @@
-@extends('admin.public.base')
+@extends('admin.layouts.base')
 @section('style')
 @stop
 @section('script')
     <!-- 配置文件 -->
-    <script type="text/javascript" src="{{ asset('public-static/ueditor1.4.3.3/ueditor.config.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('assets/static/ueditor1.4.3.3/ueditor.config.js') }}"></script>
     <!-- 编辑器源码文件 -->
-    <script type="text/javascript" src="{{ asset('public-static/ueditor1.4.3.3/ueditor.all.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('assets/static/ueditor1.4.3.3/ueditor.all.js') }}"></script>
     <script type="text/javascript">
         $(function () {
-            highlight_subnav("{{ url('admin/article/index') }}");
+            @if(isset($info['id']))
+                highlight_subnav("{{ route('admin.article.index') }}");
+            @else
+                highlight_subnav("{{ route('admin.article.create') }}");
+            @endif
+
             //编辑器
             window.UEDITOR_CONFIG.initialFrameHeight = parseInt('250');
             window.UEDITOR_CONFIG.toolbars = [[
@@ -34,7 +39,7 @@
                 </header>
                 <div class="panel-body">
                     <div class=" form">
-                        {!! Form::open(['url' => 'admin/article/update','class'=>'cmxform form-horizontal tasi-form form-datas','autocomplete'=>'off']) !!}
+                        {!! Form::open(['url' => route('admin.article.update'),'class'=>'cmxform form-horizontal tasi-form form-datas','autocomplete'=>'off']) !!}
                         <div class="form-group ">
                             <label for="curl" class="control-label col-lg-2">分类</label>
                             <div class="col-lg-10">
@@ -78,7 +83,7 @@
                         <div class="form-group">
                             <div class="col-lg-offset-2 col-lg-10">
                                 <input   name="id" value="{{ $info['id'] ?? '' }}" type="hidden"/>
-                                <button class="btn btn-danger" type="submit" style="margin:0px 25px">保存</button>
+                                <button class="btn btn-danger ajax-post" type="submit" style="margin:0px 25px">提交</button>
                                 <button class="btn btn-default" type="button" onclick="javascript:history.back(-1);return false;">返回</button>
                             </div>
                         </div>

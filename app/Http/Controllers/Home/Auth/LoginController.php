@@ -20,19 +20,11 @@ class LoginController extends CommonController{
     */
 
     /**
-     * Where to redirect users after login.
-     *
-     * @var string
-     */
-    protected $redirectTo;//登陆成功跳转
-
-    /**
      * Create a new controller instance.
      *
      * @return void
      */
     public function __construct(){
-        $this->redirectTo = route('home.index.index');
         $this->middleware('guest', ['except' => 'logout']);
     }
 
@@ -69,7 +61,7 @@ class LoginController extends CommonController{
             D('User')->where('id',$user['id'])->update($data);
             request()->session()->regenerate();
             $this->clearLoginAttempts(request());
-            return $this->ajaxReturn('',1,$this->redirectTo);
+            return $this->ajaxReturn('',1,route('home.index.index'));
         }
         return response()->json(array('status'=>0,'info'=>'账户不存在或密码输入错误','id'=>'username'));
     }

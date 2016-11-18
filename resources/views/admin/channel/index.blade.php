@@ -39,7 +39,7 @@
                             </div>
                             <div class="dataTables_filter" id="sample_1_filter">
                                 <label>
-                                    导航名称：<input type="text" name="title" aria-controls="sample_1" value="{{ $pages['title'] }}" class="form-control">
+                                    导航名称：<input type="text" name="title" aria-controls="sample_1" value="{{ $params['title'] }}" class="form-control">
                                 </label>
                             </div>
                             {!!Form::close()!!}
@@ -79,14 +79,6 @@
                         @endforeach
                         </tbody>
                     </table>
-                    {{--<div class="row">--}}
-                        {{--<div class="col-sm-6">--}}
-                            {{--<div class="dataTables_info" id="sample_1_info">共 {{ $datas->total() }} 条记录</div>--}}
-                        {{--</div>--}}
-                        {{--<div class="col-sm-6" style="text-align: right;position: relative;top:-25px;height: 39px">--}}
-                            {{--{!! $datas->appends($pages)->render() !!}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;--}}
-                        {{--</div>--}}
-                    {{--</div>--}}
                 </div>
             </section>
         </div>

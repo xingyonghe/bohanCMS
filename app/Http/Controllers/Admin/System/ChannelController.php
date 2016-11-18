@@ -1,30 +1,38 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers\Admin\System;
 
-use App\Models\SysChannel;
-use App\Http\Controllers\Controller;
-use Response;
-use Request;
-use Illuminate\Http\Request as HttpRequest;
+use App\Http\Controllers\Admin\CommonController;
 use App\Http\Requests\Admin\ChannelRequest;
-use Illuminate\Support\Facades\Input;
-use URL;
 
-class ChannelController extends Controller{
+class ChannelController extends CommonController{
+    /*
+    |--------------------------------------------------------------------------
+    | Channel Controller
+    | @author xingyonghe
+    | @date 2016-11-10
+    |--------------------------------------------------------------------------
+    |
+    | 前台导航控制器
+    |
+    */
 
     /**
      * 导航列表
      */
     public function index(){
-        $map = array();
-        $title = Input::get('title') ?? '';
-        if(!empty($title)){
-            $map[] = ['title','like','%'.$title.'%'];
-        }
-        $datas = SysChannel::getLists($map);
-        $pages = array('title'=>$title);
-        return view('admin.channel.index',compact('datas','pages'));
+        $title = request()->get('title','');
+        $list = D('SysChannel')
+            ->where(function ($query) use($title) {
+                if($title){
+                    $query->where('title','like','%'.$title.'%');
+                }
+            })
+            ->orderBy('sort', 'asc')
+            ->get(['id','title', 'remark','url','sort','status','target']);
+        $this->intToString($list,array('status'=>array(0=>'隐藏',1=>'显示'),'target'=>array(0=>'否',1=>'是')));
+        $params = array('title'=>$title);
+        return view('admin.channel.index',compact('datas','params'));
     }
 
     /**

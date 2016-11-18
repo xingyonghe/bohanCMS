@@ -1,4 +1,4 @@
-@extends('admin.public.base')
+@extends('admin.layouts.base')
 @section('style')
     <style type="text/css">
         .tree {
@@ -68,7 +68,7 @@
 @section('script')
     <script type="text/javascript">
         $(function () {
-            highlight_subnav("{{ url('admin/'.$model.'/category') }}");
+            highlight_subnav("{{ route($model.'.category.index') }}");
             $('.tree li:has(ul)').addClass('parent_li').find(' > span').attr('title', 'Collapse this branch');
             $('.tree li.parent_li > span').on('click', function (e) {
                 var children = $(this).parent('li.parent_li').find(' > ul > li');
@@ -95,7 +95,7 @@
                 <div class="panel-body">
                     <div class="clearfix">
                         <div class="btn-group">
-                            <a url="{{ url('admin/category/add',[$model]) }}" class="btn btn-primary ajax-update">
+                            <a href="javascript:void(0)" url="{{ route($model.'.category.create') }}" class="btn btn-primary ajax-update">
                                 新增 <i class="fa icon-plus"></i>
                             </a>
                         </div>
@@ -108,8 +108,8 @@
                                 <li>
                                     <span><i class="icon-minus-sign"></i> {{ $item['name'] }}</span>
                                     <div style="float: right;padding-right: 40%">
-                                        <a class="btn btn-primary btn-xs ajax-update" url="{{ url('admin/category/edit',[$item['id']]) }}"><i class="icon-pencil"></i> 修改</a>
-                                        <a class="btn btn-danger btn-xs ajax-confirm destroy" href="{{ url('admin/category/destroy',[$item['id']]) }}"><i class="icon-trash "></i> 删除</a>
+                                        <a class="btn btn-primary btn-xs ajax-update" href="javascript:void(0)" url="{{ route($model.'.category.edit',[$item['id']]) }}"><i class="icon-pencil"></i> 修改</a>
+                                        <a class="btn btn-danger btn-xs ajax-confirm destroy" href="javascript:void(0)" url="{{ route($model.'.category.destroy',[$item['id']]) }}"><i class="icon-trash "></i> 删除</a>
                                     </div>
                                     @if(isset($item['_child']))
                                         <ul>
@@ -117,8 +117,8 @@
                                                 <li>
                                                     <span style="margin-left: 34px"><i class="icon-minus-sign"></i> {{ $i['name'] }}</span>
                                                     <div style="float: right;padding-right: 40.1%">
-                                                        <a class="btn btn-primary btn-xs ajax-update" url="{{ url('admin/category/edit',[$i['id']]) }}"><i class="icon-pencil"></i> 修改</a>
-                                                        <a class="btn btn-danger btn-xs ajax-confirm destroy" href="{{ url('admin/category/destroy',[$i['id']]) }}"><i class="icon-trash "></i> 删除</a>
+                                                        <a class="btn btn-primary btn-xs ajax-update" href="javascript:void(0)" url="{{ route($model.'.category.edit',[$i['id']]) }}"><i class="icon-pencil"></i> 修改</a>
+                                                        <a class="btn btn-danger btn-xs ajax-confirm destroy" href="javascript:void(0)" url="{{ route($model.'.category.destroy',[$i['id']]) }}"><i class="icon-trash "></i> 删除</a>
                                                     </div>
                                                     @if(isset($i['_child']))
                                                         <ul>
@@ -126,8 +126,8 @@
                                                                 <li style="margin-left: 34px">
                                                                     <span style="margin-left: 34px"><i class="icon-minus-sign"></i> {{ $v['name'] }}</span>
                                                                     <div style="float: right;padding-right: 41.1%">
-                                                                        <a class="btn btn-primary btn-xs ajax-update" url="{{ url('admin/category/edit',[$v['id']]) }}"><i class="icon-pencil"></i> 修改</a>
-                                                                        <a class="btn btn-danger btn-xs ajax-confirm destroy" href="{{ url('admin/category/destroy',[$v['id']]) }}"><i class="icon-trash "></i> 删除</a>
+                                                                        <a class="btn btn-primary btn-xs ajax-update" href="javascript:void(0)" url="{{ route($model.'.category.edit',[$v['id']]) }}"><i class="icon-pencil"></i> 修改</a>
+                                                                        <a class="btn btn-danger btn-xs ajax-confirm destroy" href="javascript:void(0)" url="{{ route($model.'.category.destroy',[$v['id']]) }}"><i class="icon-trash "></i> 删除</a>
                                                                     </div>
                                                                 </li>
                                                             @endforeach

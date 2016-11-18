@@ -51,6 +51,12 @@
                             </div>
                         </div>
                         <div class="form-group ">
+                            <label for="curl" class="control-label col-lg-2">所属模块</label>
+                            <div class="col-lg-10">
+                                {!! Form::select('module', $config_module, $info->module ?? '', array('class' => 'form-control m-bot15')) !!}
+                            </div>
+                        </div>
+                        <div class="form-group ">
                             <label for="curl" class="control-label col-lg-2">配置值</label>
                             <div class="col-lg-10">
                                 <textarea class="form-control " rows="6"  placeholder="配置值" type="text" name="value" />{{$info->value ?? ''}}</textarea>

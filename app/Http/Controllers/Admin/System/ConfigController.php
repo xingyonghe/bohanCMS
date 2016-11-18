@@ -21,7 +21,8 @@ class ConfigController extends CommonController{
         view()->composer(['admin.config.edit'],function($view){
             //配置类型/配置分组
             $view->with('config_type',parse_config_attr(C('CONFIG_TYPE_LIST')))
-                ->with('config_group',parse_config_attr(C('CONFIG_GROUP_LIST')));
+                ->with('config_group',parse_config_attr(C('CONFIG_GROUP_LIST')))
+                ->with('config_module',parse_config_attr(C('CONFIG_MODULE_LIST')));
         });
     }
 
@@ -33,7 +34,7 @@ class ConfigController extends CommonController{
     public function index(){
         $name = (string)request()->get('name','');
         $lists = D('SysConfig')
-            ->select(['id', 'title', 'name','sort','type','group','value','extra','remark'])
+            ->select(['id', 'title', 'name','type','group','module'])
             ->where(function ($query) use($name) {
                 if($name){
                     $query->where('name','like','%'.$name.'%');
@@ -43,7 +44,8 @@ class ConfigController extends CommonController{
             ->paginate(C('SYSTEM_LIST_LIMIT') ?? 10);
         $this->intToString($lists,array(
             'group'=>parse_config_attr(C('CONFIG_GROUP_LIST')),
-            'type'=>parse_config_attr(C('CONFIG_TYPE_LIST'))
+            'type'=>parse_config_attr(C('CONFIG_TYPE_LIST')),
+            'module'=>parse_config_attr(C('CONFIG_MODULE_LIST'))
         ));
         $params = array('name'=>$name);
         return view('admin.config.index',compact('lists','params'));
@@ -98,29 +100,6 @@ class ConfigController extends CommonController{
         }else{
             return redirect()->back()->with('error','删除信息失败');
         }
-    }
-
-    /**
-     * 排序（未做）
-     */
-    public function sort(){
-//        $datas = SysChannel::orderBy('sort','asc')->get()->toArray();
-//        $view = view('admin.channel.sort',compact('datas'));
-//        return Response::json(array('html'=>$view->render(),'status'=>1,'title'=>'导航排序'));
-    }
-
-    /**
-     * 更新排序（未做）
-     * @param Request $request
-     */
-    public function postSort(){
-//        $ids = $request->ids;
-//        $ids = explode(',', $ids);
-//        foreach ($ids as $sort=>$id){
-//            $channel = SysChannel::find($id);
-//            $res = $channel->update(array('sort'=>$sort+1));
-//        }
-//        return Response::json(array('success'=> '导航信息排序成功','status'=>1,'url'=>URL::previous()));
     }
 
     /**

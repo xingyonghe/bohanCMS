@@ -56,13 +56,13 @@ class FormExtendServiceProvider extends ServiceProvider{
             $html = '';
             foreach ($list as $value => $display) {
                 if($cheked == $value){
-//                    $html .= "<label class='label_radio r_on' for='radio-01'>";
+                    $html .= "<label class='label_radio r_on' for='radio-01'>";
                     $html .= Form::radio($name,$value,true,$options).$display;
-//                    $html .= "</label>";
+                    $html .= "</label>";
                 }else{
-//                    $html .= "<label class='label_radio' for='radio-01'>";
+                    $html .= "<label class='label_radio' for='radio-01'>";
                     $html .= Form::radio($name,$value,null,$options).$display;
-//                    $html .= "</label>";
+                    $html .= "</label>";
                 }
 
             }
@@ -85,13 +85,13 @@ class FormExtendServiceProvider extends ServiceProvider{
             $html = '';
             foreach ($list as $value => $display) {
                 if($cheked == $value){
-                    $html .= "<label class='label_radio r_on' for='radio-01'>";
+//                    $html .= "<label class='label_radio r_on' for='radio-01'>";
                     $html .= Form::radio($name,$value,true,$options).$display;
-                    $html .= "</label>";
+//                    $html .= "</label>";
                 }else{
-                    $html .= "<label class='label_radio' for='radio-01'>";
+//                    $html .= "<label class='label_radio' for='radio-01'>";
                     $html .= Form::radio($name,$value,null,$options).$display;
-                    $html .= "</label>";
+//                    $html .= "</label>";
                 }
 
             }

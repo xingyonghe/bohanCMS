@@ -20,36 +20,11 @@ class CommonModel extends Model{
     //用于树型数组完成递归格式的全局变量
     protected $formatTree = array();
 
-    /**
-     * 后台列表查询
-     * @param int $limit
-     * @param array $map
-     * @param array $order
-     * @return mixed
-     */
-    public function adminLists($map = array(), $order = 'created_at', $sort = 'desc', $page = 10){
-        $list = $this->where($map)->orderBy($order, $sort)->paginate($page);
-        return $list;
-    }
-
-    /**
-     * 列表查询
-     * @param int $limit
-     * @param array $map
-     * @param array $order
-     * @return mixed
-     */
-    public function listing($map = array(), $order = 'created_at', $sort = 'desc', $page = 10){
-        $list = $this
-            ->where($map)
-            ->orderBy($order, $sort)
-            ->paginate($page);
-        return $list;
-    }
-
 
     /**
      * 更新/新增数据
+     * @author: xingyonghe
+     * @date: 2016-11-10
      * @param $data 表单数据
      * @return bool
      */
@@ -74,6 +49,8 @@ class CommonModel extends Model{
 
     /**
      * 返回模型的错误信息
+     * @author: xingyonghe
+     * @date: 2016-11-10
      * @return string
      */
     public function getError(){
@@ -82,6 +59,8 @@ class CommonModel extends Model{
 
     /**
      * 将格式数组转换为树
+     * @author: xingyonghe
+     * @date: 2016-11-10
      * @param $list
      * @param string $title
      * @param string $pk
@@ -90,45 +69,15 @@ class CommonModel extends Model{
      * @return mixed
      */
     protected function toFormatTree($list,$title = 'title',$pk='id',$pid = 'pid',$root = 0){
-        $list = $this->list_to_tree($list,$pk,$pid,'_child',$root);
+        $list = list_to_tree($list,$pk,$pid,'_child',$root);
         $this->_toFormatTree($list,0,$title);
         return $this->formatTree;
     }
 
     /**
-     * 把返回的数据集转换成Tree
-     * @param array $list 要转换的数据集
-     * @param string $pid parent标记字段
-     * @param string $level level标记字段
-     * @return array
-     */
-    protected function list_to_tree($list, $pk='id', $pid = 'pid', $child = '_child', $root = 0) {
-        // 创建Tree
-        $tree = array();
-        if(is_array($list)) {
-            // 创建基于主键的数组引用
-            $refer = array();
-            foreach ($list as $key => $data) {
-                $refer[$data[$pk]] =& $list[$key];
-            }
-            foreach ($list as $key => $data) {
-                // 判断是否存在parent
-                $parentId =  $data[$pid];
-                if ($root == $parentId) {
-                    $tree[] =& $list[$key];
-                }else{
-                    if (isset($refer[$parentId])) {
-                        $parent =& $refer[$parentId];
-                        $parent[$child][] =& $list[$key];
-                    }
-                }
-            }
-        }
-        return $tree;
-    }
-
-    /**
      * 将格式数组转换为树
+     * @author: xingyonghe
+     * @date: 2016-11-10
      * @param array $list
      * @param integer $level 进行递归时传递用的参数
      */
@@ -150,4 +99,6 @@ class CommonModel extends Model{
         }
         return;
     }
+
+    
 }

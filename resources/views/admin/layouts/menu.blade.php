@@ -13,10 +13,12 @@
                         <span class="arrow"></span>
                     </a>
                     <ul class="sub">
-
                         @foreach($menu as $m)
                         <li>
-                            <a  href="{{ route($m['url']) }}"><span style="width: 18px"><i class="{{ $m['icon'] }}"></i></span> {{ $m['title'] }}</a>
+                            <a  href="{{ route($m['url']) }}">
+                                <span style="width: 18px"><e class="{{ $m['icon'] }}"></e></span>
+                                {{ $m['title'] }}
+                            </a>
                         </li>
                         @endforeach
                     </ul>

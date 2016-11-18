@@ -15,7 +15,7 @@ class SysConfig extends CommonModel{
     */
     protected $table = 'sys_config';
     protected $fillable = [
-        'title', 'name','sort','type','group','value','extra','remark'
+        'title', 'name','sort','type','group','value','extra','remark','module'
     ];
 
 }

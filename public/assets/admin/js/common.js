@@ -79,7 +79,7 @@ $(function(){
     //排序
     $('.ajax-sort').click(function(){
         layer.closeAll();
-        var target = $(this).attr('href');
+        var target = $(this).attr('url');
         var that = this;
         $.get(target).success(function(data){
             if(data.status == 1){
@@ -91,7 +91,7 @@ $(function(){
                     area    : ['450px'],
                     btn     : ['确定', '取消'],
                     shade   : false,
-                    content : data.html,
+                    content : data.info,
                     yes     : function(index){
                         var form = $('.form-sort');
                         var url = form.get(0).action;
@@ -104,9 +104,9 @@ $(function(){
                         var query = {'ids' :  arr.join(','), '_token':_token};
                         $.post(url,query,function(datas){
                             if(datas.status==1){
-                                updateAlert(datas.success + ' 页面即将自动跳转~','alert-success',datas.url);
+                                updateAlert(datas.info + ' 页面即将自动跳转~','alert-success',datas.url);
                             }else{
-                                updateAlert(datas.error);
+                                updateAlert(datas.info);
                             }
                         });
                     }

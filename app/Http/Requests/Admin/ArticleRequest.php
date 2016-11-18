@@ -2,15 +2,19 @@
 
 namespace App\Http\Requests\Admin;
 
-use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Contracts\Validation\Validator;
-use Response;
+use App\Http\Requests\CommonRequest;
 
-class ArticleRequest extends FormRequest{
-
-    public function authorize(){
-        return true;
-    }
+class ArticleRequest extends CommonRequest{
+    /*
+    |--------------------------------------------------------------------------
+    | Article Request
+    | @author xingyonghe
+    | @date 2016-11-16
+    |--------------------------------------------------------------------------
+    |
+    | 内容http请求
+    |
+    */
 
     public function rules(){
         return [
@@ -26,17 +30,6 @@ class ArticleRequest extends FormRequest{
             'title.required'   => '请填写信息标题',
             'content.required'   => '请填写信息详情内容',
         ];
-    }
-
-    protected function formatErrors(Validator $validator){
-        $return['error'] = $validator->errors()->first();
-        return $return;
-    }
-
-    public function response(array $errors){
-        return $this->redirector->back()
-            ->withInput($this->except($this->dontFlash))
-            ->with('error',$errors['error']);
     }
 
 

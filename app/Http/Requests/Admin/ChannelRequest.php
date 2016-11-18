@@ -2,15 +2,19 @@
 
 namespace App\Http\Requests\Admin;
 
-use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Contracts\Validation\Validator;
-use Response;
+use App\Http\Requests\CommonRequest;
 
-class ChannelRequest extends FormRequest{
-
-    public function authorize(){
-        return true;
-    }
+class ChannelRequest extends CommonRequest{
+    /*
+    |--------------------------------------------------------------------------
+    | Channel Request
+    | @author xingyonghe
+    | @date 2016-11-14
+    |--------------------------------------------------------------------------
+    |
+    | 导航http请求
+    |
+    */
 
     public function rules(){
         return [
@@ -24,16 +28,5 @@ class ChannelRequest extends FormRequest{
             'title.required' => '请填写导航标题',
             'url.required'   => '请填写导航url地址',
         ];
-    }
-
-    protected function formatErrors(Validator $validator){
-        $return['error'] = $validator->errors()->first();
-        $return['status'] = 0;
-        return $return;
-
-    }
-
-    public function response(array $errors){
-        return Response::json($errors);
     }
 }

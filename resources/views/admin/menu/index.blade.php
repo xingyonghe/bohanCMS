@@ -28,23 +28,14 @@
                                 批量 <i class="fa icon-location-arrow"></i>
                             </a>
                         </div>
+                        <div class="btn-group">
+                            <a href="javascript:void(0)" url="{{ route('admin.menu.sort',[$pid]) }}" class="btn btn-primary ajax-sort">
+                                排序 <i class="fa icon-resize-vertical"></i>
+                            </a>
+                        </div>
                     </div>
                 </div>
                 <div id="sample_1_wrapper" class="dataTables_wrapper form-inline" role="grid">
-                    <div class="row">
-                        <div class="col-sm-12">
-                            {{--{!! Form::open(['url' => 'admin/menu/index','method'=>'get']) !!}--}}
-                            {{--<div class="dataTables_filter" id="sample_1_filter">--}}
-                                {{--<button class="btn btn-primary" type="submit"><i class="fa icon-search"></i>搜索</button>--}}
-                            {{--</div>--}}
-                            {{--<div class="dataTables_filter" id="sample_1_filter">--}}
-                                {{--<label>--}}
-                                    {{--菜单名称：<input type="text" name="title" aria-controls="sample_1" value="{{ $pages['title'] }}" class="form-control">--}}
-                                {{--</label>--}}
-                            {{--</div>--}}
-                            {{--{!!Form::close()!!}--}}
-                        </div>
-                    </div>
                     <table class="table table-striped border-top" id="sample_1">
                         <thead>
                         <tr>

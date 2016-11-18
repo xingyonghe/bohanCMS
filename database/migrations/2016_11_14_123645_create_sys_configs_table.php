@@ -18,8 +18,9 @@ class CreateSysConfigsTable extends Migration
             $table->string('title',50)->default('')->comment('配置标题');
             $table->string('name',30)->default('')->comment('配置名称');
             $table->integer('sort')->default('0')->comment('排序');
-            $table->tinyInteger('type')->default('0')->comment('配置类型:0数字，1字符，2文本，3数组，4枚举，5图片');
-            $table->tinyInteger('group')->default('0')->comment('配置分组:0基本设置，1SEO优化');
+            $table->tinyInteger('type')->default('0')->comment('配置类型');
+            $table->tinyInteger('group')->default('0')->comment('配置分组');
+            $table->string('module',20)->default('')->comment('所属模块');
             $table->string('value',300)->default('')->comment('配置值');
             $table->string('extra',300)->default('')->comment('配置项');
             $table->string('remark',150)->default('')->comment('配置说明');

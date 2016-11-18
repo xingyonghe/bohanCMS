@@ -3,7 +3,7 @@
         <section class="panel">
             <div class="panel-body">
                 <div class=" form">
-                    {!! Form::open(['url' => 'admin/category/update','class'=>'cmxform form-horizontal tasi-form form-datas']) !!}
+                    {!! Form::open(['url' => route('article.category.update'),'class'=>'cmxform form-horizontal tasi-form form-datas']) !!}
                     <input class="form-control "  type="hidden" name="id" value="{{ $info['id'] ?? '' }}"/>
                     <div class="form-group ">
                         <label for="cname" class="control-label col-lg-2">名称</label>
@@ -20,7 +20,8 @@
                     <div class="form-group ">
                         <label for="curl" class="control-label col-lg-2">模块分组</label>
                         <div class="col-lg-10">
-                            <input class="form-control " type="text" name="model" value="{{ $info['model'] ?? $model }}" readonly/>
+                            <input class="form-control " type="hidden" name="model" value="{{ $info['model'] ?? $model }}" readonly/>
+                            <span class="control-label col-lg-2" style="padding-left: 0px">{{ $module[$model] }}</span>
                         </div>
                     </div>
                     <div class="form-group ">

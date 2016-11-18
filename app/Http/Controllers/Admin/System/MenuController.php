@@ -36,6 +36,7 @@ class MenuController extends CommonController{
         $pid = (int)request()->get('pid',0);
         $lists = D('SysMenu')
             ->where('pid',$pid)
+            ->orderBy('sort','asc')
             ->get(['id', 'title', 'pid', 'sort', 'url', 'hide', 'group'])
             ->toArray();
         if($menus && $lists){
@@ -105,7 +106,6 @@ class MenuController extends CommonController{
     public function destroy(int $id){
         $resualt = D('SysMenu')->destroy($id);
         if($resualt){
-            cache()->forget('RULES_LIST');//更新权限规则缓存
             cache()->forget('MENUS_LIST');//更新菜单缓存
             session()->forget('ADMIN_MENU_LIST');//更新菜单session
             return redirect()->back()->withSuccess('删除信息成功!');
@@ -156,7 +156,40 @@ class MenuController extends CommonController{
                 'group'=> $record[5] ?? '',
             ));
         }
+        cache()->forget('MENUS_LIST');//更新菜单缓存
+        session()->forget('ADMIN_MENU_LIST');//更新菜单session
         return $this->ajaxReturn('菜单批量新增成功',1,url()->previous());
+    }
+
+    /**
+     * 菜单排序
+     * @author: xingyonghe
+     * @date: 2016-11-18
+     * @param int $pid
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function sort(int $pid=0){
+        $datas = D('SysMenu')->where('pid',$pid)->orderBy('sort','asc')->get()->toArray();
+        $view = view('admin.menu.sort',compact('datas'));
+        return $this->ajaxReturn($view->render(),1,'','菜单排序');
+    }
+
+    /**
+     * 更新排序
+     * @author: xingyonghe
+     * @date: 2016-11-18
+     * @return mixed
+     */
+    public function order(){
+        $ids = request()->ids;
+        $ids = explode(',', $ids);
+        foreach ($ids as $sort=>$id){
+            $info = D('SysMenu')->find($id);
+            $resualt = $info->update(array('sort'=>$sort+1));
+        }
+        cache()->forget('MENUS_LIST');//更新菜单缓存
+        session()->forget('ADMIN_MENU_LIST');//更新菜单session
+        return $this->ajaxReturn('菜单排序更新成功',1,url()->previous());
     }
 
 

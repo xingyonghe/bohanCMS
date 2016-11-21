@@ -1,10 +1,13 @@
-@extends('admin.public.base')
+@extends('admin.layouts.base')
 @section('style')
 @stop
 @section('script')
+    <script type="text/javascript" src="{{ asset('assets/admin/js/bootstrap-switch.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('assets/admin/js/form-component.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('assets/admin/js/jquery.tagsinput.js') }}"></script>
     <script type="text/javascript">
         $(function () {
-            highlight_subnav("{{ url('admin/channel/index') }}");
+            highlight_subnav("{{ route('admin.channel.index') }}");
         })
     </script>
 @stop
@@ -19,32 +22,28 @@
                 <div class="panel-body">
                     <div class="clearfix">
                         <div class="btn-group">
-                            <a href="{{ url('admin/channel/add') }}" class="btn btn-primary ajax-update">
+                            <a href="javascript:void(0)" url="{{ route('admin.channel.create') }}" class="btn btn-primary ajax-update">
                                 新增 <i class="fa icon-plus"></i>
                             </a>
                         </div>
                         <div class="btn-group">
-                            <a href="{{ url('admin/channel/sort') }}" class="btn btn-primary ajax-sort">
+                            <a href="javascript:void(0)" url="{{ route('admin.channel.sort') }}" class="btn btn-primary ajax-sort">
                                 排序 <i class="fa icon-resize-vertical"></i>
                             </a>
                         </div>
-                    </div>
-                </div>
-                <div id="sample_1_wrapper" class="dataTables_wrapper form-inline" role="grid">
-                    <div class="row">
-                        <div class="col-sm-12">
-                            {!! Form::open(['url' => 'admin/channel/index','method'=>'get']) !!}
+                        <div class="btn-group pull-right">
+                            {!! Form::open(['url' => route('admin.channel.index'),'method'=>'get']) !!}
                             <div class="dataTables_filter" id="sample_1_filter">
                                 <button class="btn btn-primary" type="submit"><i class="fa icon-search"></i>搜索</button>
                             </div>
                             <div class="dataTables_filter" id="sample_1_filter">
-                                <label>
-                                    导航名称：<input type="text" name="title" aria-controls="sample_1" value="{{ $params['title'] }}" class="form-control">
-                                </label>
+                                导航名称：<input type="text" name="title" aria-controls="sample_1" value="{{ $params['title'] }}" class="form-controls">
                             </div>
                             {!!Form::close()!!}
                         </div>
                     </div>
+                </div>
+                <div id="sample_1_wrapper" class="dataTables_wrapper form-inline" role="grid">
                     <table class="table table-striped border-top" id="sample_1">
                         <thead>
                         <tr>
@@ -61,7 +60,7 @@
                         </tr>
                         </thead>
                         <tbody>
-                        @foreach($datas as $data)
+                        @foreach($lists as $data)
                             <tr class="odd gradeX">
                                 <td><input type="checkbox" class="checkboxes" value="{{ $data->id }}"/></td>
                                 <td>{{ $data->id }}</td>
@@ -72,8 +71,8 @@
                                 <td class="center hidden-phone">{{ $data->status_text }}</td>
                                 <td class="hidden-phone">{{ $data->target_text }}</td>
                                 <td class="hidden-phone">
-                                    <a class="btn btn-primary btn-xs ajax-update" href="{{ url('admin/channel/edit',[$data->id]) }}"><i class="icon-pencil"></i> 修改</a>
-                                    <a class="btn btn-danger btn-xs ajax-confirm destroy" href="{{ url('admin/channel/destroy',[$data->id]) }}"><i class="icon-trash "></i> 删除</a>
+                                    <a class="btn btn-primary btn-xs ajax-update" href="javascript:void(0)" url="{{ route('admin.channel.edit',[$data->id]) }}"><i class="icon-pencil"></i> 修改</a>
+                                    <a class="btn btn-danger btn-xs ajax-confirm destroy" href="{{ route('admin.channel.destroy',[$data->id]) }}"><i class="icon-trash "></i> 删除</a>
                                 </td>
                             </tr>
                         @endforeach

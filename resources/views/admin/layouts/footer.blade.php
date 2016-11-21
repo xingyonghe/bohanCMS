@@ -1,5 +1,7 @@
 <!--footer section start 底部-->
-<footer>
-    2016 &copy; xingyonghe
+<footer class="site-footer">
+    <div class="text-center">
+        2013 &copy; xingyonghe.
+    </div>
 </footer>
 <!--footer section end-->

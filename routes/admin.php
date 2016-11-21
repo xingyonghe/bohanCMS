@@ -49,7 +49,7 @@ Route::group(['namespace'=>'Admin'],function(){
 
             /**--导航管理--**/
             Route::get ('channel/index',       'ChannelController@index')->name('admin.channel.index');        //列表
-            Route::get ('channel/create',      'ChannelController@add')->name('admin.channel.create');          //新增
+            Route::get ('channel/create',      'ChannelController@create')->name('admin.channel.create');          //新增
             Route::get ('channel/edit/{id}',   'ChannelController@edit')->name('admin.channel.edit')->where('id','\d+');         //修改
             Route::post('channel/update',      'ChannelController@update')->name('admin.channel.update');       //更新
             Route::get ('channel/destroy/{id}','ChannelController@destroy')->name('admin.channel.destroy')->where('id','\d+');      //删除

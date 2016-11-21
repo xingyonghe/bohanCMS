@@ -13,7 +13,7 @@
     }
 </style>
 <div class="sort">
-    {!! Form::open(['url' => 'admin/channel/postSort','class'=>'cmxform form-horizontal tasi-form form-sort']) !!}
+    {!! Form::open(['url' => route('admin.channel.order'),'class'=>'cmxform form-horizontal tasi-form form-sort']) !!}
         <div class="sort_center" >
             <div class="sort_option">
                 <select multiple class="form-control select">

@@ -227,8 +227,9 @@ $(function(){
 
     //导航高亮
      window.highlight_subnav = function(url){
-         $('.sidebar-menu').find('a[href="'+url+'"]').parents('.sub-menu').addClass('open active');
+         $('.sidebar-menu').find('a[href="'+url+'"]').parents('.sub-menu').find('.dcjq-parent').addClass('active');
          $('.sidebar-menu').find('a[href="'+url+'"]').parent().closest('li').addClass('active');
+         $('.sidebar-menu').find('a[href="'+url+'"]').parents('.sub').show();
     }
 
     //提示界面自动消失

@@ -9,9 +9,9 @@
     <link href="{{ asset('assets/admin/css/bootstrap.min.css') }}" rel="stylesheet">
     <link href="{{ asset('assets/admin/css/bootstrap-reset.css') }}" rel="stylesheet">
     <!--external css-->
-    <link href="{{ asset('assets/admin/assets/font-awesome/css/font-awesome.css') }}" rel="stylesheet" />
-    <link href="{{ asset('assets/admin/assets/jquery-easy-pie-chart/jquery.easy-pie-chart.css') }}" rel="stylesheet" type="text/css" media="screen"/>
-    <link href="{{ asset('assets/admin/css/owl.carousel.css') }}" rel="stylesheet" type="text/css" />
+    <link href="{{ asset('assets/admin/fontawesome/css/font-awesome.css') }}" rel="stylesheet" />
+    {{--<link href="{{ asset('assets/admin/assets/jquery-easy-pie-chart/jquery.easy-pie-chart.css') }}" rel="stylesheet" type="text/css" media="screen"/>--}}
+    {{--<link href="{{ asset('assets/admin/css/owl.carousel.css') }}" rel="stylesheet" type="text/css" />--}}
     <!-- Custom styles for this template -->
     <link href="{{ asset('assets/admin/css/style.css') }}" rel="stylesheet" />
     <link href="{{ asset('assets/admin/css/style-responsive.css') }}" rel="stylesheet" />
@@ -67,24 +67,27 @@
                 {{--</div>--}}
             {{--@endif--}}
             @yield('body')
-            <!--footer section start-->
-            @include('admin.layouts.footer')
-            <!--footer section end-->
         </section>
+        <!--footer section start-->
+        @include('admin.layouts.footer')
+        <!--footer section end-->
     </section>
     <!--main content end-->
 </section>
+
 <!-- js placed at the end of the document so the pages load faster -->
-<script src="{{ asset('assets/admin/js/jquery.js') }}"></script>
-<script src="{{ asset('assets/admin/js/jquery-1.8.3.min.js') }}"></script>
-<script src="{{ asset('assets/admin/js/bootstrap.min.js') }}"></script>
+<script type="text/javascript" src="{{ asset('assets/admin/js/jquery.js') }}"></script>
+<script type="text/javascript" src="{{ asset('assets/admin/js/bootstrap.min.js') }}"></script>
 <!--common script for all pages-->
-<script src="{{ asset('assets/admin/js/jquery.nicescroll.js') }}"></script>
-<script src="{{ asset('assets/admin/js/common-scripts.js') }}"></script>
+<script type="text/javascript" src="{{ asset('assets/admin/js/jquery.dcjqaccordion.2.7.js') }}"></script>
+<script type="text/javascript" src="{{ asset('assets/admin/js/jquery.scrollTo.min.js') }}"></script>
+<script type="text/javascript" src="{{ asset('assets/admin/js/jquery.nicescroll.js') }}"></script>
+<script type="text/javascript" src="{{ asset('assets/admin/js/respond.min.js') }}"></script>
+<script type="text/javascript" src="{{ asset('assets/admin/js/common-scripts.js') }}"></script>
 <!-- layer插件 -->
-<script src="{{ asset('assets/static/layer/layer.js') }}"></script>
+<script type="text/javascript" src="{{ asset('assets/static/layer/layer.js') }}"></script>
 <!-- 自定义js -->
-<script src="{{ asset('assets/admin/js/common.js') }}"></script>
+<script type="text/javascript" src="{{ asset('assets/admin/js/common.js') }}"></script>
 @yield('script')
 </body>
 </html>

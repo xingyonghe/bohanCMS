@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50547
 File Encoding         : 65001
 
-Date: 2016-11-18 18:44:05
+Date: 2016-11-22 19:57:34
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -71,7 +71,7 @@ CREATE TABLE `migrations` (
   `migration` varchar(255) NOT NULL,
   `batch` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=utf8mb4;
 
 -- ----------------------------
 -- Records of migrations
@@ -86,6 +86,8 @@ INSERT INTO `migrations` VALUES ('10', '2016_11_17_044956_create_mobile_sms_tabl
 INSERT INTO `migrations` VALUES ('11', '2016_11_18_173404_create_articles_table', '7');
 INSERT INTO `migrations` VALUES ('14', '2016_11_18_173899_create_categories_table', '8');
 INSERT INTO `migrations` VALUES ('15', '2016_11_18_122814_create_sys_channels_table', '9');
+INSERT INTO `migrations` VALUES ('16', '2016_11_22_103438_create_seos_table', '10');
+INSERT INTO `migrations` VALUES ('17', '2016_11_22_112910_create_seo_names_table', '11');
 
 -- ----------------------------
 -- Table structure for mobile_sms
@@ -100,7 +102,7 @@ CREATE TABLE `mobile_sms` (
   `content` varchar(255) NOT NULL DEFAULT '' COMMENT '短信内容',
   `created_at` timestamp NULL DEFAULT NULL COMMENT '发送时间',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COMMENT='短信';
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COMMENT='短信';
 
 -- ----------------------------
 -- Records of mobile_sms
@@ -111,6 +113,8 @@ INSERT INTO `mobile_sms` VALUES ('3', '13667635645', '883728', '0', '1', '【卓
 INSERT INTO `mobile_sms` VALUES ('4', '13667635645', '171323', '1', '1', '【卓杭广告】您本次验证码为：171323，如不是本人操作，请忽略', '2016-11-17 17:33:44');
 INSERT INTO `mobile_sms` VALUES ('5', '13667635645', '751109', '1', '1', '【卓杭广告】您本次验证码为：751109，如不是本人操作，请忽略', '2016-11-17 18:43:15');
 INSERT INTO `mobile_sms` VALUES ('6', '17723160667', '723077', '1', '1', '【卓杭广告】您本次验证码为：723077，如不是本人操作，请忽略', '2016-11-17 19:14:51');
+INSERT INTO `mobile_sms` VALUES ('7', '13667635645', '485196', '0', '1', '【卓杭广告】您本次验证码为：485196，如不是本人操作，请忽略', '2016-11-22 18:22:49');
+INSERT INTO `mobile_sms` VALUES ('8', '13667635645', '365297', '1', '1', '【卓杭广告】您本次验证码为：365297，如不是本人操作，请忽略', '2016-11-22 18:36:15');
 
 -- ----------------------------
 -- Table structure for sys_admin
@@ -134,7 +138,7 @@ CREATE TABLE `sys_admin` (
 -- ----------------------------
 -- Records of sys_admin
 -- ----------------------------
-INSERT INTO `sys_admin` VALUES ('1', 'admin', '$2y$10$gcM59gn/8fF7loOVC1a.QuffmG1wM1hKl.OpBc6BdiCh2Fz1WawRa', '超管', '1', '1', 'NUpLpFBJYvFzJHS5xSLyiM51bdN5M40PLMLqBa5rGFDwTqn7FYN652F4LeCc', '2016-11-15 09:17:38', '2016-11-18 09:09:13', '127.0.0.1');
+INSERT INTO `sys_admin` VALUES ('1', 'admin', '$2y$10$gcM59gn/8fF7loOVC1a.QuffmG1wM1hKl.OpBc6BdiCh2Fz1WawRa', '超管', '1', '1', 'NUpLpFBJYvFzJHS5xSLyiM51bdN5M40PLMLqBa5rGFDwTqn7FYN652F4LeCc', '2016-11-15 09:17:38', '2016-11-22 09:02:34', '127.0.0.1');
 INSERT INTO `sys_admin` VALUES ('2', 'xingyonghe', '$2y$10$1gGSm8H9xJx3/butYr/KheO2.gPnmh8prxOQ0AcPaXL0AgINKxM0m', '风影', '2', '1', 'KNYnalxXCJmMIp7OTmQywx2ybHgoaFLQPR27QqRmnGrfqeqr8zFh1Jdrxcaf', '2016-11-16 03:30:16', '2016-11-17 02:16:55', '127.0.0.1');
 INSERT INTO `sys_admin` VALUES ('3', 'xingyingfeng', '$2y$10$6m.iqImB7wikG6L0SVJPt.pM0kdRQvvNzMvZWq4ETHw628LNycZ6C', '永和测试', '2', '1', null, '2016-11-16 03:33:25', '2016-11-16 03:33:25', '');
 
@@ -224,11 +228,17 @@ CREATE TABLE `sys_channel` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='导航';
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COMMENT='导航';
 
 -- ----------------------------
 -- Records of sys_channel
 -- ----------------------------
+INSERT INTO `sys_channel` VALUES ('1', '首页', 'home.index.index', '1', '1', '0', '', '2016-11-21 17:55:18', '2016-11-22 10:58:55');
+INSERT INTO `sys_channel` VALUES ('2', '自媒体', 'home.index.index', '2', '1', '0', '', '2016-11-21 17:55:41', '2016-11-22 15:43:05');
+INSERT INTO `sys_channel` VALUES ('3', '广告任务', 'home.index.index', '3', '1', '0', '', '2016-11-22 15:43:43', '2016-11-22 15:45:38');
+INSERT INTO `sys_channel` VALUES ('4', '案列展示', 'home.index.index', '4', '1', '0', '', '2016-11-22 15:44:05', '2016-11-22 15:45:38');
+INSERT INTO `sys_channel` VALUES ('5', '关于我们', 'home.index.index', '6', '1', '0', '', '2016-11-22 15:44:24', '2016-11-22 15:45:38');
+INSERT INTO `sys_channel` VALUES ('6', '服务与报价', 'home.index.index', '5', '1', '0', '', '2016-11-22 15:45:15', '2016-11-22 15:45:38');
 
 -- ----------------------------
 -- Table structure for sys_config
@@ -258,7 +268,7 @@ INSERT INTO `sys_config` VALUES ('2', '配置分组', 'CONFIG_GROUP_LIST', '0', 
 INSERT INTO `sys_config` VALUES ('3', '后台系统列表页数目', 'SYSTEM_LIST_LIMIT', '0', '1', '1', 'system', '10', '', '后台非模块部分列表页数目', '2016-11-14 13:48:10', '2016-11-17 03:33:00');
 INSERT INTO `sys_config` VALUES ('4', '网站LOGO', 'WEB_SITE_LOGO', '0', '5', '2', 'system', '', '', '网站LOGO', '2016-11-14 13:49:36', '2016-11-14 13:49:36');
 INSERT INTO `sys_config` VALUES ('5', '网站域名地址', 'WEB_SITE_URL', '0', '2', '2', 'system', 'http://www.bohan.com', '', '网站域名地址', '2016-11-14 13:50:27', '2016-11-14 13:50:27');
-INSERT INTO `sys_config` VALUES ('6', '网站名称', 'WEB_SITE_TITLE', '0', '2', '2', 'system', 'BoHanCMS', '', '网站标题前台显示标题', '2016-11-17 02:27:55', '2016-11-17 02:28:05');
+INSERT INTO `sys_config` VALUES ('6', '网站名称', 'WEB_SITE_TITLE', '0', '2', '2', 'system', '卓杭广告', '', '网站标题前台显示标题', '2016-11-17 02:27:55', '2016-11-22 15:40:50');
 INSERT INTO `sys_config` VALUES ('7', '是否开启会员注册', 'WEB_REGISTER_ALLOW', '0', '4', '3', 'user', '1', '0:不允许\r\n1:允许', '是否开启网站会员注册功能', '2016-11-17 02:30:04', '2016-11-17 02:30:04');
 INSERT INTO `sys_config` VALUES ('8', '注册是否需要审核', 'WEB_REGISTER_VERIFY', '0', '4', '3', 'user', '0', '0:不需要\r\n1:需要', '网站会员注册是否需要审核', '2016-11-17 02:30:48', '2016-11-17 02:30:48');
 INSERT INTO `sys_config` VALUES ('9', '自媒体是否需要审核', 'USER_MEDIA_VERIFY', '0', '4', '3', 'user', '0', '0:不需要\r\n1:需要', '新增自媒体是否需要后台管理员审核', '2016-11-17 02:31:48', '2016-11-18 11:48:04');
@@ -280,7 +290,7 @@ CREATE TABLE `sys_menu` (
   `icon` varchar(50) NOT NULL DEFAULT '' COMMENT 'class样式名称',
   `group` varchar(50) NOT NULL DEFAULT '' COMMENT '分组',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=71 DEFAULT CHARSET=utf8mb4 COMMENT='系统菜单';
+) ENGINE=InnoDB AUTO_INCREMENT=82 DEFAULT CHARSET=utf8mb4 COMMENT='系统菜单';
 
 -- ----------------------------
 -- Records of sys_menu
@@ -288,15 +298,15 @@ CREATE TABLE `sys_menu` (
 INSERT INTO `sys_menu` VALUES ('1', '首页', '0', '1', 'admin.index.index', '0', 'icon-home', '');
 INSERT INTO `sys_menu` VALUES ('2', '系统', '0', '4', 'admin.menu.index', '0', 'icon-cogs', '');
 INSERT INTO `sys_menu` VALUES ('3', '用户', '0', '2', 'admin.warden.index', '0', 'icon-user', '');
-INSERT INTO `sys_menu` VALUES ('4', '菜单管理', '2', '1', 'admin.menu.index', '0', ' icon-list', '系统设置:icon-cogs');
-INSERT INTO `sys_menu` VALUES ('5', '新增', '4', '0', 'admin.menu.create', '1', '', '系统设置:icon-cogs');
-INSERT INTO `sys_menu` VALUES ('6', '编辑', '4', '0', 'admin.menu.edit', '1', '', '系统设置:icon-cogs');
-INSERT INTO `sys_menu` VALUES ('7', '更新', '4', '0', 'admin.menu.update', '1', '', '系统设置:icon-cogs');
-INSERT INTO `sys_menu` VALUES ('8', '网站配置', '2', '2', 'admin.config.index', '0', 'icon-cog', '系统设置:icon-cogs');
-INSERT INTO `sys_menu` VALUES ('9', '网站设置', '2', '3', 'admin.config.setting', '0', 'icon-wrench', '系统设置:icon-cogs');
-INSERT INTO `sys_menu` VALUES ('10', '管理员', '3', '0', 'admin.warden.index', '0', 'icon-male', '权限管理:icon-qrcode');
-INSERT INTO `sys_menu` VALUES ('11', '批量新增', '4', '0', 'admin.menu.batch', '1', '', '系统设置:icon-cogs');
-INSERT INTO `sys_menu` VALUES ('12', '批量更新', '4', '0', 'admin.menu.submit', '1', '', '系统设置:icon-cogs');
+INSERT INTO `sys_menu` VALUES ('4', '菜单管理', '2', '1', 'admin.menu.index', '0', '', '系统设置');
+INSERT INTO `sys_menu` VALUES ('5', '新增', '4', '0', 'admin.menu.create', '1', '', '系统设置');
+INSERT INTO `sys_menu` VALUES ('6', '编辑', '4', '0', 'admin.menu.edit', '1', '', '系统设置');
+INSERT INTO `sys_menu` VALUES ('7', '更新', '4', '0', 'admin.menu.update', '1', '', '系统设置');
+INSERT INTO `sys_menu` VALUES ('8', '网站配置', '2', '2', 'admin.config.index', '0', '', '系统设置');
+INSERT INTO `sys_menu` VALUES ('9', '网站设置', '2', '3', 'admin.config.setting', '0', '', '系统设置');
+INSERT INTO `sys_menu` VALUES ('10', '管理员', '3', '0', 'admin.warden.index', '0', '', '权限管理');
+INSERT INTO `sys_menu` VALUES ('11', '批量新增', '4', '0', 'admin.menu.batch', '1', '', '系统设置');
+INSERT INTO `sys_menu` VALUES ('12', '批量更新', '4', '0', 'admin.menu.submit', '1', '', '系统设置');
 INSERT INTO `sys_menu` VALUES ('13', '新增', '10', '0', 'admin.warden.create', '1', '', '权限管理');
 INSERT INTO `sys_menu` VALUES ('14', '添加', '10', '0', 'admin.warden.add', '1', '', '权限管理');
 INSERT INTO `sys_menu` VALUES ('15', '修改', '10', '0', 'admin.warden.edit', '1', '', '权限管理');
@@ -306,37 +316,89 @@ INSERT INTO `sys_menu` VALUES ('18', '启用', '10', '0', 'admin.warden.resume',
 INSERT INTO `sys_menu` VALUES ('19', '删除', '10', '0', 'admin.warden.destroy', '1', '', '权限管理');
 INSERT INTO `sys_menu` VALUES ('20', '重置密码', '10', '0', 'admin.warden.resetpass', '1', '', '权限管理');
 INSERT INTO `sys_menu` VALUES ('21', '更新密码', '10', '0', 'admin.warden.change', '1', '', '权限管理');
-INSERT INTO `sys_menu` VALUES ('22', '用户组', '3', '0', 'admin.group.index', '0', 'icon-shield', '权限管理:icon-qrcode');
-INSERT INTO `sys_menu` VALUES ('23', '新增', '22', '0', 'admin.group.create', '1', '', '权限管理:icon-qrcode');
-INSERT INTO `sys_menu` VALUES ('24', '修改', '22', '0', 'admin.group.edit', '1', '', '权限管理:icon-qrcode');
-INSERT INTO `sys_menu` VALUES ('25', '更新', '22', '0', 'admin.group.update', '1', '', '权限管理:icon-qrcode');
-INSERT INTO `sys_menu` VALUES ('26', '删除', '22', '0', 'admin.group.destroy', '1', '', '权限管理:icon-qrcode');
-INSERT INTO `sys_menu` VALUES ('27', '用户授权', '22', '0', 'admin.group.access', '1', '', '权限管理:icon-qrcode');
-INSERT INTO `sys_menu` VALUES ('28', '更新权限', '22', '0', 'admin.group.write', '1', '', '权限管理:icon-qrcode');
-INSERT INTO `sys_menu` VALUES ('29', '删除', '4', '0', 'admin.menu.destroy', '1', '', '系统设置:icon-cogs');
-INSERT INTO `sys_menu` VALUES ('30', '新增', '8', '0', 'admin.config.create', '0', '', '系统设置:icon-cogs');
-INSERT INTO `sys_menu` VALUES ('31', '修改', '8', '0', 'admin.config.edit', '1', '', '系统设置:icon-cogs');
-INSERT INTO `sys_menu` VALUES ('32', '更新', '8', '0', 'admin.config.update', '1', '', '系统设置:icon-cogs');
-INSERT INTO `sys_menu` VALUES ('33', '排序', '8', '0', 'admin.config.sort', '1', '', '系统设置:icon-cogs');
-INSERT INTO `sys_menu` VALUES ('34', '更新排序', '8', '0', 'admin.config.order', '1', '', '系统设置:icon-cogs');
-INSERT INTO `sys_menu` VALUES ('35', '更新', '9', '0', 'admin.config.post', '1', '', '系统设置:icon-cogs');
-INSERT INTO `sys_menu` VALUES ('36', '内容', '0', '3', 'admin.article.index', '0', 'icon-file-text-alt', '');
-INSERT INTO `sys_menu` VALUES ('37', '分类管理', '36', '1', 'article.category.index', '0', 'icon-sitemap', '模块设置:icon-cog');
-INSERT INTO `sys_menu` VALUES ('38', '模块配置', '36', '2', 'article.setting.index', '0', 'icon-wrench', '模块设置:icon-cog');
-INSERT INTO `sys_menu` VALUES ('39', '新增内容', '36', '3', 'admin.article.create', '0', 'icon-expand-alt', '内容管理:icon-file-text-alt');
-INSERT INTO `sys_menu` VALUES ('40', '内容信息', '36', '4', 'admin.article.index', '0', 'icon-book', '内容管理:icon-file-text-alt');
-INSERT INTO `sys_menu` VALUES ('41', '回收站', '36', '5', 'admin.article.recycle', '0', 'icon-trash', '内容管理:icon-file-text-alt');
-INSERT INTO `sys_menu` VALUES ('58', '新增', '37', '0', 'article.category.create', '1', '', '模块设置:icon-cog');
-INSERT INTO `sys_menu` VALUES ('59', '修改', '37', '0', 'article.category.edit', '1', '', '模块设置:icon-cog');
-INSERT INTO `sys_menu` VALUES ('60', '更新', '37', '0', 'article.category.update', '1', '', '模块设置:icon-cog');
-INSERT INTO `sys_menu` VALUES ('61', '删除', '37', '0', 'article.category.destroy', '1', '', '模块设置:icon-cog');
-INSERT INTO `sys_menu` VALUES ('63', '修改', '40', '0', 'admin.article.edit', '0', '', '内容管理:icon-file-text-alt');
-INSERT INTO `sys_menu` VALUES ('64', '更新', '40', '0', 'admin.article.update', '0', '', '内容管理:icon-file-text-alt');
-INSERT INTO `sys_menu` VALUES ('65', '删除', '40', '0', 'admin.article.destroy', '0', '', '内容管理:icon-file-text-alt');
-INSERT INTO `sys_menu` VALUES ('67', '更新', '38', '0', 'article.setting.update', '1', '', '模块设置:icon-cog');
-INSERT INTO `sys_menu` VALUES ('68', '排序', '4', '0', 'admin.menu.sort', '1', '', '系统设置:icon-cogs');
-INSERT INTO `sys_menu` VALUES ('69', '更新排序', '4', '0', 'admin.menu.order', '1', '', '系统设置:icon-cogs');
-INSERT INTO `sys_menu` VALUES ('70', '导航管理', '2', '4', 'admin.channel.index', '0', 'icon-tags', '系统设置:icon-cogs');
+INSERT INTO `sys_menu` VALUES ('22', '用户组', '3', '0', 'admin.group.index', '0', '', '权限管理');
+INSERT INTO `sys_menu` VALUES ('23', '新增', '22', '0', 'admin.group.create', '1', '', '权限管理');
+INSERT INTO `sys_menu` VALUES ('24', '修改', '22', '0', 'admin.group.edit', '1', '', '权限管理');
+INSERT INTO `sys_menu` VALUES ('25', '更新', '22', '0', 'admin.group.update', '1', '', '权限管理');
+INSERT INTO `sys_menu` VALUES ('26', '删除', '22', '0', 'admin.group.destroy', '1', '', '权限管理');
+INSERT INTO `sys_menu` VALUES ('27', '用户授权', '22', '0', 'admin.group.access', '1', '', '权限管理');
+INSERT INTO `sys_menu` VALUES ('28', '更新权限', '22', '0', 'admin.group.write', '1', '', '权限管理');
+INSERT INTO `sys_menu` VALUES ('29', '删除', '4', '0', 'admin.menu.destroy', '1', '', '系统设置');
+INSERT INTO `sys_menu` VALUES ('30', '新增', '8', '0', 'admin.config.create', '0', '', '系统设置');
+INSERT INTO `sys_menu` VALUES ('31', '修改', '8', '0', 'admin.config.edit', '1', '', '系统设置');
+INSERT INTO `sys_menu` VALUES ('32', '更新', '8', '0', 'admin.config.update', '1', '', '系统设置');
+INSERT INTO `sys_menu` VALUES ('33', '排序', '8', '0', 'admin.config.sort', '1', '', '系统设置');
+INSERT INTO `sys_menu` VALUES ('34', '更新排序', '8', '0', 'admin.config.order', '1', '', '系统设置');
+INSERT INTO `sys_menu` VALUES ('35', '更新', '9', '0', 'admin.config.post', '1', '', '系统设置');
+INSERT INTO `sys_menu` VALUES ('36', '内容', '0', '3', 'admin.article.index', '0', 'icon-file', '');
+INSERT INTO `sys_menu` VALUES ('37', '分类管理', '36', '1', 'article.category.index', '0', '', '模块设置');
+INSERT INTO `sys_menu` VALUES ('38', '模块配置', '36', '2', 'article.setting.index', '0', '', '模块设置');
+INSERT INTO `sys_menu` VALUES ('39', '新增内容', '36', '3', 'admin.article.create', '0', '', '内容管理');
+INSERT INTO `sys_menu` VALUES ('40', '内容信息', '36', '4', 'admin.article.index', '0', '', '内容管理');
+INSERT INTO `sys_menu` VALUES ('41', '回收站', '36', '5', 'admin.article.recycle', '0', '', '内容管理');
+INSERT INTO `sys_menu` VALUES ('58', '新增', '37', '0', 'article.category.create', '1', '', '模块设置');
+INSERT INTO `sys_menu` VALUES ('59', '修改', '37', '0', 'article.category.edit', '1', '', '模块设置');
+INSERT INTO `sys_menu` VALUES ('60', '更新', '37', '0', 'article.category.update', '1', '', '模块设置');
+INSERT INTO `sys_menu` VALUES ('61', '删除', '37', '0', 'article.category.destroy', '1', '', '模块设置');
+INSERT INTO `sys_menu` VALUES ('63', '修改', '40', '0', 'admin.article.edit', '0', '', '内容管理');
+INSERT INTO `sys_menu` VALUES ('64', '更新', '40', '0', 'admin.article.update', '0', '', '内容管理');
+INSERT INTO `sys_menu` VALUES ('65', '删除', '40', '0', 'admin.article.destroy', '0', '', '内容管理');
+INSERT INTO `sys_menu` VALUES ('67', '更新', '38', '0', 'article.setting.update', '1', '', '模块设置');
+INSERT INTO `sys_menu` VALUES ('68', '排序', '4', '0', 'admin.menu.sort', '1', '', '系统设置');
+INSERT INTO `sys_menu` VALUES ('69', '更新排序', '4', '0', 'admin.menu.order', '1', '', '系统设置');
+INSERT INTO `sys_menu` VALUES ('70', '导航管理', '2', '4', 'admin.channel.index', '0', '', '系统设置');
+INSERT INTO `sys_menu` VALUES ('72', 'seo管理', '2', '6', 'admin.seo.index', '0', '', 'SEO设置');
+INSERT INTO `sys_menu` VALUES ('73', '变量管理', '2', '5', 'admin.seoname.index', '0', '', 'SEO设置');
+INSERT INTO `sys_menu` VALUES ('74', '新增', '72', '0', 'admin.seo.create', '1', '', 'SEO设置');
+INSERT INTO `sys_menu` VALUES ('75', '修改', '72', '0', 'admin.seo.edit', '1', '', 'SEO设置');
+INSERT INTO `sys_menu` VALUES ('76', '更新', '72', '0', 'admin.seo.update', '1', '', 'SEO设置');
+INSERT INTO `sys_menu` VALUES ('77', '删除', '72', '0', 'admin.seo.destroy', '1', '', 'SEO设置');
+INSERT INTO `sys_menu` VALUES ('78', '新增', '73', '0', 'admin.seoname.create', '1', '', 'SEO设置');
+INSERT INTO `sys_menu` VALUES ('79', '修改', '73', '0', 'admin.seoname.edit', '1', '', 'SEO设置');
+INSERT INTO `sys_menu` VALUES ('80', '更新', '73', '0', 'admin.seoname.update', '1', '', 'SEO设置');
+INSERT INTO `sys_menu` VALUES ('81', '删除', '73', '0', 'admin.seoname.destroy', '1', '', 'SEO设置');
+
+-- ----------------------------
+-- Table structure for sys_seo
+-- ----------------------------
+DROP TABLE IF EXISTS `sys_seo`;
+CREATE TABLE `sys_seo` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `name` varchar(100) NOT NULL DEFAULT '' COMMENT '名称',
+  `key` varchar(50) NOT NULL DEFAULT '' COMMENT '标识',
+  `title` varchar(200) NOT NULL DEFAULT '' COMMENT '网站title',
+  `keywords` varchar(500) NOT NULL DEFAULT '' COMMENT '网站keywords',
+  `description` varchar(1000) NOT NULL DEFAULT '' COMMENT '网站description',
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COMMENT='SEO设置';
+
+-- ----------------------------
+-- Records of sys_seo
+-- ----------------------------
+INSERT INTO `sys_seo` VALUES ('1', '网站首页', 'WEB_INDEX', '{sitename}', '{sitename},{sitemedia},{siteads}', '{sitename}汇集超过1000万{sitemedia}供您挑选，欢迎{siteads}、{sitemedia}加入{sitename}营销平台', '2016-11-22 11:21:16', '2016-11-22 11:21:16');
+
+-- ----------------------------
+-- Table structure for sys_seo_name
+-- ----------------------------
+DROP TABLE IF EXISTS `sys_seo_name`;
+CREATE TABLE `sys_seo_name` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `name` varchar(100) NOT NULL COMMENT '名称',
+  `variable` varchar(100) NOT NULL COMMENT '变量',
+  `confines` varchar(255) NOT NULL COMMENT '应用范围',
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COMMENT='SEO变量';
+
+-- ----------------------------
+-- Records of sys_seo_name
+-- ----------------------------
+INSERT INTO `sys_seo_name` VALUES ('1', '站点名称', '{sitename}', '全站', '2016-11-22 11:47:15', '2016-11-22 11:47:15');
+INSERT INTO `sys_seo_name` VALUES ('2', '自媒体', '{sitemedia}', '全站', '2016-11-22 11:47:56', '2016-11-22 11:47:56');
+INSERT INTO `sys_seo_name` VALUES ('3', '广告主', '{siteads}', '全站', '2016-11-22 11:48:44', '2016-11-22 11:48:44');
 
 -- ----------------------------
 -- Table structure for user
@@ -369,7 +431,7 @@ CREATE TABLE `user` (
 -- ----------------------------
 -- Records of user
 -- ----------------------------
-INSERT INTO `user` VALUES ('2', '13667635645', '$2y$10$968a2DNce1ev3N0QTuhwRe97xFGCqaQMguMyURA.UBJziRx5sB3Pm', 'eVSXsKM6KJcLsrcngHhGNFIgrQDgVtRNykXsfMSLpbVtogwxEGf4NRa552ag', '邢永和', '1', '1', '1342234898', '', '0.00', '0.00', '', '3', '永和测试', '1', '', '2016-11-17 18:46:49', '127.0.0.1', '2016-11-17 19:42:21', '127.0.0.1');
+INSERT INTO `user` VALUES ('2', '13667635645', '$2y$10$968a2DNce1ev3N0QTuhwRe97xFGCqaQMguMyURA.UBJziRx5sB3Pm', 'EltSRVcuATtpbNjI1H318YRSuZjOiRGE8Zx30u1OimDBr3azvRguD094qUq5', '邢永和', '1', '1', '1342234898', '', '0.00', '0.00', '', '3', '永和测试', '1', '', '2016-11-17 18:46:49', '127.0.0.1', '2016-11-22 18:41:49', '127.0.0.1');
 INSERT INTO `user` VALUES ('3', '17723160667', '$2y$10$55bR8O6QHIFe6X70fM0nn.FeyC07/KGZmvBpt4LtWYZ0FelBBx48S', null, '形影楓', '1', '2', '', '', '0.00', '0.00', '重庆问问我科技', '3', '永和测试', '1', '', '2016-11-17 19:15:14', '127.0.0.1', null, '');
 
 -- ----------------------------

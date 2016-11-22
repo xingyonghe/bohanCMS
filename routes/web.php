@@ -9,19 +9,7 @@
 | 前台路由
 |
 */
-Route::group(['namespace'=>'Home'],function(){
-    /**--**--**--**--**--**--**--**--**--**网站首页**--**--**--**--**--**--**--**--**--**--**/
-    Route::group(['namespace'=>'Index'],function(){
-        //入口
-        Route::get('', 'IndexController@index')->name('home.index.index');
-        //图片上传
-        Route::post('upload', 'PictrueController@upload')->name('home.pictrue.upload');
-        //头像上传
-        Route::post('avatar', 'PictrueController@avatar')->name('home.pictrue.avatar');
-        //文件上传
-        Route::post('upload', 'FileController@upload')->name('home.file.upload');
-    });
-
+Route::group(['namespace'=>'Home','middleware'=>['channel']],function(){
     /**--**--**--**--**--**--**--**--**--**用户认证**--**--**--**--**--**--**--**--**--**--**/
     Route::group(['namespace'=>'Auth'],function(){
         //登录页面
@@ -41,6 +29,20 @@ Route::group(['namespace'=>'Home'],function(){
         //忘记密码
         Route::get('password', 'RegisterController@aaaa')->name('home.password.reset');
     });
+
+    /**--**--**--**--**--**--**--**--**--**网站首页**--**--**--**--**--**--**--**--**--**--**/
+    Route::group(['namespace'=>'Index'],function(){
+        //入口
+        Route::get('', 'IndexController@index')->name('home.index.index');
+        //图片上传
+        Route::post('upload', 'PictrueController@upload')->name('home.pictrue.upload');
+        //头像上传
+        Route::post('avatar', 'PictrueController@avatar')->name('home.pictrue.avatar');
+        //文件上传
+        Route::post('upload', 'FileController@upload')->name('home.file.upload');
+    });
+
+
 
 
 //    Route::group(['prefix'=>'home'],function(){

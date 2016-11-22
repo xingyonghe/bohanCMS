@@ -10,7 +10,7 @@ class ChannelController extends CommonController{
     |--------------------------------------------------------------------------
     | Channel Controller
     | @author xingyonghe
-    | @date 2016-11-10
+    | @date 2016-11-21
     |--------------------------------------------------------------------------
     |
     | 前台导航控制器
@@ -19,6 +19,9 @@ class ChannelController extends CommonController{
 
     /**
      * 导航列表
+     * @author: xingyonghe
+     * @date: 2016-11-21
+     * @return mixed
      */
     public function index(){
         $title = (string)request()->get('title','');
@@ -37,6 +40,9 @@ class ChannelController extends CommonController{
 
     /**
      * 导航新增
+     * @author: xingyonghe
+     * @date: 2016-11-21
+     * @return \Illuminate\Http\JsonResponse
      */
     public function create(){
         $view = view('admin.channel.edit');
@@ -45,6 +51,10 @@ class ChannelController extends CommonController{
 
     /**
      * 导航修改
+     * @author: xingyonghe
+     * @date: 2016-11-21
+     * @param int $id
+     * @return \Illuminate\Http\JsonResponse
      */
     public function edit(int $id){
         $info = D('SysChannel')->find($id);
@@ -54,11 +64,15 @@ class ChannelController extends CommonController{
 
     /**
      * 导航更新
-     * URL::previous() 获取上一次请求地址
+     * @author: xingyonghe
+     * @date: 2016-11-21
+     * @param ChannelRequest $request
+     * @return \Illuminate\Http\JsonResponse
      */
     public function update(ChannelRequest $request){
         $resault = D('SysChannel')->updateData($request->all());
         if($resault){
+            cache()->forget('CHANNEL_LIST');//更新导航缓存
             return $this->ajaxReturn(isset($resault['id'])?'导航信息修改成功':'导航信息新增成功',1,url()->previous());
         }else{
             return $this->ajaxReturn(D('SysChannel')->getError());
@@ -67,10 +81,15 @@ class ChannelController extends CommonController{
 
     /**
      * 导航删除
+     * @author: xingyonghe
+     * @date: 2016-11-21
+     * @param int $id
+     * @return mixed
      */
     public function destroy(int $id){
         $resault = D('SysChannel')->destroy($id);
         if($resault){
+            cache()->forget('CHANNEL_LIST');//更新导航缓存
             return redirect()->back()->withSuccess('删除信息成功!');
         }else{
             return redirect()->back()->with('error','删除信息失败');
@@ -79,6 +98,9 @@ class ChannelController extends CommonController{
 
     /**
      * 导航排序
+     * @author: xingyonghe
+     * @date: 2016-11-21
+     * @return \Illuminate\Http\JsonResponse
      */
     public function sort(){
         $datas = D('SysChannel')->orderBy('sort','asc')->get()->toArray();
@@ -88,7 +110,9 @@ class ChannelController extends CommonController{
 
     /**
      * 更新排序
-     * @param Request $request
+     * @author: xingyonghe
+     * @date: 2016-11-21
+     * @return \Illuminate\Http\JsonResponse
      */
     public function order(){
         $ids = request()->ids;
@@ -97,6 +121,7 @@ class ChannelController extends CommonController{
             $channel = D('SysChannel')->find($id);
             $channel->update(['sort'=>$sort+1]);
         }
+        cache()->forget('CHANNEL_LIST');//更新导航缓存
         return $this->ajaxReturn('导航信息排序成功',1,url()->previous());
     }
 

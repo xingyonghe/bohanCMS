@@ -39,7 +39,7 @@ class RouteServiceProvider extends ServiceProvider{
         //后台路由
         $this->mapAdminRoutes();
         //会员中心路由
-        $this->mapUserRoutes();
+        $this->mapMemberRoutes();
         //
     }
 
@@ -94,13 +94,13 @@ class RouteServiceProvider extends ServiceProvider{
      * 自定义会员中心路由
      * @return void
      */
-    protected function mapUserRoutes(){
+    protected function mapMemberRoutes(){
         Route::group([
             'middleware' => 'web',
-            'prefix' => 'user',
+            'prefix' => 'member',
             'namespace' => $this->namespace,
         ], function ($router) {
-            require base_path('routes/user.php');
+            require base_path('routes/member.php');
         });
     }
 }

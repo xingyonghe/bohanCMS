@@ -184,6 +184,9 @@ return [
         //自定义扩展
         App\Providers\FormExtendServiceProvider::class,//表单控件扩展
         App\Providers\ValidateExtendServiceProvider::class,//验证扩展
+        //自定义面门
+        App\Providers\SeoServiceProvider::class,
+        App\Providers\SmsServiceProvider::class,
     ],
 
     /*
@@ -235,6 +238,8 @@ return [
         'Html' => Collective\Html\HtmlFacade::class,//HTML依赖
         'Debugbar' => Barryvdh\Debugbar\Facade::class,//Debugbar调试
         'Image' => Intervention\Image\Facades\Image::class,//图片处理
+        'SEO' => App\Facades\SEO::class,
+        'SMS' => App\Facades\SMS::class,
 
     ],
 

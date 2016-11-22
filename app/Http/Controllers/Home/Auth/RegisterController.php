@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Home\Auth;
 
 use App\Http\Controllers\Home\CommonController;
+use SMS;
 
 class RegisterController extends CommonController{
     /*
@@ -121,23 +122,15 @@ class RegisterController extends CommonController{
      */
     public function sendSMS(){
         $data = request()->only('mobile');
-        //查找该号码最近的一条发送信息
-        $info = D('MobileSms')
-            ->where('mobile',$data['mobile'])
-            ->where('category',D('MobileSms')::CATEGORY['register'])
-            ->orderBy('created_at','desc')
-            ->first();
-        //操作过快
-        $resend = config('mobilesms.driver.zdtone.resend');
-        $now = \Carbon\Carbon::now()->timestamp;
-        if(empty($info) || ($now - $info->created_at->timestamp > $resend)){
-            $resault = D('MobileSms')->send($data['mobile'],D('MobileSms')::CATEGORY['register']);
-            if($resault === false){
-                return $this->ajaxReturn('发送失败');
-            }
-            return $this->ajaxReturn('发送成功',1);
+        //频繁验证
+        if(SMS::frequent($data['mobile'],D('MobileSms')::CATEGORY['register'])){
+            return $this->ajaxReturn('您的操作过快');
         }
-        return $this->ajaxReturn('您的操作过快');
+        $resault = SMS::send($data['mobile'],D('MobileSms')::CATEGORY['register']);
+        if($resault === false){
+            return $this->ajaxReturn('发送失败');
+        }
+        return $this->ajaxReturn('发送成功',1);
     }
 
     /**
@@ -147,11 +140,13 @@ class RegisterController extends CommonController{
      */
     public function verifySMS(){
         $data = request()->only('mobile','code');
-        $resault = D('MobileSms')->verify($data['mobile'],$data['code'],D('MobileSms')::CATEGORY['register']);
-        if($resault === false){
-            return $this->ajaxReturn(D('MobileSms')->getError());
+        $resault = SMS::verify($data['mobile'],$data['code'],D('MobileSms')::CATEGORY['register']);
+        if($resault === true){
+            return $this->ajaxReturn('验证成功',1);
+
         }
-        return $this->ajaxReturn('验证成功',1);
+        $errorCode = SMS::errorSMS();
+        return $this->ajaxReturn($errorCode[$resault]);
     }
 
 }

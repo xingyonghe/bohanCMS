@@ -6,10 +6,15 @@ $vendorDir = dirname(dirname(__FILE__));
 $baseDir = dirname($vendorDir);
 
 return array(
+    'CreateArticlesTable' => $baseDir . '/database/migrations/2016_11_18_173404_create_articles_table.php',
+    'CreateCategoriesTable' => $baseDir . '/database/migrations/2016_11_18_173899_create_categories_table.php',
     'CreateMobileSmsTable' => $baseDir . '/database/migrations/2016_11_17_044956_create_mobile_sms_table.php',
+    'CreateSeoNamesTable' => $baseDir . '/database/migrations/2016_11_22_112910_create_seo_names_table.php',
+    'CreateSeosTable' => $baseDir . '/database/migrations/2016_11_22_103438_create_seos_table.php',
     'CreateSysAdminsTable' => $baseDir . '/database/migrations/2016_11_15_015708_create_sys_admins_table.php',
     'CreateSysAuthGroupsTable' => $baseDir . '/database/migrations/2016_11_16_022506_create_sys_auth_groups_table.php',
     'CreateSysAuthRulesTable' => $baseDir . '/database/migrations/2016_11_16_072156_create_sys_auth_rules_table.php',
+    'CreateSysChannelsTable' => $baseDir . '/database/migrations/2016_11_18_122814_create_sys_channels_table.php',
     'CreateSysConfigsTable' => $baseDir . '/database/migrations/2016_11_14_123645_create_sys_configs_table.php',
     'CreateSysMenuTable' => $baseDir . '/database/migrations/2016_11_10_053338_create_sys_menu_table.php',
     'CreateUsersTable' => $baseDir . '/database/migrations/2014_11_17_052565_create_users_table.php',

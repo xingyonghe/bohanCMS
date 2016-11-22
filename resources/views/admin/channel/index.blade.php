@@ -2,9 +2,6 @@
 @section('style')
 @stop
 @section('script')
-    <script type="text/javascript" src="{{ asset('assets/admin/js/bootstrap-switch.js') }}"></script>
-    <script type="text/javascript" src="{{ asset('assets/admin/js/form-component.js') }}"></script>
-    <script type="text/javascript" src="{{ asset('assets/admin/js/jquery.tagsinput.js') }}"></script>
     <script type="text/javascript">
         $(function () {
             highlight_subnav("{{ route('admin.channel.index') }}");
@@ -34,7 +31,7 @@
                         <div class="btn-group pull-right">
                             {!! Form::open(['url' => route('admin.channel.index'),'method'=>'get']) !!}
                             <div class="dataTables_filter" id="sample_1_filter">
-                                <button class="btn btn-primary" type="submit"><i class="fa icon-search"></i>搜索</button>
+                                <button class="btn btn-primary" type="submit"><i class="fa  icon-zoom-in"></i>搜索</button>
                             </div>
                             <div class="dataTables_filter" id="sample_1_filter">
                                 导航名称：<input type="text" name="title" aria-controls="sample_1" value="{{ $params['title'] }}" class="form-controls">

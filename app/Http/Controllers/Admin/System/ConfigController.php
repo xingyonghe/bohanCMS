@@ -7,15 +7,15 @@ use App\Http\Requests\Admin\ConfigRequest;
 
 class ConfigController extends CommonController{
     /*
-       |--------------------------------------------------------------------------
-       | Config Controller
-       | @author xingyonghe
-       | @date 2016-11-14
-       |--------------------------------------------------------------------------
-       |
-       | 网站配置/设置控制器
-       |
-       */
+    |--------------------------------------------------------------------------
+    | Config Controller
+    | @author xingyonghe
+    | @date 2016-11-14
+    |--------------------------------------------------------------------------
+    |
+    | 网站配置/设置控制器
+    |
+    */
 
     public function __construct(){
         view()->composer(['admin.config.edit'],function($view){

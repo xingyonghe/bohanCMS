@@ -126,20 +126,6 @@ function is_administrators(){
     return false;
 }
 
-/**
- * 生成6位随机数
- * @author: xingyonghe
- * @date: 2016-11-17
- * @return string
- */
-function random_char(){
-    $char = '0123456789';
-    $code = '';
-    for ($i = 0; $i < 6; $i++) {
-        $code .= $char[mt_rand(0, strlen($char) - 1)];
-    }
-    return $code;
-}
 
 /**
  * 字符串截取，支持中文和其他编码
@@ -169,4 +155,17 @@ function msubstr($str, $start=0, $length, $charset="utf-8", $suffix=true) {
         $slice = join("",array_slice($match[0], $start, $length));
     }
     return $suffix ? $slice.'...' : $slice;
+}
+
+/**
+ * 获取网页的SEO信息
+ * @author: xingyonghe
+ * @date: 2016-11-22
+ * @param string $key SEO数据标识
+ */
+function SEO($key = ''){
+    if(empty($key)){
+        return ;
+    }
+    return \App\Libraries\Seo\SEO::setTitle($key);
 }

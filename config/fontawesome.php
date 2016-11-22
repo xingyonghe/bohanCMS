@@ -15,7 +15,7 @@ return [
     '权限管理' => 'icon-qrcode',
     '模块设置' => 'icon-cog',
     '内容管理' => 'icon-file-text-alt',
-//    '系统设置' => 'icon-cogs',
+    'SEO设置' => 'icon-zoom-out',
 //    '系统设置' => 'icon-cogs',
 //    '系统设置' => 'icon-cogs',
 

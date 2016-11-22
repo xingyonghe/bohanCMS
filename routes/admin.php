@@ -55,6 +55,20 @@ Route::group(['namespace'=>'Admin'],function(){
             Route::get ('channel/destroy/{id}','ChannelController@destroy')->name('admin.channel.destroy')->where('id','\d+');      //删除
             Route::get ('channel/sort',        'ChannelController@sort')->name('admin.channel.sort');         //排序
             Route::post('channel/order',       'ChannelController@order')->name('admin.channel.order');     //更新排序
+
+            /**--SEO管理--**/
+            Route::get ('seo/index',       'SeoController@index')->name('admin.seo.index');        //列表
+            Route::get ('seo/create',      'SeoController@create')->name('admin.seo.create');          //新增
+            Route::get ('seo/edit/{id}',   'SeoController@edit')->name('admin.seo.edit')->where('id','\d+');         //修改
+            Route::post('seo/update',      'SeoController@update')->name('admin.seo.update');       //更新
+            Route::get ('seo/destroy/{id}','SeoController@destroy')->name('admin.seo.destroy')->where('id','\d+');      //删除
+
+            /**--SEO变量管理--**/
+            Route::get ('name/index',       'SeoNameController@index')->name('admin.seoname.index');        //列表
+            Route::get ('name/create',      'SeoNameController@create')->name('admin.seoname.create');          //新增
+            Route::get ('name/edit/{id}',   'SeoNameController@edit')->name('admin.seoname.edit')->where('id','\d+');         //修改
+            Route::post('name/update',      'SeoNameController@update')->name('admin.seoname.update');       //更新
+            Route::get ('name/destroy/{id}','SeoNameController@destroy')->name('admin.seoname.destroy')->where('id','\d+');      //删除
         });
 
         /**--**--**--**--**--**--**--**--**--**用户管理**--**--**--**--**--**--**--**--**--**--**/

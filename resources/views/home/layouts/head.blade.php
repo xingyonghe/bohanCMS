@@ -1,50 +1,49 @@
-<nav class="navbar navbar-default navbar-static-top">
-    <div class="container">
-        <div class="navbar-header">
-
-            <!-- Collapsed Hamburger -->
-            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#app-navbar-collapse">
-                <span class="sr-only">Toggle Navigation</span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-            </button>
-
-            <!-- Branding Image -->
-            <a class="navbar-brand" href="{{ url('/') }}">
-                {{ config('app.name', 'Laravel') }}
-            </a>
-        </div>
-
-        <div class="collapse navbar-collapse" id="app-navbar-collapse">
-            <!-- Left Side Of Navbar -->
-            <ul class="nav navbar-nav">
-                &nbsp;
-            </ul>
-
-            <!-- Right Side Of Navbar -->
-            <ul class="nav navbar-nav navbar-right">
-                <!-- Authentication Links -->
+<!--header start-->
+<header class="header-frontend">
+    <nav class="navbar navbar-inverse" style="min-height: 20px;background: #475268;padding-right: 390px;">
+        <div class="nav-collapse">
+            <ul id="secondary-menu" class="nav pull-right" >
                 @if (auth()->guest())
-                    <li><a href="{{ route('home.login.form') }}">Login</a></li>
-                    <li><a href="{{ route('home.register.form') }}">Register</a></li>
+                    <li style="float: right;position: relative;color: #ffffff">
+                        <a href="{{ route('home.register.form') }}">注册</a>
+                    </li>
+                    <li style="float: right;position: relative;color: #ffffff">
+                        <a href="{{ route('home.login.form') }}">登录</a>
+                    </li>
                 @else
-                    <li class="dropdown">
-                        <a>您好，{{ auth()->user()->nickname }} </a>
-                    </li>
-                    <li class="dropdown">
-                        {{--@if(auth()->user()->type == 1)--}}
-                            {{--<a href="{{ route('user.index.index') }}">个人中心</a>--}}
-                        {{--@else--}}
-                            {{--<a href="{{ route('advert.index.index') }}">个人中心</a>--}}
-                        {{--@endif--}}
-                    </li>
-                    <li class="dropdown">
+                    <li class="dropdown" style="float: right;position: relative;color: #ffffff">
                         <a href="{{ route('home.login.logout') }}">退出</a>
                     </li>
-
+                    <li class="dropdown" style="float: right;position: relative;color: #ffffff">
+                        <a href="{{ route('member.index.index') }}">{{ auth()->user()->nickname }}</a>
+                    </li>
                 @endif
             </ul>
         </div>
+    </nav>
+    <div class="navbar navbar-default navbar-static-top">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="index.html">卓杭<span>广告</span></a>
+            </div>
+            <div class="navbar-collapse collapse ">
+                <ul class="nav navbar-nav">
+                    @foreach($channels as $channel)
+                        <li @if(isset($channel_id) && $channel['id'] == $channel_id) class="active" @endif>
+                            <a href="{{ route($channel['url']) }}" @if($channel['target']) target="_blank" @endif>
+                                {{ $channel['title'] }}
+                            </a>
+                        </li>
+                    @endforeach
+                    <li><input type="text" placeholder=" Search" class="form-control search"></li>
+                </ul>
+            </div>
+        </div>
     </div>
-</nav>
+</header>
+<!--header end-->

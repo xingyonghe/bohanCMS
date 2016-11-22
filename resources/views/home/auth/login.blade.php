@@ -1,6 +1,23 @@
 @extends('home.layouts.base')
 @section('style')
-
+    <style type="text/css">
+        .form-signin-heading {
+            margin: 0;
+            padding: 20px 15px;
+            text-align: center;
+            background: #f77b6f;
+            border-radius: 5px 5px 0 0;
+            -webkit-border-radius: 5px 5px 0 0;
+            color: #fff;
+            font-size: 18px;
+            text-transform: uppercase;
+            font-weight: 300;
+            font-family: 'Open Sans', sans-serif;
+        }
+        .wrong{
+            color: #a94442;
+        }
+    </style>
 @endsection
 @section('script')
 <script type="text/javascript">
@@ -27,12 +44,12 @@
     })
 </script>
 @endsection
-@section('content')
+@section('body')
 <div class="container">
     <div class="row">
         <div class="col-md-8 col-md-offset-2">
             <div class="panel panel-default">
-                <div class="panel-heading">登录</div>
+                <div class="form-signin-heading">登 录</div>
                 <div class="panel-body">
                     <form class="form-horizontal data-form" method="POST" action="{{ route('home.login.post') }}">
                         {{ csrf_field() }}
@@ -51,7 +68,7 @@
 
                             <div class="col-md-6">
                                 <input id="password" type="password" class="form-control" name="password" autocomplete="off">
-                                <strong class="wrong" id="error-username"></strong>
+                                <strong class="wrong" id="error-password"></strong>
                             </div>
                         </div>
 
@@ -67,7 +84,7 @@
 
                         <div class="form-group">
                             <div class="col-md-8 col-md-offset-4">
-                                <button type="submit" class="btn btn-primary ajax-login">
+                                <button type="submit" class="btn btn-danger ajax-login">
                                     登 录
                                 </button>
 

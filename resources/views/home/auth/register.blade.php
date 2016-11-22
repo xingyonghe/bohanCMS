@@ -1,6 +1,23 @@
 @extends('home.layouts.base')
 @section('style')
-
+    <style type="text/css">
+        .form-signin-heading {
+            margin: 0;
+            padding: 20px 15px;
+            text-align: center;
+            background: #f77b6f;
+            border-radius: 5px 5px 0 0;
+            -webkit-border-radius: 5px 5px 0 0;
+            color: #fff;
+            font-size: 18px;
+            text-transform: uppercase;
+            font-weight: 300;
+            font-family: 'Open Sans', sans-serif;
+        }
+        .wrong{
+            color: #a94442;
+        }
+    </style>
 @endsection
 @section('script')
     <script type="text/javascript">
@@ -117,12 +134,12 @@
         })
     </script>
 @endsection
-@section('content')
+@section('body')
 <div class="container">
     <div class="row">
         <div class="col-md-8 col-md-offset-2">
             <div class="panel panel-default">
-                <div class="panel-heading">注 册</div>
+                <div class="form-signin-heading">注 册</div>
                 <div class="panel-body">
                     <form class="form-horizontal data-form" action="{{ route('home.register.post') }}" method="POST" >
                         {{ csrf_field() }}
@@ -137,7 +154,7 @@
                             <label for="name" class="col-md-4 control-label">手机号</label>
                             <div class="col-md-6">
                                 <input type="text" class="form-control" name="username" id="username" autofocus autocomplete="off">
-                                <input type="button" name="code" id="get-code" value="获取验证码" style="margin-top: 10px">
+                                <input type="button" name="code" id="get-code" value="获取验证码" style="margin-top: 10px;border: none" class="btn btn-danger">
                                 <br/>
                                 <strong class="wrong" id="error-username"></strong>
                             </div>
@@ -208,7 +225,7 @@
 
                         <div class="form-group">
                             <div class="col-md-6 col-md-offset-4">
-                                <button type="submit" class="btn btn-primary ajax-register">
+                                <button type="submit" class="btn btn-danger ajax-register">
                                     注册
                                 </button>
                             </div>

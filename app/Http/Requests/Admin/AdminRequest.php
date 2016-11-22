@@ -17,7 +17,6 @@ class AdminRequest extends CommonRequest{
     */
 
     public function rules(){
-        $id = $this->get('id');
         return [
             'username' => 'required',
             'nickname' => 'required',

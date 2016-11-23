@@ -29,18 +29,17 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="index.html">卓杭<span>广告</span></a>
+                <a class="navbar-brand" href="{{ route('home.index.index') }}">卓杭<span>广告</span></a>
             </div>
             <div class="navbar-collapse collapse ">
                 <ul class="nav navbar-nav">
-                    {{--@foreach($channels as $channel)--}}
-                        {{--<li @if(isset($channel_id) && $channel['id'] == $channel_id) class="active" @endif>--}}
-                            {{--<a href="{{ route($channel['url']) }}" @if($channel['target']) target="_blank" @endif>--}}
-                                {{--{{ $channel['title'] }}--}}
-                            {{--</a>--}}
-                        {{--</li>--}}
-                    {{--@endforeach--}}
-                    <li><input type="text" placeholder=" Search" class="form-control search"></li>
+                    @foreach($topnav as $key=>$nav)
+                        <li @if(isset($navkey) && $navkey == $key) class="active" @endif>
+                            <a href="{{ route($nav['url']) }}">
+                                {{ $nav['name'] }}
+                            </a>
+                        </li>
+                    @endforeach
                 </ul>
             </div>
         </div>

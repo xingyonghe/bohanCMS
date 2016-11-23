@@ -14,9 +14,10 @@
         <div class="row">
             @include('member.layouts.nav')
             <div class="col-lg-10 col-sm-10">
-                <h5 class="member-title">基本信息</h5>
+                <h5 class="member-title">修改资料</h5>
                 <div class="contact-form">
-                    <form role="form">
+                    <form role="form" class=" data-form" action="{{ route('member.index.update') }}" metho="post">
+                        {{ csrf_field() }}
                         <div class="form-group">
                             <label class="control-label">认证手机：</label>
                             {{ $user->username }}
@@ -24,33 +25,31 @@
                         </div>
                         <div class="form-group">
                             <label class="control-label">联系人：</label>
-                            {{ $user->nickname }}
+                            <input type="text" name="nickname" id="nickname" value="{{ $user->nickname }}" class="form-control"/>
                         </div>
                         @if($user->type == 2)
                             <div class="form-group">
                                 <label class="control-label">公司名称：</label>
-                                {{ $user->company }}
+                                <input type="text" name="company" id="company" value="{{ $user->company }}" class="form-control"/>
                             </div>
                         @endif
                         <div class="form-group">
                             <label class="control-label">QQ号码：</label>
-                            {{ $user->qq }}
+                            <input type="text" name="qq" id="qq" value="{{ $user->qq }}" class="form-control"/>
                         </div>
                         <div class="form-group">
                             <label class="control-label">微信账号：</label>
-                            {{ $user->weixin }}
-                        </div>
-                        <div class="form-group">
-                            <label  class="control-label">我的客服：</label>
-                            {{ $user->custom_name }}
+                            <input type="text" name="weixin"  value="{{ $user->weixin }}" class="form-control"/>
                         </div>
                         <div class="form-group">
                             <label  class="control-label">E-mail：</label>
-                            {{ $user->email }}
+                            <input type="text" name="email" value="{{ $user->email }}" class="form-control"/>
                         </div>
                         <div class="form-group" style="padding-left: 150px">
-                            <a class="btn btn-danger"  href="{{ route('member.index.edit') }}">修改资料</a>
+                            <button class="btn btn-danger ajax-post" type="submit">提 交</button>
+                            <button class="btn btn-danger" onclick="javascript:history.back(-1);return false;" >返 回</button>
                         </div>
+
                     </form>
                 </div>
             </div>

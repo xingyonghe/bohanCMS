@@ -157,15 +157,14 @@ function msubstr($str, $start=0, $length, $charset="utf-8", $suffix=true) {
     return $suffix ? $slice.'...' : $slice;
 }
 
+
 /**
- * 获取网页的SEO信息
- * @author: xingyonghe
- * @date: 2016-11-22
- * @param string $key SEO数据标识
+ * 生成订单号/流水号
+ * @author xingyonghe
+ * @date 2016-11-23
+ * @return string
  */
-function SEO($key = ''){
-    if(empty($key)){
-        return ;
-    }
-    return \App\Libraries\Seo\SEO::setTitle($key);
+function create_order_sn(){
+    $order_sn = 'ZH'. strtoupper(dechex(date('m'))).date('d').substr(time(),-5).substr(microtime(),2,5).sprintf('%d',rand(0,9));
+    return $order_sn;
 }

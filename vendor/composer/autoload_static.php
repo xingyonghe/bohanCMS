@@ -337,6 +337,7 @@ class ComposerStaticInit9747052fc3f0dd1f1627d42f1cd97f49
     public static $classMap = array (
         'CreateArticlesTable' => __DIR__ . '/../..' . '/database/migrations/2016_11_18_173404_create_articles_table.php',
         'CreateCategoriesTable' => __DIR__ . '/../..' . '/database/migrations/2016_11_18_173899_create_categories_table.php',
+        'CreateMediaTable' => __DIR__ . '/../..' . '/database/migrations/2016_11_23_175718_create_media_table.php',
         'CreateMobileSmsTable' => __DIR__ . '/../..' . '/database/migrations/2016_11_17_044956_create_mobile_sms_table.php',
         'CreateSeoNamesTable' => __DIR__ . '/../..' . '/database/migrations/2016_11_22_112910_create_seo_names_table.php',
         'CreateSeosTable' => __DIR__ . '/../..' . '/database/migrations/2016_11_22_103438_create_seos_table.php',
@@ -346,6 +347,7 @@ class ComposerStaticInit9747052fc3f0dd1f1627d42f1cd97f49
         'CreateSysChannelsTable' => __DIR__ . '/../..' . '/database/migrations/2016_11_18_122814_create_sys_channels_table.php',
         'CreateSysConfigsTable' => __DIR__ . '/../..' . '/database/migrations/2016_11_14_123645_create_sys_configs_table.php',
         'CreateSysMenuTable' => __DIR__ . '/../..' . '/database/migrations/2016_11_10_053338_create_sys_menu_table.php',
+        'CreateUserAccountsTable' => __DIR__ . '/../..' . '/database/migrations/2016_11_23_164620_create_user_accounts_table.php',
         'CreateUsersTable' => __DIR__ . '/../..' . '/database/migrations/2014_11_17_052565_create_users_table.php',
         'DatabaseAdmin' => __DIR__ . '/../..' . '/database/seeds/DatabaseAdmin.php',
         'DatabaseAuthGroup' => __DIR__ . '/../..' . '/database/seeds/DatabaseAuthGroup.php',

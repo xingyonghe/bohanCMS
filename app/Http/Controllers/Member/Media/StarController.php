@@ -1,17 +1,27 @@
 <?php
 
-namespace App\Http\Controllers\Member;
+namespace App\Http\Controllers\Member\Media;
 
-use App\Http\Controllers\CommonController;
+use App\Http\Controllers\Member\CommonController;
 
 class StarController extends CommonController{
-
+    /*
+    |--------------------------------------------------------------------------
+    | Star Controller
+    | @author xingyonghe
+    | @date 2016-11-23
+    |--------------------------------------------------------------------------
+    |
+    | 自媒体控制器
+    |
+    */
+    protected $navkey = 'star';//菜单标识
     public function __construct(){
-        view()->share('nav',5);//设置导航高亮
+        view()->share('navkey',$this->navkey);//用于设置头部菜单高亮
         //新增/编辑共享直播平台数据
-        view()->composer(['user.star.edit','user.star.add'],function($view){
-            $view->with('mediaType',parse_config_attr(C('USER_MEDIA_TYPE')));
-        });
+//        view()->composer(['user.star.edit','user.star.add'],function($view){
+//            $view->with('mediaType',parse_config_attr(C('USER_MEDIA_TYPE')));
+//        });
     }
 
     /**
@@ -30,7 +40,7 @@ class StarController extends CommonController{
         int_to_string($lists,array(
             'status' => array(-1=>'删除',0=>'锁定',1=>'正常',2=>'待审核',3=>'未通过'),
         ));
-        return view('user.star.index',compact('lists'));
+        return view('member.star.index',compact('lists'));
     }
 
     /**
@@ -51,7 +61,7 @@ class StarController extends CommonController{
             ->where('userid',auth()->id())
             ->whereIn('status',[D('Media')::STATUS_CREATE,D('Media')::STATUS_FAILED])
             ->findOrFail($id);
-        return view('user.star.edit',compact('info'));
+        return view('member.star.edit',compact('info'));
     }
 
     /**

@@ -24,19 +24,19 @@
 @include('member.layouts.footer')
 <!-- HTML5 shim and Respond.js IE8 support of HTML5 tooltipss and media queries -->
 <!--[if lt IE 9]>
-<script src="{{ asset('assets/member/js/html5shiv.js') }}"></script>
-<script src="{{ asset('assets/member/js/respond.min.js') }}"></script>
+<script type="text/javascript" src="{{ asset('assets/member/js/html5shiv.js') }}"></script>
+<script type="text/javascript" src="{{ asset('assets/member/js/respond.min.js') }}"></script>
 <![endif]-->
 <!-- js placed at the end of the document so the pages load faster -->
-<script src="{{ asset('assets/member/js/jquery.js') }}"></script>
-<script src="{{ asset('assets/member/js/jquery-1.8.3.min.js') }}"></script>
-<script src="{{ asset('assets/member/js/bootstrap.min.js') }}"></script>
+<script type="text/javascript" src="{{ asset('assets/member/js/jquery.js') }}"></script>
+<script type="text/javascript" src="{{ asset('assets/member/js/jquery-1.8.3.min.js') }}"></script>
+<script type="text/javascript" src="{{ asset('assets/member/js/bootstrap.min.js') }}"></script>
 <script type="text/javascript" src="{{ asset('assets/member/js/hover-dropdown.js') }}"></script>
-<script defer src="{{ asset('assets/member/js/jquery.flexslider.js') }}"></script>
+<script type="text/javascript" src="{{ asset('assets/member/js/jquery.flexslider.js') }}"></script>
 <script type="text/javascript" src="{{ asset('assets/member/assets/bxslider/jquery.bxslider.js') }}"></script>
 <!--common script for all pages-->
-<script src="{{ asset('assets/member/js/common-scripts.js') }}"></script>
-<script src="{{ asset('assets/member/js/revulation-slide.js') }}"></script>
+<script type="text/javascript" src="{{ asset('assets/member/js/common-scripts.js') }}"></script>
+<script type="text/javascript" src="{{ asset('assets/member/js/revulation-slide.js') }}"></script>
 <!-- layer插件 -->
 <script type="text/javascript" src="{{ asset('assets/static/layer/layer.js') }}"></script>
 <!-- 自定义js -->

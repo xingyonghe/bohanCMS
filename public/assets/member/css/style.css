@@ -1792,3 +1792,33 @@ ul#filters > .active > span {
 .mbot50 {
     margin-bottom: 50px;
 }
+
+.date-wrap .active{
+    background: #475268;
+    border-radius:0;
+    -webkit-border-radius: 0;
+}
+.date-wrap .active a{
+    color: #ffffff;
+}
+.member-title{
+    background: #F77B6F;
+    margin-top: 0px;
+    -webkit-border-radius: 4px 4px 0 0;
+    height: 35px;
+    color: #ffffff;
+    line-height: 35px;
+    padding-left: 15px
+}
+
+.form-control {
+    display:inline;
+    width: 50%;
+}
+.control-label{
+    width: 10%;
+    text-align: right;
+}
+.wrong{
+    color: #a94442;
+}

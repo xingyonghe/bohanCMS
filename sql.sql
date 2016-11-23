@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50547
 File Encoding         : 65001
 
-Date: 2016-11-22 19:57:34
+Date: 2016-11-23 17:22:38
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -71,7 +71,7 @@ CREATE TABLE `migrations` (
   `migration` varchar(255) NOT NULL,
   `batch` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8mb4;
 
 -- ----------------------------
 -- Records of migrations
@@ -88,6 +88,7 @@ INSERT INTO `migrations` VALUES ('14', '2016_11_18_173899_create_categories_tabl
 INSERT INTO `migrations` VALUES ('15', '2016_11_18_122814_create_sys_channels_table', '9');
 INSERT INTO `migrations` VALUES ('16', '2016_11_22_103438_create_seos_table', '10');
 INSERT INTO `migrations` VALUES ('17', '2016_11_22_112910_create_seo_names_table', '11');
+INSERT INTO `migrations` VALUES ('18', '2016_11_23_164620_create_user_accounts_table', '12');
 
 -- ----------------------------
 -- Table structure for mobile_sms
@@ -138,7 +139,7 @@ CREATE TABLE `sys_admin` (
 -- ----------------------------
 -- Records of sys_admin
 -- ----------------------------
-INSERT INTO `sys_admin` VALUES ('1', 'admin', '$2y$10$gcM59gn/8fF7loOVC1a.QuffmG1wM1hKl.OpBc6BdiCh2Fz1WawRa', '超管', '1', '1', 'NUpLpFBJYvFzJHS5xSLyiM51bdN5M40PLMLqBa5rGFDwTqn7FYN652F4LeCc', '2016-11-15 09:17:38', '2016-11-22 09:02:34', '127.0.0.1');
+INSERT INTO `sys_admin` VALUES ('1', 'admin', '$2y$10$gcM59gn/8fF7loOVC1a.QuffmG1wM1hKl.OpBc6BdiCh2Fz1WawRa', '超管', '1', '1', 'NUpLpFBJYvFzJHS5xSLyiM51bdN5M40PLMLqBa5rGFDwTqn7FYN652F4LeCc', '2016-11-15 09:17:38', '2016-11-23 14:18:08', '127.0.0.1');
 INSERT INTO `sys_admin` VALUES ('2', 'xingyonghe', '$2y$10$1gGSm8H9xJx3/butYr/KheO2.gPnmh8prxOQ0AcPaXL0AgINKxM0m', '风影', '2', '1', 'KNYnalxXCJmMIp7OTmQywx2ybHgoaFLQPR27QqRmnGrfqeqr8zFh1Jdrxcaf', '2016-11-16 03:30:16', '2016-11-17 02:16:55', '127.0.0.1');
 INSERT INTO `sys_admin` VALUES ('3', 'xingyingfeng', '$2y$10$6m.iqImB7wikG6L0SVJPt.pM0kdRQvvNzMvZWq4ETHw628LNycZ6C', '永和测试', '2', '1', null, '2016-11-16 03:33:25', '2016-11-16 03:33:25', '');
 
@@ -431,8 +432,29 @@ CREATE TABLE `user` (
 -- ----------------------------
 -- Records of user
 -- ----------------------------
-INSERT INTO `user` VALUES ('2', '13667635645', '$2y$10$968a2DNce1ev3N0QTuhwRe97xFGCqaQMguMyURA.UBJziRx5sB3Pm', 'EltSRVcuATtpbNjI1H318YRSuZjOiRGE8Zx30u1OimDBr3azvRguD094qUq5', '邢永和', '1', '1', '1342234898', '', '0.00', '0.00', '', '3', '永和测试', '1', '', '2016-11-17 18:46:49', '127.0.0.1', '2016-11-22 18:41:49', '127.0.0.1');
-INSERT INTO `user` VALUES ('3', '17723160667', '$2y$10$55bR8O6QHIFe6X70fM0nn.FeyC07/KGZmvBpt4LtWYZ0FelBBx48S', null, '形影楓', '1', '2', '', '', '0.00', '0.00', '重庆问问我科技', '3', '永和测试', '1', '', '2016-11-17 19:15:14', '127.0.0.1', null, '');
+INSERT INTO `user` VALUES ('2', '13667635645', '$2y$10$niPF43uYPuOUX7n5OWnU/ubUXZqaoz6MvBVdfYUOtaOxoDmTI.3xi', 'FinXPP0wosPBzeHU9m5JiFBdMGei4wuLjG8JXweow2RQsjeC7xPbi30dOJsz', '邢永和', '1', '1', '1342234898', '', '0.00', '0.00', '', '3', '永和测试', '1', '', '2016-11-17 18:46:49', '127.0.0.1', '2016-11-23 14:10:13', '127.0.0.1');
+INSERT INTO `user` VALUES ('3', '17723160667', '$2y$10$55bR8O6QHIFe6X70fM0nn.FeyC07/KGZmvBpt4LtWYZ0FelBBx48S', null, '形影楓', '1', '2', '', '', '0.00', '0.00', '重庆问问我科技', '3', '永和测试', '1', '', '2016-11-17 19:15:14', '127.0.0.1', '2016-11-23 09:44:47', '127.0.0.1');
+
+-- ----------------------------
+-- Table structure for user_account
+-- ----------------------------
+DROP TABLE IF EXISTS `user_account`;
+CREATE TABLE `user_account` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `userid` int(11) NOT NULL DEFAULT '0' COMMENT '用户ID',
+  `order_id` varchar(20) NOT NULL DEFAULT '' COMMENT '流水号',
+  `money` decimal(12,2) NOT NULL DEFAULT '0.00' COMMENT '金额',
+  `type` tinyint(4) NOT NULL DEFAULT '1' COMMENT '状态:1收入、2支出',
+  `ip` varchar(45) NOT NULL DEFAULT '' COMMENT 'IP地址',
+  `status` tinyint(4) NOT NULL DEFAULT '0' COMMENT '状态:0初始值、1成功',
+  `crteated_at` timestamp NULL DEFAULT NULL COMMENT '记录时间',
+  `mark` varchar(255) NOT NULL DEFAULT '' COMMENT '备注',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='用户账户信息记录';
+
+-- ----------------------------
+-- Records of user_account
+-- ----------------------------
 
 -- ----------------------------
 -- Table structure for user_ads

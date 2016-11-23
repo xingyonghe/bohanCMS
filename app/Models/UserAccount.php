@@ -2,9 +2,7 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Model;
-
-class UserAccount extends Model{
+class UserAccount extends CommonModel{
     /*
     |--------------------------------------------------------------------------
     | UserAccount Model
@@ -46,5 +44,10 @@ class UserAccount extends Model{
             'crteated_at' => \Carbon\Carbon::now(),
             'mark' => $mark
         ];
+        $resualt = $this->create($data);
+        if($resualt === false){
+            return false;
+        }
+        return $data;
     }
 }

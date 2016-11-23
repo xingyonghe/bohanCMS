@@ -53,7 +53,18 @@ class AccountController extends CommonController{
             if ($validator->fails()) {
                 return $this->ajaxValidator($validator);
             }
-            return;
+            $mark = '用户充值，充值金额：'.$data['money'];
+            $resualt = D('UserAccount')->accountLog(
+                $data['money'],
+                D('UserAccount')::TYPE_1,
+                request()->ip(),
+                D('UserAccount')::STATUS_0,
+                $mark
+            );
+            if($resualt === false){
+                return $this->ajaxReturn('充值失败');
+            }
+            return $this->ajaxReturn('正在跳转支付页面...',1,route('member.account.pay',[$resualt['order_id']]));
         }
         SEO::setTitle(C('WEB_SITE_TITLE').'-会员中心-账户充值');
         return view('member.account.recharge');
@@ -64,9 +75,9 @@ class AccountController extends CommonController{
      * @author: xingyonghe
      * @date: 2016-11-23
      */
-    public function pay(){
-
-
+    public function pay(string $order_id){
+        dd(config('pay.driver.alipay'));
+        dd($order_id);
     }
 
 

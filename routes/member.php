@@ -37,14 +37,14 @@ Route::group(['namespace'=>'Member','middleware'=> ['login']],function(){
         Route::post('index/reset',   'IndexController@reset')->name('member.index.reset');//更新密码
 
         //账户管理
-        Route::get('account/index',    'AccountController@index')->name('member.account.index');//我的账户
-        Route::get('account/records',  'AccountController@records')->name('member.account.records');//收支记录
-        Route::get('account/notes',    'AccountController@notes')->name('member.account.notes');//提现记录
-        Route::get('account/recharge', 'AccountController@recharge')->name('member.account.recharge');//充值界面
-        Route::post('account/recharge','AccountController@recharge')->name('member.account.charging');//充值
-        Route::get('account/pay',      'AccountController@pay')->name('member.account.pay');//充值
-        Route::get('account/cash',     'AccountController@cash')->name('member.account.cash');//提现界面
-        Route::post('account/post',    'AccountController@post')->name('member.account.post');//提现
+        Route::get('account/index',         'AccountController@index')->name('member.account.index');//我的账户
+        Route::get('account/records',       'AccountController@records')->name('member.account.records');//收支记录
+        Route::get('account/notes',         'AccountController@notes')->name('member.account.notes');//提现记录
+        Route::get('account/recharge',      'AccountController@recharge')->name('member.account.recharge');//充值界面
+        Route::post('account/recharge',     'AccountController@recharge')->name('member.account.charging');//充值
+        Route::get('account/pay/{order_id}','AccountController@pay')->name('member.account.pay');//充值
+        Route::get('account/cash',          'AccountController@cash')->name('member.account.cash');//提现界面
+        Route::post('account/post',         'AccountController@post')->name('member.account.post');//提现
 
         //图片上传
         Route::post('upload', 'PictrueController@upload')->name('home.pictrue.upload');

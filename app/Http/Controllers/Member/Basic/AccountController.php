@@ -111,7 +111,7 @@ class AccountController extends CommonController{
     /**
      * 充值跳转支付宝
      * @author: xingyonghe
-     * @date: 2016-11-23
+     * @date: 2016-11-24
      */
     public function pay(string $order_id){
         $info = D('UserAccount')->where('order_id',$order_id)->first();

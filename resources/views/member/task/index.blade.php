@@ -39,9 +39,15 @@
                                     <td>{{ $data->name }}</td>
                                     <td>{{ $data->mobile }}</td>
                                     <td>{{ $data->money }}</td>
-                                    <td>{{ $data->start_time->format('Y-m-d H:i') }}-{{ $data->end_time->format('Y-m-d H:i') }}</td>
-                                    <td>{{ $data->dead_time->format('Y-m-d') }}</td>
+                                    <td>{{ $data->start_time->format('Y-m-d H:i') }}--{{ $data->end_time->format('Y-m-d H:i') }}</td>
+                                    <td>{{ $data->dead_time->format('Y-m-d H:i') }}</td>
                                     <td>{{ $data->status_text }}</td>
+                                    <td>
+                                        @if($data->status == 1 || $data->status == 3)
+                                            <a href="{{ route('member.task.edit',[$data->id]) }}">编辑</a>
+                                            <a class="ajax-confirm destroy" href="javascript:void(0)" url="{{ route('member.task.destroy',[$data->id]) }}">删除</a>
+                                        @endif
+                                    </td>
                                 </tr>
                             @endforeach
                             </tbody>

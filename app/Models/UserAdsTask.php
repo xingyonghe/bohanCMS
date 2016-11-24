@@ -2,9 +2,7 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Model;
-
-class UserAdsTask extends Model{
+class UserAdsTask extends CommonModel{
     /*
     |--------------------------------------------------------------------------
     | UserAdsTask Model
@@ -32,5 +30,5 @@ class UserAdsTask extends Model{
     protected $fillable = [
         'userid','title', 'money', 'num','start_time','end_time', 'dead_time', 'name','mobile','company', 'email', 'shape', 'demand', 'status'
     ];
-    protected $dates = ['start_time','end_time','dead_time'];
+    protected $dates = ['start_time','end_time','dead_time','created_at','updated_at'];
 }

@@ -103,8 +103,13 @@ $(function(){
         }else{
             var Obj = $('#'+obj);//提示html对象
         }
+
         if(Obj.get(0).nodeName == 'INPUT' || Obj.get(0).nodeName == 'TEXTAREA'){
-            Obj.focus();
+            if(Obj.hasClass('datetimepicker')){
+
+            }else{
+                Obj.focus();
+            }
         }else{
             if(scroll == 1){
                 //页面自动滚动到提示错误的对象的偏移量的top处

@@ -7,20 +7,21 @@
     <script type="text/javascript">
         $(function(){
             highlight_subnav("{{ route('member.task.create') }}");
-            //日期
-//            laydate({
-//                elem: '#dead_time',
-//                event: 'focus', //响应事件。如果没有传入event，则按照默认的click
-//                min: laydate.now(), //设定最小日期为当前日期
-//                istime: true,
-//                format: 'YYYY-MM-DD hh:mm:ss', //日期格式
-//                choose: function (dates) { //选择好日期的回调
-//                    $('.ui_radio.radio2').find('i').removeClass('on');
-//                    $('.ui_radio.radio2').find('input').prop('checked', false);
-//                }
-//            });
+
             $.datetimepicker.setLocale('ch');
             $('#dead_time').datetimepicker({
+                format:"Y-m-d H:i",      //格式化日期
+                todayButton:false,    //关闭选择今天按钮
+                minDate:true,
+                todayButton:true
+            });
+            $('#start_time').datetimepicker({
+                format:"Y-m-d H:i",      //格式化日期
+                todayButton:false,    //关闭选择今天按钮
+                minDate:true,
+                todayButton:true
+            });
+            $('#end_time').datetimepicker({
                 format:"Y-m-d H:i",      //格式化日期
                 todayButton:false,    //关闭选择今天按钮
                 minDate:true,
@@ -45,16 +46,16 @@
                         </div>
                         <div class="form-group">
                             <label class="control-label">预算金额：</label>
-                            <input type="text" name="money"  id="money" value="{{ $info->money ?? '' }}" class="form-control"/>
+                            <input type="text" name="money" style="width:308px"  id="money" value="{{ $info->money ?? '' }}" class="form-control"/>元
                         </div>
                         <div class="form-group">
                             <label class="control-label">执行时间：</label>
-                            <input type="text" name="start_time" id="start_time" value="{{ $info->start_time ?? '' }}" class="form-control"/>--
-                            <input type="text" name="end_time" id="end_time" value="{{ $info->end_time ?? '' }}" class="form-control"/>
+                            <input type="text" style="width:308px" name="start_time" id="start_time" value="{{ $info->start_time ?? '' }}" class="form-control datetimepicker"/>--
+                            <input type="text" style="width:308px" name="end_time" id="end_time" value="{{ $info->end_time ?? '' }}" class="form-control datetimepicker"/>
                         </div>
                         <div class="form-group">
                             <label class="control-label">需要媒体数量：</label>
-                            <input type="text" name="num" id="num" value="{{ $info->num ?? '' }}" class="form-control"/>个
+                            <input type="text" style="width:308px" name="num" id="num" value="{{ $info->num ?? '' }}" class="form-control"/>个
                         </div>
                         <div class="form-group">
                             <label class="control-label">联系人：</label>
@@ -78,13 +79,11 @@
                         </div>
                         <div class="form-group">
                             <label class="control-label">广告要求：</label>
-                            <textarea name="demand" id="demand" class="form-control" rows="5">
-                                {{ $info->demand ?? '' }}
-                            </textarea>
+                            <textarea name="demand" id="demand" class="form-control" rows="5">{{ $info->demand ?? '' }}</textarea>
                         </div>
                         <div class="form-group">
                             <label class="control-label">截至时间：</label>
-                            <input type="text" name="dead_time" id="dead_time" value="{{ $info->dead_time ?? '' }}" class="form-control"/>
+                            <input type="text" style="width:308px" name="dead_time" id="dead_time" value="{{ $info->dead_time ?? '' }}" class="form-control datetimepicker"/>
                         </div>
                         <div class="form-group" style="padding-left: 150px">
                             <button class="btn btn-danger ajax-post" type="submit">提 交</button>

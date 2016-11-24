@@ -61,45 +61,53 @@ class TaskController extends CommonController{
             ->where('userid',auth()->id())
             ->whereIn('status',[D('UserAdsTask')::STATUS_CREATE,D('UserAdsTask')::STATUS_FAILED])
             ->findOrFail($id);
+        SEO::setTitle(C('WEB_SITE_TITLE').'-会员中心-修改派单');
         return view('member.task.edit',compact('info'));
     }
 
     /**
-     * 网红列表更新
+     * 派单更新
      * @return
      */
     public function update(){
         $data = request()->all();
-        if(empty($data['platform'])){
-            $data['platform'] = $data['platform_select'];
-        }
-        unset($data['platform_select']);
         $rules = [
-            'avatar'     => 'required',
-            'username'   => 'required',
-            'type'       => 'required',
-            'platform'   => 'required',
-            'room_id'    => 'required',
-            'homepage'   => 'required',
-            'form_money' => 'required',
+            'title'      => 'required',
+            'money'      => 'required',
+            'start_time' => 'required',
+            'end_time'   => 'required',
+            'num'        => 'required',
+            'name'       => 'required',
+            'mobile'     => 'required',
+            'shape'      => 'required',
+            'demand'     => 'required',
+            'dead_time'  => 'required',
         ];
         $msgs = [
-            'avatar.required'     => '请上传头像',
-            'avatar.image'        => '头像格式不正确',
-            'username.required'   => '请填写用户名',
-            'type.required'       => '请选择资源类别',
-            'platform.required'   => '请选择直播平台',
-            'room_id.required'    => '请填写直播平台房间号',
-            'homepage.required'   => '请填写直播平台ID',
-            'form_money.required' => '请填写展现形式及报价',
+            'title.required'      => '请填写活动名称',
+            'money.required'      => '请填写预算金额',
+            'money.money'         => '预算金额格式不正确',
+            'start_time.required' => '请选择执行开始时间',
+            'end_time.required'   => '请选择执行结束时间',
+            'num.required'        => '请填写需要媒体的数量',
+            'name.required'       => '请填写联系人',
+            'mobile.required'     => '请填写联系方式',
+            'shape.required'      => '请填写广告形式',
+            'demand.required'     => '请填写广告需求',
+            'dead_time.required'  => '请填写需求截至时间',
         ];
         $validator = validator()->make($data,$rules,$msgs);
         if ($validator->fails()) {
             return $this->ajaxValidator($validator);
         }
+        $data['userid']     = auth()->id();
+        $data['start_time'] = \Carbon\Carbon::parse($data['start_time']);
+        $data['end_time']   = \Carbon\Carbon::parse($data['end_time']);
+        $data['dead_time']  = \Carbon\Carbon::parse($data['dead_time']);
+        $data['status'] = D('UserAdsTask')::STATUS_1;
         $resualt = D('UserAdsTask')->updateData($data);
         if($resualt){
-            return $this->ajaxReturn(isset($resualt['id'])?'网红信息修改成功!':'网红信息添加成功!',1,route('user.star.index'));
+            return $this->ajaxReturn(isset($resualt['id'])?'派单信息修改成功!':'派单信息添加成功!',1,route('member.task.index'));
         }else{
             return $this->ajaxReturn(D('UserAdsTask')->getError());
         }

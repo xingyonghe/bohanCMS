@@ -90,7 +90,7 @@ return [
                 ],
             ],
         ],
-        '1' => [
+        'order' => [
             'name' => '活动订单',
             'url' => 'member.index.index',
             'child' => [
@@ -104,17 +104,17 @@ return [
                 ],
             ],
         ],
-        '2' => [
+        'task' => [
             'name' => '派单大厅',
-            'url' => 'member.index.index',
+            'url' => 'member.task.index',
             'child' => [
                 '0' => [
-                    'name' => '基本信息',
-                    'url' => 'member.index.index',
+                    'name' => '新增派单',
+                    'url' => 'member.task.create',
                 ],
                 '1' => [
-                    'name' => '修改密码',
-                    'url' => 'member.index.index',
+                    'name' => '我的派单',
+                    'url' => 'member.task.index',
                 ],
             ],
         ],
@@ -133,20 +133,6 @@ return [
                 '2' => [
                     'name' => '提现记录',
                     'url' => 'member.account.notes',
-                ],
-            ],
-        ],
-        '4' => [
-            'name' => '资源管理',
-            'url' => 'member.index.index',
-            'child' => [
-                '0' => [
-                    'name' => '新增媒体',
-                    'url' => 'member.index.index',
-                ],
-                '1' => [
-                    'name' => '媒体管理',
-                    'url' => 'member.index.index',
                 ],
             ],
         ],

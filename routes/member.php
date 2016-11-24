@@ -25,6 +25,12 @@ Route::group(['namespace'=>'Member','middleware'=> ['login']],function(){
 
     /**--**--**--**--**--**--**--**--**--**广告主**--**--**--**--**--**--**--**--**--**--**/
     Route::group(['namespace'=>'Ads'],function(){
+        //派单管理
+        Route::get('task/index',        'TaskController@index')->name('member.task.index');//任务列表
+        Route::get('task/create',       'TaskController@create')->name('member.task.create');//任务新增
+        Route::get('task/edit/{id}',    'TaskController@edit')->name('member.task.edit')->where('id','\d+');//任务编辑
+        Route::post('task/update',      'TaskController@update')->name('member.task.update');//任务更新
+        Route::get ('task/destroy/{id}','TaskController@destroy')->name('member.task.destroy')->where('id','\d+');//任务删除
     });
 
     /**--**--**--**--**--**--**--**--**--**基本资料部分**--**--**--**--**--**--**--**--**--**--**/
@@ -43,6 +49,8 @@ Route::group(['namespace'=>'Member','middleware'=> ['login']],function(){
         Route::get('account/recharge',      'AccountController@recharge')->name('member.account.recharge');//充值界面
         Route::post('account/recharge',     'AccountController@recharge')->name('member.account.charging');//充值
         Route::get('account/pay/{order_id}','AccountController@pay')->name('member.account.pay');//充值
+        Route::get('account/return',        'AccountController@return')->name('member.account.return');//充值同步地址
+        Route::post('account/notify',       'AccountController@notify')->name('member.account.notify');//充值异步地址
         Route::get('account/cash',          'AccountController@cash')->name('member.account.cash');//提现界面
         Route::post('account/post',         'AccountController@post')->name('member.account.post');//提现
 

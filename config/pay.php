@@ -35,10 +35,13 @@ return [
             'transport'         => 'http',
             // 支付类型 ，无需修改
             'payment_type'      => '1',
+            // 产品类型，无需修改
+            'service'           => 'create_direct_pay_by_user',
             // 防钓鱼时间戳  若要使用请调用类文件submit中的query_timestamp函数
             'anti_phishing_key' => '',
             // 客户端的IP地址 非局域网的外网IP地址，如：221.0.0.1
             'exter_invoke_ip'   => '',
+
         ],
 
     ],

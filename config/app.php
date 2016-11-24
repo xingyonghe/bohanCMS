@@ -187,6 +187,7 @@ return [
         //自定义面门
         App\Providers\SeoServiceProvider::class,
         App\Providers\SmsServiceProvider::class,
+        App\Providers\AlipayServiceProvider::class,
     ],
 
     /*
@@ -240,6 +241,7 @@ return [
         'Image' => Intervention\Image\Facades\Image::class,//图片处理
         'SEO' => App\Facades\SEO::class,
         'SMS' => App\Facades\SMS::class,
+        'Alipay' => App\Facades\Alipay::class,
 
     ],
 

@@ -17,11 +17,16 @@ class UserAccount extends CommonModel{
     const TYPE_2 = 2;//支出
     const STATUS_0 = 0;//初始值，这里如果是充值，需该状态
     const STATUS_1 = 1;//成功，充值成功合支出成功状态
+    const TYPE_TEXT = [
+        self::TYPE_1 => '收入',
+        self::TYPE_2 => '支出',
+    ];
     public $timestamps = false;
     protected $table = 'user_account';
     protected $fillable = [
         'userid','order_id','money','type','ip','status','crteated_at','mark'
     ];
+    protected $dates = ['crteated_at'];
 
     /**
      * 生成账户信息记录

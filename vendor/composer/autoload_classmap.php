@@ -8,7 +8,6 @@ $baseDir = dirname($vendorDir);
 return array(
     'CreateArticlesTable' => $baseDir . '/database/migrations/2016_11_18_173404_create_articles_table.php',
     'CreateCategoriesTable' => $baseDir . '/database/migrations/2016_11_18_173899_create_categories_table.php',
-    'CreateMediaTable' => $baseDir . '/database/migrations/2016_11_23_175718_create_media_table.php',
     'CreateMobileSmsTable' => $baseDir . '/database/migrations/2016_11_17_044956_create_mobile_sms_table.php',
     'CreateSeoNamesTable' => $baseDir . '/database/migrations/2016_11_22_112910_create_seo_names_table.php',
     'CreateSeosTable' => $baseDir . '/database/migrations/2016_11_22_103438_create_seos_table.php',
@@ -19,6 +18,7 @@ return array(
     'CreateSysConfigsTable' => $baseDir . '/database/migrations/2016_11_14_123645_create_sys_configs_table.php',
     'CreateSysMenuTable' => $baseDir . '/database/migrations/2016_11_10_053338_create_sys_menu_table.php',
     'CreateUserAccountsTable' => $baseDir . '/database/migrations/2016_11_23_164620_create_user_accounts_table.php',
+    'CreateUserAdsTasksTable' => $baseDir . '/database/migrations/2016_11_24_194547_create_user_ads_tasks_table.php',
     'CreateUsersTable' => $baseDir . '/database/migrations/2014_11_17_052565_create_users_table.php',
     'DatabaseAdmin' => $baseDir . '/database/seeds/DatabaseAdmin.php',
     'DatabaseAuthGroup' => $baseDir . '/database/seeds/DatabaseAuthGroup.php',

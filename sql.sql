@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50547
 File Encoding         : 65001
 
-Date: 2016-11-23 17:22:38
+Date: 2016-11-24 21:37:15
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -71,7 +71,7 @@ CREATE TABLE `migrations` (
   `migration` varchar(255) NOT NULL,
   `batch` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=utf8mb4;
 
 -- ----------------------------
 -- Records of migrations
@@ -89,6 +89,7 @@ INSERT INTO `migrations` VALUES ('15', '2016_11_18_122814_create_sys_channels_ta
 INSERT INTO `migrations` VALUES ('16', '2016_11_22_103438_create_seos_table', '10');
 INSERT INTO `migrations` VALUES ('17', '2016_11_22_112910_create_seo_names_table', '11');
 INSERT INTO `migrations` VALUES ('18', '2016_11_23_164620_create_user_accounts_table', '12');
+INSERT INTO `migrations` VALUES ('19', '2016_11_24_194547_create_user_ads_tasks_table', '13');
 
 -- ----------------------------
 -- Table structure for mobile_sms
@@ -432,8 +433,8 @@ CREATE TABLE `user` (
 -- ----------------------------
 -- Records of user
 -- ----------------------------
-INSERT INTO `user` VALUES ('2', '13667635645', '$2y$10$niPF43uYPuOUX7n5OWnU/ubUXZqaoz6MvBVdfYUOtaOxoDmTI.3xi', 'FinXPP0wosPBzeHU9m5JiFBdMGei4wuLjG8JXweow2RQsjeC7xPbi30dOJsz', '邢永和', '1', '1', '1342234898', '', '0.00', '0.00', '', '3', '永和测试', '1', '', '2016-11-17 18:46:49', '127.0.0.1', '2016-11-23 14:10:13', '127.0.0.1');
-INSERT INTO `user` VALUES ('3', '17723160667', '$2y$10$55bR8O6QHIFe6X70fM0nn.FeyC07/KGZmvBpt4LtWYZ0FelBBx48S', null, '形影楓', '1', '2', '', '', '0.00', '0.00', '重庆问问我科技', '3', '永和测试', '1', '', '2016-11-17 19:15:14', '127.0.0.1', '2016-11-23 09:44:47', '127.0.0.1');
+INSERT INTO `user` VALUES ('2', '13667635645', '$2y$10$niPF43uYPuOUX7n5OWnU/ubUXZqaoz6MvBVdfYUOtaOxoDmTI.3xi', 'FinXPP0wosPBzeHU9m5JiFBdMGei4wuLjG8JXweow2RQsjeC7xPbi30dOJsz', '邢永和', '1', '1', '1342234898', '', '0.00', '0.00', '', '3', '永和测试', '1', '', '2016-11-17 18:46:49', '127.0.0.1', '2016-11-24 08:58:44', '127.0.0.1');
+INSERT INTO `user` VALUES ('3', '17723160667', '$2y$10$55bR8O6QHIFe6X70fM0nn.FeyC07/KGZmvBpt4LtWYZ0FelBBx48S', null, '形影楓', '1', '2', '', '', '0.00', '0.00', '重庆问问我科技', '3', '永和测试', '1', '', '2016-11-17 19:15:14', '127.0.0.1', '2016-11-24 19:24:44', '127.0.0.1');
 
 -- ----------------------------
 -- Table structure for user_account
@@ -450,11 +451,30 @@ CREATE TABLE `user_account` (
   `crteated_at` timestamp NULL DEFAULT NULL COMMENT '记录时间',
   `mark` varchar(255) NOT NULL DEFAULT '' COMMENT '备注',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='用户账户信息记录';
+) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=utf8mb4 COMMENT='用户账户信息记录';
 
 -- ----------------------------
 -- Records of user_account
 -- ----------------------------
+INSERT INTO `user_account` VALUES ('1', '2', 'ZHB2453144124213', '0.01', '1', '127.0.0.1', '1', '2016-11-24 10:05:44', '用户充值，充值金额：0.01');
+INSERT INTO `user_account` VALUES ('2', '2', 'ZHB2455595928903', '0.01', '2', '127.0.0.1', '1', '2016-11-24 10:46:35', '用户充值，充值金额：0.01');
+INSERT INTO `user_account` VALUES ('3', '2', 'ZHB2455771480664', '0.01', '1', '127.0.0.1', '0', '2016-11-24 10:49:31', '用户充值，充值金额：0.01');
+INSERT INTO `user_account` VALUES ('4', '2', 'ZHB2457116870454', '0.01', '1', '127.0.0.1', '0', '2016-11-24 11:11:56', '用户充值，充值金额：0.01');
+INSERT INTO `user_account` VALUES ('5', '2', 'ZHB2457834560605', '0.01', '1', '127.0.0.1', '0', '2016-11-24 11:23:54', '用户充值，充值金额：0.01');
+INSERT INTO `user_account` VALUES ('6', '2', 'ZHB2458173439323', '0.01', '2', '127.0.0.1', '1', '2016-11-24 11:29:33', '用户充值，充值金额：0.01');
+INSERT INTO `user_account` VALUES ('7', '2', 'ZHB2458497010201', '0.01', '1', '127.0.0.1', '0', '2016-11-24 11:34:57', '用户充值，充值金额：0.01');
+INSERT INTO `user_account` VALUES ('8', '2', 'ZHB2459081956666', '0.01', '2', '127.0.0.1', '1', '2016-11-24 11:44:41', '用户充值，充值金额：0.01');
+INSERT INTO `user_account` VALUES ('9', '2', 'ZHB2459198187830', '0.01', '2', '127.0.0.1', '1', '2016-11-24 11:46:38', '用户充值，充值金额：0.01');
+INSERT INTO `user_account` VALUES ('10', '2', 'ZHB2463670188629', '0.01', '1', '127.0.0.1', '0', '2016-11-24 13:01:10', '用户充值，充值金额：0.01');
+INSERT INTO `user_account` VALUES ('11', '2', 'ZHB2464942000533', '0.01', '1', '127.0.0.1', '1', '2016-11-24 13:22:22', '用户充值，充值金额：0.01');
+INSERT INTO `user_account` VALUES ('12', '2', 'ZHB2466256686185', '0.01', '1', '127.0.0.1', '0', '2016-11-24 13:44:16', '用户充值，充值金额：0.01');
+INSERT INTO `user_account` VALUES ('13', '2', 'ZHB2466293251845', '0.01', '1', '127.0.0.1', '1', '2016-11-24 13:44:53', '用户充值，充值金额：0.01');
+INSERT INTO `user_account` VALUES ('14', '2', 'ZHB2466657408022', '0.01', '1', '127.0.0.1', '0', '2016-11-24 13:50:57', '用户充值，充值金额：0.01');
+INSERT INTO `user_account` VALUES ('15', '2', 'ZHB2466734887454', '0.01', '1', '127.0.0.1', '0', '2016-11-24 13:52:14', '用户充值，充值金额：0.01');
+INSERT INTO `user_account` VALUES ('16', '2', 'ZHB2466943703381', '0.01', '1', '127.0.0.1', '0', '2016-11-24 13:55:43', '用户充值，充值金额：0.01');
+INSERT INTO `user_account` VALUES ('17', '2', 'ZHB2467119358491', '0.01', '1', '127.0.0.1', '0', '2016-11-24 13:58:39', '用户充值，充值金额：0.01');
+INSERT INTO `user_account` VALUES ('18', '2', 'ZHB2467189254670', '0.01', '1', '127.0.0.1', '0', '2016-11-24 13:59:49', '用户充值，充值金额：0.01');
+INSERT INTO `user_account` VALUES ('19', '2', 'ZHB2467727191806', '0.01', '1', '127.0.0.1', '0', '2016-11-24 14:08:47', '用户充值，充值金额：0.01');
 
 -- ----------------------------
 -- Table structure for user_ads
@@ -470,6 +490,35 @@ CREATE TABLE `user_ads` (
 -- Records of user_ads
 -- ----------------------------
 INSERT INTO `user_ads` VALUES ('3', '0.00', '0.00');
+
+-- ----------------------------
+-- Table structure for user_ads_task
+-- ----------------------------
+DROP TABLE IF EXISTS `user_ads_task`;
+CREATE TABLE `user_ads_task` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `userid` int(11) NOT NULL DEFAULT '0' COMMENT '广告主用户ID',
+  `title` varchar(255) NOT NULL DEFAULT '' COMMENT '活动名称',
+  `money` decimal(12,2) NOT NULL DEFAULT '0.00' COMMENT '总预算',
+  `num` tinyint(4) NOT NULL DEFAULT '0' COMMENT '需要自媒体的个数',
+  `start_time` timestamp NULL DEFAULT NULL COMMENT '开始执行时间',
+  `end_time` timestamp NULL DEFAULT NULL COMMENT '结束执行时间',
+  `dead_time` timestamp NULL DEFAULT NULL COMMENT '需求截至时间',
+  `name` varchar(255) NOT NULL DEFAULT '' COMMENT '联系人',
+  `mobile` varchar(255) NOT NULL DEFAULT '' COMMENT '联系电话',
+  `company` varchar(255) NOT NULL DEFAULT '' COMMENT '公司名称',
+  `email` varchar(255) NOT NULL DEFAULT '' COMMENT '邮箱',
+  `shape` varchar(255) NOT NULL DEFAULT '' COMMENT '广告形式',
+  `demand` varchar(2000) NOT NULL DEFAULT '' COMMENT '广告需求',
+  `status` tinyint(4) NOT NULL DEFAULT '0' COMMENT '状态:-1删除、1正常、2等待审核、3审核未通过、4任务过期',
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='广告主任务';
+
+-- ----------------------------
+-- Records of user_ads_task
+-- ----------------------------
 
 -- ----------------------------
 -- Table structure for user_media

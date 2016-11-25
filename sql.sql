@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50547
 File Encoding         : 65001
 
-Date: 2016-11-24 21:37:15
+Date: 2016-11-25 19:05:28
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -140,7 +140,7 @@ CREATE TABLE `sys_admin` (
 -- ----------------------------
 -- Records of sys_admin
 -- ----------------------------
-INSERT INTO `sys_admin` VALUES ('1', 'admin', '$2y$10$gcM59gn/8fF7loOVC1a.QuffmG1wM1hKl.OpBc6BdiCh2Fz1WawRa', '超管', '1', '1', 'NUpLpFBJYvFzJHS5xSLyiM51bdN5M40PLMLqBa5rGFDwTqn7FYN652F4LeCc', '2016-11-15 09:17:38', '2016-11-23 14:18:08', '127.0.0.1');
+INSERT INTO `sys_admin` VALUES ('1', 'admin', '$2y$10$gcM59gn/8fF7loOVC1a.QuffmG1wM1hKl.OpBc6BdiCh2Fz1WawRa', '超管', '1', '1', 'NUpLpFBJYvFzJHS5xSLyiM51bdN5M40PLMLqBa5rGFDwTqn7FYN652F4LeCc', '2016-11-15 09:17:38', '2016-11-25 15:47:34', '127.0.0.1');
 INSERT INTO `sys_admin` VALUES ('2', 'xingyonghe', '$2y$10$1gGSm8H9xJx3/butYr/KheO2.gPnmh8prxOQ0AcPaXL0AgINKxM0m', '风影', '2', '1', 'KNYnalxXCJmMIp7OTmQywx2ybHgoaFLQPR27QqRmnGrfqeqr8zFh1Jdrxcaf', '2016-11-16 03:30:16', '2016-11-17 02:16:55', '127.0.0.1');
 INSERT INTO `sys_admin` VALUES ('3', 'xingyingfeng', '$2y$10$6m.iqImB7wikG6L0SVJPt.pM0kdRQvvNzMvZWq4ETHw628LNycZ6C', '永和测试', '2', '1', null, '2016-11-16 03:33:25', '2016-11-16 03:33:25', '');
 
@@ -237,7 +237,7 @@ CREATE TABLE `sys_channel` (
 -- ----------------------------
 INSERT INTO `sys_channel` VALUES ('1', '首页', 'home.index.index', '1', '1', '0', '', '2016-11-21 17:55:18', '2016-11-22 10:58:55');
 INSERT INTO `sys_channel` VALUES ('2', '自媒体', 'home.index.index', '2', '1', '0', '', '2016-11-21 17:55:41', '2016-11-22 15:43:05');
-INSERT INTO `sys_channel` VALUES ('3', '广告任务', 'home.index.index', '3', '1', '0', '', '2016-11-22 15:43:43', '2016-11-22 15:45:38');
+INSERT INTO `sys_channel` VALUES ('3', '广告任务', 'home.task.index', '3', '1', '0', '', '2016-11-22 15:43:43', '2016-11-25 14:34:48');
 INSERT INTO `sys_channel` VALUES ('4', '案列展示', 'home.index.index', '4', '1', '0', '', '2016-11-22 15:44:05', '2016-11-22 15:45:38');
 INSERT INTO `sys_channel` VALUES ('5', '关于我们', 'home.index.index', '6', '1', '0', '', '2016-11-22 15:44:24', '2016-11-22 15:45:38');
 INSERT INTO `sys_channel` VALUES ('6', '服务与报价', 'home.index.index', '5', '1', '0', '', '2016-11-22 15:45:15', '2016-11-22 15:45:38');
@@ -433,8 +433,8 @@ CREATE TABLE `user` (
 -- ----------------------------
 -- Records of user
 -- ----------------------------
-INSERT INTO `user` VALUES ('2', '13667635645', '$2y$10$niPF43uYPuOUX7n5OWnU/ubUXZqaoz6MvBVdfYUOtaOxoDmTI.3xi', 'FinXPP0wosPBzeHU9m5JiFBdMGei4wuLjG8JXweow2RQsjeC7xPbi30dOJsz', '邢永和', '1', '1', '1342234898', '', '0.00', '0.00', '', '3', '永和测试', '1', '', '2016-11-17 18:46:49', '127.0.0.1', '2016-11-24 08:58:44', '127.0.0.1');
-INSERT INTO `user` VALUES ('3', '17723160667', '$2y$10$55bR8O6QHIFe6X70fM0nn.FeyC07/KGZmvBpt4LtWYZ0FelBBx48S', null, '形影楓', '1', '2', '', '', '0.00', '0.00', '重庆问问我科技', '3', '永和测试', '1', '', '2016-11-17 19:15:14', '127.0.0.1', '2016-11-24 19:24:44', '127.0.0.1');
+INSERT INTO `user` VALUES ('2', '13667635645', '$2y$10$niPF43uYPuOUX7n5OWnU/ubUXZqaoz6MvBVdfYUOtaOxoDmTI.3xi', 'Pn1UJkylE1g2qDY0kC2xLIYK29WSEv6iaSJAOxTeLNXE3smk4iBivPcFuhDW', '邢永和', '1', '1', '1342234898', '', '0.00', '0.00', '', '3', '永和测试', '1', '', '2016-11-17 18:46:49', '127.0.0.1', '2016-11-25 15:42:16', '127.0.0.1');
+INSERT INTO `user` VALUES ('3', '17723160667', '$2y$10$55bR8O6QHIFe6X70fM0nn.FeyC07/KGZmvBpt4LtWYZ0FelBBx48S', null, '形影楓', '1', '2', '', '', '0.00', '0.00', '重庆问问我科技', '3', '永和测试', '1', '', '2016-11-17 19:15:14', '127.0.0.1', '2016-11-25 11:23:04', '127.0.0.1');
 
 -- ----------------------------
 -- Table structure for user_account
@@ -514,11 +514,12 @@ CREATE TABLE `user_ads_task` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='广告主任务';
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COMMENT='广告主任务';
 
 -- ----------------------------
 -- Records of user_ads_task
 -- ----------------------------
+INSERT INTO `user_ads_task` VALUES ('1', '3', '重庆第一届网红大赛', '56200.00', '4', '2016-11-26 19:00:00', '2016-11-29 15:00:00', '2016-11-26 17:00:00', '邢永和', '13667635645', '问问我科技', '', '先下直播', '穿戴整洁、装扮时髦', '1', '2016-11-25 13:59:47', '2016-11-25 14:23:49');
 
 -- ----------------------------
 -- Table structure for user_media

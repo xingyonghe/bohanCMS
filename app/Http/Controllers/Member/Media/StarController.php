@@ -47,7 +47,7 @@ class StarController extends CommonController{
      * 网红修改
      * @return
      */
-    public function add(){
+    public function create(){
         return view('user.star.edit');
     }
 

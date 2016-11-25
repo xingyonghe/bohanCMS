@@ -20,7 +20,7 @@ $(function(){
                 $(that).removeClass('disabled').prop('disabled',false);
                 layer.open({
                     type    : 1,
-                    skin    : 'layer-ext-member',
+                    skin    : 'layer-ext-c',
                     closeBtn: 1,
                     title   : '消息提醒',
                     area    : ['600px'],
@@ -45,7 +45,7 @@ $(function(){
     //删除确认
     $('body').on('click','.ajax-confirm',function(){
         layer.closeAll();
-        var target = $(this).attr('href');
+        var target = $(this).attr('url') || $(this).attr('href');
         if($(this).hasClass('destroy')){
             confirmDialog('确认要删除该信息吗?',target);
         }
@@ -71,7 +71,7 @@ $(function(){
     window.confirmDialog = function(msg,url){
         layer.open({
             type    : 1,
-            skin    : 'layer-ext-admin',
+            skin    : 'layer-ext-member',
             closeBtn: 1,
             title   : '消息提醒',
             area    : ['450px'],
@@ -79,8 +79,39 @@ $(function(){
             shade   : false,
             content : msg,
             time    : 20000,
-            yes     : function(){
-                window.location = url;
+            yes     : function(index){
+                layer.closeAll();
+                $.get(url).success(function(data){
+                    if (data.status==1){
+                        layer.open({
+                            type    : 1,
+                            skin    : 'layer-ext-member',
+                            closeBtn: 1,
+                            title   : '消息提醒',
+                            area    : ['600px'],
+                            btn     : ['确定', '取消'],
+                            content : data.info,
+                            time    : 3000,
+                            yes     : function (index) {
+                                window.location = data.url;
+                            },
+                            end     : function (index) {
+                                window.location = data.url;
+                            }
+                        });
+                    }else{
+                        layer.open({
+                            type    : 1,
+                            skin    : 'layer-ext-member',
+                            closeBtn: 1,
+                            title   : '消息提醒',
+                            area    : ['600px'],
+                            btn     : ['确定', '取消'],
+                            content : data.info,
+                            time    : 3000,
+                        });
+                    }
+                });
             }
         });
     }

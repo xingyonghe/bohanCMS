@@ -20,7 +20,6 @@ Route::group(['namespace'=>'Member','middleware'=> ['login']],function(){
         Route::post('star/update',      'StarController@update')->name('member.star.update');//网红更新
         Route::get ('star/destroy/{id}','StarController@destroy')->name('member.star.destroy')->where('id','\d+');      //网红删除
 
-
     });
 
     /**--**--**--**--**--**--**--**--**--**广告主**--**--**--**--**--**--**--**--**--**--**/

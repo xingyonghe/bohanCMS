@@ -61,15 +61,15 @@ return [
         ],
         'star' => [
             'name' => '资源管理',
-            'url' => 'member.index.index',
+            'url' => 'member.star.index',
             'child' => [
                 '0' => [
                     'name' => '新增媒体',
-                    'url' => 'member.index.index',
+                    'url' => 'member.star.create',
                 ],
                 '1' => [
                     'name' => '媒体管理',
-                    'url' => 'member.index.index',
+                    'url' => 'member.star.index',
                 ],
             ],
         ],

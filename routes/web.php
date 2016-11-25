@@ -42,6 +42,11 @@ Route::group(['namespace'=>'Home','middleware'=>['channel']],function(){
         Route::post('upload', 'FileController@upload')->name('home.file.upload');
     });
 
+    /**--**--**--**--**--**--**--**--**--**派单大厅**--**--**--**--**--**--**--**--**--**--**/
+    Route::group(['namespace'=>'Task'],function(){
+        Route::get('task/index',       'TaskController@index')->name('home.task.index');
+        Route::get('task/show/{id}',   'TaskController@show')->name('home.task.show')->where('id','\d+');
+    });
 
 
 

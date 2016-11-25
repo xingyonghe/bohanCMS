@@ -36,54 +36,57 @@
         <div class="row">
             @include('member.layouts.nav')
             <div class="col-lg-10 col-sm-10">
-                <h5 class="member-title">修改资料</h5>
+                <h5 class="member-title">@if(isset($info))修改派单@else新增派单@endif</h5>
                 <div class="contact-form">
                     <form role="form" class=" data-form" action="{{ route('member.task.update') }}" metho="post">
                         {{ csrf_field() }}
+                        @if(isset($info))
+                            <input  type="hidden" name="id" value="{{ $info->id }}"/>
+                        @endif
                         <div class="form-group">
                             <label class="control-label">活动名称：</label>
-                            <input type="text" name="title" id="title" value="{{ $info->title ?? '' }}" class="form-control"/>
+                            <input type="text" name="title" placeholder="请填写活动名称" id="title" value="{{ $info->title ?? '' }}" class="form-control"/>
                         </div>
                         <div class="form-group">
                             <label class="control-label">预算金额：</label>
-                            <input type="text" name="money" style="width:308px"  id="money" value="{{ $info->money ?? '' }}" class="form-control"/>元
+                            <input type="text" name="money" style="width:308px" placeholder="请填写预算金额"  id="money" value="{{ $info->money ?? '' }}" class="form-control"/>元
                         </div>
                         <div class="form-group">
                             <label class="control-label">执行时间：</label>
-                            <input type="text" style="width:308px" name="start_time" id="start_time" value="{{ $info->start_time ?? '' }}" class="form-control datetimepicker"/>--
-                            <input type="text" style="width:308px" name="end_time" id="end_time" value="{{ $info->end_time ?? '' }}" class="form-control datetimepicker"/>
+                            <input type="text" style="width:308px" placeholder="请选择执行开始时间" name="start_time" id="start_time" value="{{ $info->start_time ?? '' }}" class="form-control datetimepicker"/>--
+                            <input type="text" style="width:308px" placeholder="请选择执行结束时间" name="end_time" id="end_time" value="{{ $info->end_time ?? '' }}" class="form-control datetimepicker"/>
                         </div>
                         <div class="form-group">
                             <label class="control-label">需要媒体数量：</label>
-                            <input type="text" style="width:308px" name="num" id="num" value="{{ $info->num ?? '' }}" class="form-control"/>个
+                            <input type="text" style="width:308px" placeholder="请填写活动需要媒体数量" name="num" id="num" value="{{ $info->num ?? '' }}" class="form-control"/>个
                         </div>
                         <div class="form-group">
                             <label class="control-label">联系人：</label>
-                            <input type="text" name="name" id="name" value="{{ $info->name ?? '' }}" class="form-control"/>
+                            <input type="text" name="name" placeholder="请填写联系人名称" id="name" value="{{ $info->name ?? '' }}" class="form-control"/>
                         </div>
                         <div class="form-group">
                             <label class="control-label">联系电话：</label>
-                            <input type="text" name="mobile" id="mobile" value="{{ $info->mobile ?? '' }}" class="form-control"/>
+                            <input type="text" name="mobile" placeholder="请填写联系电话" id="mobile" value="{{ $info->mobile ?? '' }}" class="form-control"/>
                         </div>
                         <div class="form-group">
                             <label class="control-label">公司名称：</label>
-                            <input type="text" name="company" id="company" value="{{ $info->company ?? '' }}" class="form-control"/>
+                            <input type="text" name="company" placeholder="请填写主办公司名称" id="company" value="{{ $info->company ?? '' }}" class="form-control"/>
                         </div>
                         <div class="form-group">
                             <label  class="control-label">E-mail：</label>
-                            <input type="text" name="email" id="email" value="{{ $info->email ?? '' }}" class="form-control"/>
+                            <input type="text" name="email" placeholder="请填写联系E-mail" id="email" value="{{ $info->email ?? '' }}" class="form-control"/>
                         </div>
                         <div class="form-group">
                             <label class="control-label">广告形式：</label>
-                            <input type="text" name="shape" id="shape" value="{{ $info->shape ?? '' }}" class="form-control"/>
+                            <input type="text" name="shape" placeholder="请填写活动广告形式" id="shape" value="{{ $info->shape ?? '' }}" class="form-control"/>
                         </div>
                         <div class="form-group">
                             <label class="control-label">广告要求：</label>
-                            <textarea name="demand" id="demand" class="form-control" rows="5">{{ $info->demand ?? '' }}</textarea>
+                            <textarea name="demand" id="demand" placeholder="请填写活动广告要求" class="form-control" rows="5">{{ $info->demand ?? '' }}</textarea>
                         </div>
                         <div class="form-group">
                             <label class="control-label">截至时间：</label>
-                            <input type="text" style="width:308px" name="dead_time" id="dead_time" value="{{ $info->dead_time ?? '' }}" class="form-control datetimepicker"/>
+                            <input type="text" style="width:308px" placeholder="请选择活动截至时间" name="dead_time" id="dead_time" value="{{ $info->dead_time ?? '' }}" class="form-control datetimepicker"/>
                         </div>
                         <div class="form-group" style="padding-left: 150px">
                             <button class="btn btn-danger ajax-post" type="submit">提 交</button>

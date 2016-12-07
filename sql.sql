@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50547
 File Encoding         : 65001
 
-Date: 2016-12-02 17:51:03
+Date: 2016-12-07 21:32:07
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -236,11 +236,10 @@ CREATE TABLE `sys_channel` (
 -- Records of sys_channel
 -- ----------------------------
 INSERT INTO `sys_channel` VALUES ('1', '首页', 'home.index.index', '1', '1', '0', '', '2016-11-21 17:55:18', '2016-11-22 10:58:55');
-INSERT INTO `sys_channel` VALUES ('2', '自媒体', 'home.index.index', '2', '1', '0', '', '2016-11-21 17:55:41', '2016-11-22 15:43:05');
-INSERT INTO `sys_channel` VALUES ('3', '广告任务', 'home.task.index', '3', '1', '0', '', '2016-11-22 15:43:43', '2016-11-25 14:34:48');
-INSERT INTO `sys_channel` VALUES ('4', '案列展示', 'home.index.index', '4', '1', '0', '', '2016-11-22 15:44:05', '2016-11-22 15:45:38');
-INSERT INTO `sys_channel` VALUES ('5', '关于我们', 'home.index.index', '6', '1', '0', '', '2016-11-22 15:44:24', '2016-11-22 15:45:38');
-INSERT INTO `sys_channel` VALUES ('6', '服务与报价', 'home.index.index', '5', '1', '0', '', '2016-11-22 15:45:15', '2016-11-22 15:45:38');
+INSERT INTO `sys_channel` VALUES ('2', '网红推荐', 'home.index.index', '2', '1', '0', '', '2016-11-21 17:55:41', '2016-12-07 21:27:45');
+INSERT INTO `sys_channel` VALUES ('3', '客户案例', 'home.task.index', '3', '1', '0', '', '2016-11-22 15:43:43', '2016-12-07 21:27:56');
+INSERT INTO `sys_channel` VALUES ('4', '广告主', 'home.index.index', '4', '1', '0', '', '2016-11-22 15:44:05', '2016-12-07 21:28:05');
+INSERT INTO `sys_channel` VALUES ('6', '网红入驻', 'home.index.index', '5', '1', '0', '', '2016-11-22 15:45:15', '2016-12-07 21:28:13');
 
 -- ----------------------------
 -- Table structure for sys_config

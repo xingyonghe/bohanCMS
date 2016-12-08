@@ -1,6 +1,10 @@
 <div class="ding">
     <div class="juzhong">
-        <div class="logo"><img src="{{ asset('assets/home/images/logo.png') }}" width="151"; height="55"/></div>
+        <div class="logo">
+            <a href="{{ route('home.index.index') }}">
+                <img src="{{ asset('assets/home/images/logo.png') }}" width="151"; height="55"/>
+            </a>
+        </div>
         <div class="topnav">
             <ul>
                 @foreach($channels as $channel)
@@ -12,8 +16,8 @@
                 @endforeach
                 <li  class="bigh2"  onmouseover="displaySubMenu(this)" onmouseout="hideSubMenu(this)"><a href="#">登录/注册</a>
                     <div class="xwgkdh" >
-                        <div id="wanghong"><a href="#">网红</a></div>
-                        <div id="huaxian"><a href="#">广告主</a></div>
+                        <div id="wanghong"><a href="{{ route('home.login.form') }}">网红</a></div>
+                        <div id="huaxian"><a href="{{ route('home.login.form') }}">广告主</a></div>
                     </div>
                 </li>
             </ul>

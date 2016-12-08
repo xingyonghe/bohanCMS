@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50547
 File Encoding         : 65001
 
-Date: 2016-12-07 21:32:07
+Date: 2016-12-08 17:48:59
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -140,7 +140,7 @@ CREATE TABLE `sys_admin` (
 -- ----------------------------
 -- Records of sys_admin
 -- ----------------------------
-INSERT INTO `sys_admin` VALUES ('1', 'admin', '$2y$10$gcM59gn/8fF7loOVC1a.QuffmG1wM1hKl.OpBc6BdiCh2Fz1WawRa', '超管', '1', '1', 'NUpLpFBJYvFzJHS5xSLyiM51bdN5M40PLMLqBa5rGFDwTqn7FYN652F4LeCc', '2016-11-15 09:17:38', '2016-11-25 15:47:34', '127.0.0.1');
+INSERT INTO `sys_admin` VALUES ('1', 'admin', '$2y$10$gcM59gn/8fF7loOVC1a.QuffmG1wM1hKl.OpBc6BdiCh2Fz1WawRa', '超管', '1', '1', 'NUpLpFBJYvFzJHS5xSLyiM51bdN5M40PLMLqBa5rGFDwTqn7FYN652F4LeCc', '2016-11-15 09:17:38', '2016-12-08 12:35:25', '127.0.0.1');
 INSERT INTO `sys_admin` VALUES ('2', 'xingyonghe', '$2y$10$1gGSm8H9xJx3/butYr/KheO2.gPnmh8prxOQ0AcPaXL0AgINKxM0m', '风影', '2', '1', 'KNYnalxXCJmMIp7OTmQywx2ybHgoaFLQPR27QqRmnGrfqeqr8zFh1Jdrxcaf', '2016-11-16 03:30:16', '2016-11-17 02:16:55', '127.0.0.1');
 INSERT INTO `sys_admin` VALUES ('3', 'xingyingfeng', '$2y$10$6m.iqImB7wikG6L0SVJPt.pM0kdRQvvNzMvZWq4ETHw628LNycZ6C', '永和测试', '2', '1', null, '2016-11-16 03:33:25', '2016-11-16 03:33:25', '');
 
@@ -236,10 +236,10 @@ CREATE TABLE `sys_channel` (
 -- Records of sys_channel
 -- ----------------------------
 INSERT INTO `sys_channel` VALUES ('1', '首页', 'home.index.index', '1', '1', '0', '', '2016-11-21 17:55:18', '2016-11-22 10:58:55');
-INSERT INTO `sys_channel` VALUES ('2', '网红推荐', 'home.index.index', '2', '1', '0', '', '2016-11-21 17:55:41', '2016-12-07 21:27:45');
-INSERT INTO `sys_channel` VALUES ('3', '客户案例', 'home.task.index', '3', '1', '0', '', '2016-11-22 15:43:43', '2016-12-07 21:27:56');
-INSERT INTO `sys_channel` VALUES ('4', '广告主', 'home.index.index', '4', '1', '0', '', '2016-11-22 15:44:05', '2016-12-07 21:28:05');
-INSERT INTO `sys_channel` VALUES ('6', '网红入驻', 'home.index.index', '5', '1', '0', '', '2016-11-22 15:45:15', '2016-12-07 21:28:13');
+INSERT INTO `sys_channel` VALUES ('2', '网红推荐', 'home.rednet.index', '2', '1', '0', '', '2016-11-21 17:55:41', '2016-12-08 12:49:28');
+INSERT INTO `sys_channel` VALUES ('3', '客户案例', 'home.case.index', '3', '1', '0', '', '2016-11-22 15:43:43', '2016-12-08 12:49:52');
+INSERT INTO `sys_channel` VALUES ('4', '广告主', 'home.ads.index', '4', '1', '0', '', '2016-11-22 15:44:05', '2016-12-08 12:49:58');
+INSERT INTO `sys_channel` VALUES ('6', '网红入驻', 'home.enter.index', '5', '1', '0', '', '2016-11-22 15:45:15', '2016-12-08 12:50:06');
 
 -- ----------------------------
 -- Table structure for sys_config
@@ -269,7 +269,7 @@ INSERT INTO `sys_config` VALUES ('2', '配置分组', 'CONFIG_GROUP_LIST', '0', 
 INSERT INTO `sys_config` VALUES ('3', '后台系统列表页数目', 'SYSTEM_LIST_LIMIT', '0', '1', '1', 'system', '10', '', '后台非模块部分列表页数目', '2016-11-14 13:48:10', '2016-11-17 03:33:00');
 INSERT INTO `sys_config` VALUES ('4', '网站LOGO', 'WEB_SITE_LOGO', '0', '5', '2', 'system', '', '', '网站LOGO', '2016-11-14 13:49:36', '2016-11-14 13:49:36');
 INSERT INTO `sys_config` VALUES ('5', '网站域名地址', 'WEB_SITE_URL', '0', '2', '2', 'system', 'http://www.bohan.com', '', '网站域名地址', '2016-11-14 13:50:27', '2016-11-14 13:50:27');
-INSERT INTO `sys_config` VALUES ('6', '网站名称', 'WEB_SITE_TITLE', '0', '2', '2', 'system', '卓杭广告', '', '网站标题前台显示标题', '2016-11-17 02:27:55', '2016-11-22 15:40:50');
+INSERT INTO `sys_config` VALUES ('6', '网站名称', 'WEB_SITE_TITLE', '0', '2', '2', 'system', '策推互动', '', '网站标题前台显示标题', '2016-11-17 02:27:55', '2016-12-08 08:59:03');
 INSERT INTO `sys_config` VALUES ('7', '是否开启会员注册', 'WEB_REGISTER_ALLOW', '0', '4', '3', 'user', '1', '0:不允许\r\n1:允许', '是否开启网站会员注册功能', '2016-11-17 02:30:04', '2016-11-17 02:30:04');
 INSERT INTO `sys_config` VALUES ('8', '注册是否需要审核', 'WEB_REGISTER_VERIFY', '0', '4', '3', 'user', '0', '0:不需要\r\n1:需要', '网站会员注册是否需要审核', '2016-11-17 02:30:48', '2016-11-17 02:30:48');
 INSERT INTO `sys_config` VALUES ('9', '自媒体是否需要审核', 'USER_MEDIA_VERIFY', '0', '4', '3', 'user', '0', '0:不需要\r\n1:需要', '新增自媒体是否需要后台管理员审核', '2016-11-17 02:31:48', '2016-11-18 11:48:04');

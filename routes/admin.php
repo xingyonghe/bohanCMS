@@ -126,7 +126,6 @@ Route::group(['namespace'=>'Admin'],function(){
             Route::get ('artcate/destroy/{id}',   'ArticleCategoryController@destroy')->name('article.category.destroy')->where('id','\d+');//删除
 
             /**--模块配置--**/
-
             Route::get ('artset/index',  'ArticleSettingController@index')->name('article.setting.index');     //分类列表
             Route::post('artset/update', 'ArticleSettingController@update')->name('article.setting.update');       //更新
         });

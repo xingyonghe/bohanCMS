@@ -1,22 +1,21 @@
 <?php
 
-namespace App\Http\Controllers\Home\Index;
+namespace App\Http\Controllers\Home;
 
-use App\Http\Controllers\Home\CommonController;
 use SEO;
 
-class IndexController extends CommonController{
+class RednetEnterController extends CommonController{
     /*
     |--------------------------------------------------------------------------
-    | Index Controller
+    | RednetEnter Controller
     | @author xingyonghe
-    | @date 2016-11-14
+    | @date 2016-12-8
     |--------------------------------------------------------------------------
     |
-    | 前台首页控制器
+    | 网红入驻控制器
     |
     */
-    protected $channel_id = 1;//设置导航选中标志
+    protected $channel_id = 6;//设置导航选中标志
     public function __construct(){
         view()->share('channel_id',$this->channel_id);
     }
@@ -24,10 +23,10 @@ class IndexController extends CommonController{
         SEO::setRule('WEB_INDEX');
         SEO::setVariables([
             'sitename' => C('WEB_SITE_TITLE'),
-            'sitemedia' => '自媒体',
+            'sitemedia' => '网红',
             'siteads' => '广告主'
         ]);
-        return view('home.index.index');
+        return view('home.enter.index');
     }
 
 

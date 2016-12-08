@@ -1,11 +1,13 @@
 <div class="di">
     <div class="zil">
         <ul>
-            <li><a href="#">首页</a></li>
-            <li><a href="#">网红推荐</a></li>
-            <li><a href="#">客户案例</a></li>
-            <li><a href="#">广告主 </a></li>
-            <li><a href="#">网红入驻</a></li>
+            @foreach($channels as $channel)
+                <li>
+                    <a href="{{ route($channel['url']) }}">
+                        {{ $channel['title'] }}
+                    </a>
+                </li>
+            @endforeach
             <li><a href="#">关于我们</a></li>
         </ul>
     </div>

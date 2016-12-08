@@ -27,7 +27,7 @@ class ChannelMiddleware{
      * @return array
      */
     public function getChannel(){
-//        cache()->forget('CHANNEL_LIST');//更新导航缓存
+        cache()->forget('CHANNEL_LIST');//更新导航缓存
         $channel = cache()->get('CHANNEL_LIST');
         if(empty($channel)){
             $channel = D('SysChannel')->where('status',1)->orderBy('sort','asc')->get(['id','title', 'remark','url','sort','status','target'])->toArray();

@@ -14,12 +14,22 @@
                         </a>
                     </li>
                 @endforeach
-                <li  class="bigh2"  onmouseover="displaySubMenu(this)" onmouseout="hideSubMenu(this)"><a href="#">登录/注册</a>
-                    <div class="xwgkdh" >
-                        <div id="wanghong"><a href="{{ route('home.login.form') }}">网红</a></div>
-                        <div id="huaxian"><a href="{{ route('home.login.form') }}">广告主</a></div>
-                    </div>
-                </li>
+                @if (auth()->guest())
+                    <li  class="bigh2"  onmouseover="displaySubMenu(this)" onmouseout="hideSubMenu(this)"><a href="javascript:void(0)">登录/注册</a>
+                        <div class="xwgkdh" >
+                            <div id="wanghong"><a href="{{ route('home.register.form') }}">网红</a></div>
+                            <div id="huaxian"><a href="{{ route('home.login.form') }}">广告主</a></div>
+                        </div>
+                    </li>
+                @else
+                    <li  class="bigh2"  onmouseover="displaySubMenu(this)" onmouseout="hideSubMenu(this)"><a href="javascript:void(0)">{{ auth()->user()->nickname }}</a>
+                        <div class="xwgkdh" >
+                            <div id="wanghong"><a href="{{ route('member.index.index') }}">个人中心</a></div>
+                            <div id="huaxian"><a href="{{ route('home.login.logout') }}">退出</a></div>
+                        </div>
+                    </li>
+                @endif
+
             </ul>
         </div>
         <div class="phone"><img src="{{ asset('assets/home/images/phone.png') }}" width="20"; height="22"/><span>400-888-666</span></div>
@@ -33,21 +43,7 @@
     {{--<nav class="navbar navbar-inverse" style="min-height: 20px;background: #475268;padding-right: 390px;">--}}
         {{--<div class="nav-collapse">--}}
             {{--<ul id="secondary-menu" class="nav pull-right" >--}}
-                {{--@if (auth()->guest())--}}
-                    {{--<li style="float: right;position: relative;color: #ffffff">--}}
-                        {{--<a href="{{ route('home.register.form') }}">注册</a>--}}
-                    {{--</li>--}}
-                    {{--<li style="float: right;position: relative;color: #ffffff">--}}
-                        {{--<a href="{{ route('home.login.form') }}">登录</a>--}}
-                    {{--</li>--}}
-                {{--@else--}}
-                    {{--<li class="dropdown" style="float: right;position: relative;color: #ffffff">--}}
-                        {{--<a href="{{ route('home.login.logout') }}">退出</a>--}}
-                    {{--</li>--}}
-                    {{--<li class="dropdown" style="float: right;position: relative;color: #ffffff">--}}
-                        {{--<a href="{{ route('member.index.index') }}">{{ auth()->user()->nickname }}</a>--}}
-                    {{--</li>--}}
-                {{--@endif--}}
+
             {{--</ul>--}}
         {{--</div>--}}
     {{--</nav>--}}

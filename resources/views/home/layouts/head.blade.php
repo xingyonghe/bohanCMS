@@ -17,7 +17,11 @@
                 @if (auth()->guest())
                     <li  class="bigh2"  onmouseover="displaySubMenu(this)" onmouseout="hideSubMenu(this)"><a href="javascript:void(0)">登录/注册</a>
                         <div class="xwgkdh" >
+<<<<<<< HEAD
                             <div id="wanghong"><a href="{{ route('home.login.form') }}">网红</a></div>
+=======
+                            <div id="wanghong"><a href="{{ route('home.register.form') }}">网红</a></div>
+>>>>>>> 902e3fbc731b36e3c9d75047a9b96e779166b12b
                             <div id="huaxian"><a href="{{ route('home.login.form') }}">广告主</a></div>
                         </div>
                     </li>
@@ -29,8 +33,54 @@
                         </div>
                     </li>
                 @endif
+<<<<<<< HEAD
+=======
+
+>>>>>>> 902e3fbc731b36e3c9d75047a9b96e779166b12b
             </ul>
         </div>
         <div class="phone"><img src="{{ asset('assets/home/images/phone.png') }}" width="20"; height="22"/><span>400-888-666</span></div>
     </div>
+<<<<<<< HEAD
 </div>
+=======
+</div>
+
+
+
+{{--<!--header start-->--}}
+{{--<header class="header-frontend">--}}
+    {{--<nav class="navbar navbar-inverse" style="min-height: 20px;background: #475268;padding-right: 390px;">--}}
+        {{--<div class="nav-collapse">--}}
+            {{--<ul id="secondary-menu" class="nav pull-right" >--}}
+
+            {{--</ul>--}}
+        {{--</div>--}}
+    {{--</nav>--}}
+    {{--<div class="navbar navbar-default navbar-static-top">--}}
+        {{--<div class="container">--}}
+            {{--<div class="navbar-header">--}}
+                {{--<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">--}}
+                    {{--<span class="icon-bar"></span>--}}
+                    {{--<span class="icon-bar"></span>--}}
+                    {{--<span class="icon-bar"></span>--}}
+                {{--</button>--}}
+                {{--<a class="navbar-brand" href="index.html">卓杭<span>广告</span></a>--}}
+            {{--</div>--}}
+            {{--<div class="navbar-collapse collapse ">--}}
+                {{--<ul class="nav navbar-nav">--}}
+                    {{--@foreach($channels as $channel)--}}
+                        {{--<li @if(isset($channel_id) && $channel['id'] == $channel_id) class="active" @endif>--}}
+                            {{--<a href="{{ route($channel['url']) }}" @if($channel['target']) target="_blank" @endif>--}}
+                                {{--{{ $channel['title'] }}--}}
+                            {{--</a>--}}
+                        {{--</li>--}}
+                    {{--@endforeach--}}
+                    {{--<li><input type="text" placeholder=" Search" class="form-control search"></li>--}}
+                {{--</ul>--}}
+            {{--</div>--}}
+        {{--</div>--}}
+    {{--</div>--}}
+{{--</header>--}}
+{{--<!--header end-->--}}
+>>>>>>> 902e3fbc731b36e3c9d75047a9b96e779166b12b

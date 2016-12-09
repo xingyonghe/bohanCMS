@@ -23,6 +23,8 @@
 <body>
 @yield('body')
 @include('home.layouts.footer')
+<script type="text/javascript" src="{{ asset('assets/static/layer/layer.js') }}"></script>
+<script type='text/javascript' src='{{ asset('assets/home/js/public.js') }}'></script>
 @yield('script')
 </body>
 </html>

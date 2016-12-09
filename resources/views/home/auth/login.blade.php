@@ -32,17 +32,11 @@
             var username = $('#username').val();
             var password = $('#password').val();
             if(!username){
-<<<<<<< HEAD
                 alertTips('请填写登陆账号','username');return false;
             }
             if(!password){
                 alertTips('请填写登陆密码','password');return false;
-=======
-                alertTips('请输入登录账号','username');return false;
-            }
-            if(!password){
-                alertTips('请输入登录密码','password');return false;
->>>>>>> 902e3fbc731b36e3c9d75047a9b96e779166b12b
+
             }
             $(that).addClass('disabled').attr('autocomplete','off').prop('disabled',true);
             $.post(target,query).success(function(data){

@@ -23,13 +23,9 @@
 <body>
 @yield('body')
 @include('home.layouts.footer')
-<<<<<<< HEAD
-<script type="text/javascript" src="{{ asset('assets/static/layer/layer.js') }}"></script>
-=======
 <!-- layer插件 -->
 <script type="text/javascript" src="{{ asset('assets/static/layer/layer.js') }}"></script>
 <!-- 自定义js -->
->>>>>>> 902e3fbc731b36e3c9d75047a9b96e779166b12b
 <script type='text/javascript' src='{{ asset('assets/home/js/public.js') }}'></script>
 @yield('script')
 </body>

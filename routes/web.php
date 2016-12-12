@@ -11,20 +11,20 @@
 */
 Route::group(['namespace'=>'Home','middleware'=>['channel']],function(){
     /**--**--**--**--**--**--**--**--**--**用户认证**--**--**--**--**--**--**--**--**--**--**/
-    //登录页面
-    Route::get('login', 'LoginController@showLoginForm')->name('home.login.form');
+    //网红登录页面
+    Route::get('login/rednet', 'LoginController@showRednetForm')->name('home.login.rednet');
+    //广告主登录页面
+    Route::get('login/ads', 'LoginController@showAdsForm')->name('home.login.ads');
     //登录
     Route::post('login/post', 'LoginController@login')->name('home.login.post');
     //退出登录
     Route::get('logout', 'LoginController@logout')->name('home.login.logout');
-    //注册页面
-    Route::get('register', 'RegisterController@showRegistrationForm')->name('home.register.form');
+    //网红注册页面
+    Route::get('register/rednet', 'RegisterController@showRednetForm')->name('home.register.rednet');
+    //广告主注册页面
+    Route::get('register/ads', 'RegisterController@showAdsForm')->name('home.register.ads');
     //注册
     Route::post('register/post', 'RegisterController@register')->name('home.register.post');
-    //手机短信发送
-    Route::post('register/send', 'RegisterController@sendSMS')->name('home.register.send');
-    //手机短信验证
-    Route::post('register/verify', 'RegisterController@verifySMS')->name('home.register.verify');
     //忘记密码
     Route::get('password', 'RegisterController@aaaa')->name('home.password.reset');
 
@@ -49,4 +49,6 @@ Route::group(['namespace'=>'Home','middleware'=>['channel']],function(){
 
     /**--**--**--**--**--**--**--**--**--**网红入驻**--**--**--**--**--**--**--**--**--**--**/
     Route::get('enter/index',        'RednetEnterController@index')->name('home.enter.index');
+    //关于我们
+    Route::get('about/index',        'AboutController@index')->name('home.about.index');
 });

@@ -1,5 +1,7 @@
 @extends('home.layouts.base')
 @section('style')
+    <link rel="stylesheet" href="/assets/home/css/nivo-slider.css" type="text/css" media="screen" />
+    <link rel="stylesheet" href="/assets/home/css/style.css" type="text/css" media="screen" />
 @endsection
 @section('script')
     <script type="text/javascript" src="/assets/home/js/jquery-1.4.3.min.js"></script>

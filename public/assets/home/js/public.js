@@ -127,7 +127,7 @@ $(function(){
      */
     window.alertTips = function(msg,id,color){
         var obj;
-        color  = color ? color : '#F77B6F';
+        color  = color ? color : '#ff6476';
         var obj = $('#'+id);//提示html对象
         layer.tips(msg, obj , {
             tips: [3, color] //配置颜色

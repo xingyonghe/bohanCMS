@@ -11,6 +11,8 @@
 */
 namespace App\Libraries\MobileSms;
 
+use App\Models\MobileSms;
+
 class SMS{
     protected $config = [];//短信配置
 
@@ -44,7 +46,7 @@ class SMS{
     protected function getMsg(int $category,string $code = ''){
         $msg = '';
         switch($category){
-            case '1':
+            case '1'://注册
                 $msg = '【卓杭广告】您本次验证码为：'.$code.'，如不是本人操作，请忽略';
                 break;
         }
@@ -79,10 +81,10 @@ class SMS{
                 return false;
             }
         }
-        D('MobileSms')->create(
+        MobileSms::create(
             array(
                 'mobile'     => $mobile,
-                'status'     => D('MobileSms')::STATUS_FAILD,
+                'status'     => MobileSms::STATUS['created'],
                 'content'    => $msg,
                 'created_at' => \Carbon\Carbon::now(),
                 'code'       => $code,
@@ -152,13 +154,12 @@ class SMS{
      */
     public function frequent(string $mobile,int $category){
         //查找该号码最近的一条发送信息
-        $info = D('MobileSms')
-            ->where('mobile',$mobile)
+        $info = MobileSms::where('mobile',$mobile)
             ->where('category',$category)
             ->orderBy('created_at','desc')
             ->first();
         //操作过快
-        $resend = $this->config['resend'];
+        $resend = $this->config['resend'];//重发间隔时间
         $now = \Carbon\Carbon::now()->timestamp;
         if($info && ($now - $info->created_at->timestamp < $resend)){
             return true;
@@ -179,28 +180,47 @@ class SMS{
         if(empty($code) || empty($mobile)){
             return '0200';
         }
-        $overtime = $this->config['overtime'];
-        //查找该号码最近的一条发送信息
-        $info = D('MobileSms')
-            ->where('mobile',$mobile)
+
+        //是否已验证
+        $_info = MobileSms::where('mobile',$mobile)
             ->where('category',$category)
-            ->orderBy('created_at','desc')
+            ->where('code',$code)
+            ->where('status',MobileSms::STATUS['success'])
             ->first();
+
+        $overtime = $this->config['overtime'];
         $now = \Carbon\Carbon::now()->timestamp;
-        if(empty($info)){
-            return '0200';
+        if($_info){
+            //已过期
+            if($now - $_info->created_at->timestamp > $overtime){
+                return '0201';
+            }
+            return true;
+        }else{
+            //查找该号码最近的一条发送信息
+            $info = MobileSms::where('mobile',$mobile)
+                ->where('category',$category)
+                ->orderBy('created_at','desc')
+                ->first();
+            if(empty($info)){
+                return '0200';
+            }
+            //已过期
+            if($now - $info->created_at->timestamp > $overtime){
+                return '0201';
+            }
+            //失败
+            if($info->code != $code){
+                return '0203';
+            }
+            //频繁
+            if($info->status == MobileSms::STATUS['success']){
+                return '0202';
+            }
+            $info->update(array('status'=>MobileSms::STATUS['success']));
+            return true;
         }
-        if($now - $info->created_at->timestamp > $overtime){
-            return '0201';
-        }
-        if($info->status == D('MobileSms')::STATUS_SUCCESS){
-            return '0202';
-        }
-        if($info->code != $code){
-            return '0203';
-        }
-        $info->update(array('status'=>D('MobileSms')::STATUS_SUCCESS));
-        return true;
+
     }
 
 }

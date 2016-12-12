@@ -13,11 +13,10 @@ class MobileSms extends CommonModel{
     | 短信模型
     |
     */
-
-    //未验证状态
-    const STATUS_FAILD   = 0;
-    //已验证状态
-    const STATUS_SUCCESS = 1;
+    const STATUS = [
+        'success' => 1,//已验证状态
+        'created'  => 0,//未验证状态
+    ];
     const CATEGORY = [
         'register' =>  1,//注册使用
     ];

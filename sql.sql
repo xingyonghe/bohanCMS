@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50547
 File Encoding         : 65001
 
-Date: 2016-12-08 17:48:59
+Date: 2016-12-12 08:12:25
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -52,7 +52,7 @@ CREATE TABLE `category` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8mb4 COMMENT='分类';
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COMMENT='分类';
 
 -- ----------------------------
 -- Records of category
@@ -104,7 +104,7 @@ CREATE TABLE `mobile_sms` (
   `content` varchar(255) NOT NULL DEFAULT '' COMMENT '短信内容',
   `created_at` timestamp NULL DEFAULT NULL COMMENT '发送时间',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COMMENT='短信';
+) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8mb4 COMMENT='短信';
 
 -- ----------------------------
 -- Records of mobile_sms
@@ -117,6 +117,11 @@ INSERT INTO `mobile_sms` VALUES ('5', '13667635645', '751109', '1', '1', '【卓
 INSERT INTO `mobile_sms` VALUES ('6', '17723160667', '723077', '1', '1', '【卓杭广告】您本次验证码为：723077，如不是本人操作，请忽略', '2016-11-17 19:14:51');
 INSERT INTO `mobile_sms` VALUES ('7', '13667635645', '485196', '0', '1', '【卓杭广告】您本次验证码为：485196，如不是本人操作，请忽略', '2016-11-22 18:22:49');
 INSERT INTO `mobile_sms` VALUES ('8', '13667635645', '365297', '1', '1', '【卓杭广告】您本次验证码为：365297，如不是本人操作，请忽略', '2016-11-22 18:36:15');
+INSERT INTO `mobile_sms` VALUES ('9', '13667635645', '593958', '1', '1', '【卓杭广告】您本次验证码为：593958，如不是本人操作，请忽略', '2016-12-09 23:22:11');
+INSERT INTO `mobile_sms` VALUES ('10', '13667635645', '763808', '1', '1', '【卓杭广告】您本次验证码为：763808，如不是本人操作，请忽略', '2016-12-09 23:33:31');
+INSERT INTO `mobile_sms` VALUES ('11', '13667635645', '276995', '1', '1', '【卓杭广告】您本次验证码为：276995，如不是本人操作，请忽略', '2016-12-09 23:38:36');
+INSERT INTO `mobile_sms` VALUES ('12', '13667635645', '943464', '1', '1', '【卓杭广告】您本次验证码为：943464，如不是本人操作，请忽略', '2016-12-10 00:21:48');
+INSERT INTO `mobile_sms` VALUES ('13', '17723160667', '507434', '1', '1', '【卓杭广告】您本次验证码为：507434，如不是本人操作，请忽略', '2016-12-10 08:58:32');
 
 -- ----------------------------
 -- Table structure for sys_admin
@@ -140,7 +145,7 @@ CREATE TABLE `sys_admin` (
 -- ----------------------------
 -- Records of sys_admin
 -- ----------------------------
-INSERT INTO `sys_admin` VALUES ('1', 'admin', '$2y$10$gcM59gn/8fF7loOVC1a.QuffmG1wM1hKl.OpBc6BdiCh2Fz1WawRa', '超管', '1', '1', 'NUpLpFBJYvFzJHS5xSLyiM51bdN5M40PLMLqBa5rGFDwTqn7FYN652F4LeCc', '2016-11-15 09:17:38', '2016-12-08 12:35:25', '127.0.0.1');
+INSERT INTO `sys_admin` VALUES ('1', 'admin', '$2y$10$gcM59gn/8fF7loOVC1a.QuffmG1wM1hKl.OpBc6BdiCh2Fz1WawRa', '超管', '1', '1', 'NUpLpFBJYvFzJHS5xSLyiM51bdN5M40PLMLqBa5rGFDwTqn7FYN652F4LeCc', '2016-11-15 09:17:38', '2016-12-10 16:19:55', '127.0.0.1');
 INSERT INTO `sys_admin` VALUES ('2', 'xingyonghe', '$2y$10$1gGSm8H9xJx3/butYr/KheO2.gPnmh8prxOQ0AcPaXL0AgINKxM0m', '风影', '2', '1', 'KNYnalxXCJmMIp7OTmQywx2ybHgoaFLQPR27QqRmnGrfqeqr8zFh1Jdrxcaf', '2016-11-16 03:30:16', '2016-11-17 02:16:55', '127.0.0.1');
 INSERT INTO `sys_admin` VALUES ('3', 'xingyingfeng', '$2y$10$6m.iqImB7wikG6L0SVJPt.pM0kdRQvvNzMvZWq4ETHw628LNycZ6C', '永和测试', '2', '1', null, '2016-11-16 03:33:25', '2016-11-16 03:33:25', '');
 
@@ -174,7 +179,7 @@ CREATE TABLE `sys_auth_rule` (
   `name` varchar(100) NOT NULL DEFAULT '' COMMENT '规则唯一英文标识,url',
   `type` tinyint(4) NOT NULL DEFAULT '1' COMMENT '类型:1url，2主菜单',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=55 DEFAULT CHARSET=utf8mb4 COMMENT='权限规则';
+) ENGINE=InnoDB AUTO_INCREMENT=82 DEFAULT CHARSET=utf8mb4 COMMENT='权限规则';
 
 -- ----------------------------
 -- Records of sys_auth_rule
@@ -211,9 +216,36 @@ INSERT INTO `sys_auth_rule` VALUES ('41', '删除', 'admin.menu.destroy', '1');
 INSERT INTO `sys_auth_rule` VALUES ('42', '新增', 'admin.config.create', '1');
 INSERT INTO `sys_auth_rule` VALUES ('43', '修改', 'admin.config.edit', '1');
 INSERT INTO `sys_auth_rule` VALUES ('45', '更新', 'admin.config.update', '1');
-INSERT INTO `sys_auth_rule` VALUES ('46', '排序', 'admin.config.sort', '1');
+INSERT INTO `sys_auth_rule` VALUES ('46', '排序', 'admin.config.sort', '1');git
 INSERT INTO `sys_auth_rule` VALUES ('47', '更新排序', 'admin.config.order', '1');
 INSERT INTO `sys_auth_rule` VALUES ('54', '更新', 'admin.config.post', '1');
+INSERT INTO `sys_auth_rule` VALUES ('55', '删除', 'admin.seoname.destroy', '1');
+INSERT INTO `sys_auth_rule` VALUES ('56', '更新', 'article.category.update', '1');
+INSERT INTO `sys_auth_rule` VALUES ('57', '修改', 'article.category.edit', '1');
+INSERT INTO `sys_auth_rule` VALUES ('58', '新增', 'article.category.create', '1');
+INSERT INTO `sys_auth_rule` VALUES ('59', '删除', 'article.category.destroy', '1');
+INSERT INTO `sys_auth_rule` VALUES ('60', '修改', 'admin.article.edit', '1');
+INSERT INTO `sys_auth_rule` VALUES ('61', '更新', 'admin.seoname.update', '1');
+INSERT INTO `sys_auth_rule` VALUES ('62', '修改', 'admin.seoname.edit', '1');
+INSERT INTO `sys_auth_rule` VALUES ('63', '新增', 'admin.seoname.create', '1');
+INSERT INTO `sys_auth_rule` VALUES ('64', '删除', 'admin.seo.destroy', '1');
+INSERT INTO `sys_auth_rule` VALUES ('65', '更新', 'admin.seo.update', '1');
+INSERT INTO `sys_auth_rule` VALUES ('66', '修改', 'admin.seo.edit', '1');
+INSERT INTO `sys_auth_rule` VALUES ('67', '更新排序', 'admin.menu.order', '1');
+INSERT INTO `sys_auth_rule` VALUES ('68', '排序', 'admin.menu.sort', '1');
+INSERT INTO `sys_auth_rule` VALUES ('69', '更新', 'article.setting.update', '1');
+INSERT INTO `sys_auth_rule` VALUES ('70', '删除', 'admin.article.destroy', '1');
+INSERT INTO `sys_auth_rule` VALUES ('71', '更新', 'admin.article.update', '1');
+INSERT INTO `sys_auth_rule` VALUES ('72', '新增', 'admin.seo.create', '1');
+INSERT INTO `sys_auth_rule` VALUES ('73', '分类管理', 'article.category.index', '1');
+INSERT INTO `sys_auth_rule` VALUES ('74', '模块配置', 'article.setting.index', '1');
+INSERT INTO `sys_auth_rule` VALUES ('75', '内容', 'admin.article.index', '2');
+INSERT INTO `sys_auth_rule` VALUES ('76', '新增内容', 'admin.article.create', '1');
+INSERT INTO `sys_auth_rule` VALUES ('77', '内容信息', 'admin.article.index', '1');
+INSERT INTO `sys_auth_rule` VALUES ('78', '导航管理', 'admin.channel.index', '1');
+INSERT INTO `sys_auth_rule` VALUES ('79', '变量管理', 'admin.seoname.index', '1');
+INSERT INTO `sys_auth_rule` VALUES ('80', '回收站', 'admin.article.recycle', '1');
+INSERT INTO `sys_auth_rule` VALUES ('81', 'seo管理', 'admin.seo.index', '1');
 
 -- ----------------------------
 -- Table structure for sys_channel
@@ -392,7 +424,7 @@ CREATE TABLE `sys_seo_name` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COMMENT='SEO变量';
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COMMENT='SEO变量';
 
 -- ----------------------------
 -- Records of sys_seo_name
@@ -410,14 +442,13 @@ CREATE TABLE `user` (
   `username` varchar(100) NOT NULL COMMENT '用户名:手机号',
   `password` varchar(255) NOT NULL DEFAULT '' COMMENT '密码',
   `remember_token` varchar(100) DEFAULT NULL COMMENT '记住我',
-  `nickname` varchar(100) NOT NULL DEFAULT '' COMMENT '联系人',
+  `nickname` varchar(100) NOT NULL DEFAULT '' COMMENT '公司或者个人姓名',
   `is_auth` tinyint(4) NOT NULL DEFAULT '0' COMMENT '手机号是否认证通过:1已认证，0未认证',
-  `type` tinyint(4) NOT NULL DEFAULT '1' COMMENT '用户类型:1普通2广告主',
+  `type` tinyint(4) NOT NULL DEFAULT '1' COMMENT '用户类型:1网红2广告主',
   `qq` varchar(20) NOT NULL DEFAULT '' COMMENT 'QQ',
   `weixin` varchar(150) NOT NULL DEFAULT '' COMMENT '微信',
   `freeze` decimal(12,2) NOT NULL DEFAULT '0.00' COMMENT '冻结金额',
   `balance` decimal(12,2) NOT NULL DEFAULT '0.00' COMMENT '余额',
-  `company` varchar(255) NOT NULL DEFAULT '0' COMMENT '公司名称',
   `custom_id` int(11) NOT NULL DEFAULT '0' COMMENT '客服ID',
   `custom_name` varchar(150) NOT NULL DEFAULT '' COMMENT '客服名称',
   `status` tinyint(4) NOT NULL DEFAULT '2' COMMENT '状态:-1删除、0锁定、1正常、2待审核',
@@ -427,13 +458,13 @@ CREATE TABLE `user` (
   `login_time` timestamp NULL DEFAULT NULL COMMENT '最后登录时间',
   `login_ip` varchar(45) NOT NULL DEFAULT '' COMMENT '最后登录IP',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COMMENT='用户基本信息';
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COMMENT='用户基本信息';
 
 -- ----------------------------
 -- Records of user
 -- ----------------------------
-INSERT INTO `user` VALUES ('2', '13667635645', '$2y$10$niPF43uYPuOUX7n5OWnU/ubUXZqaoz6MvBVdfYUOtaOxoDmTI.3xi', 'Pn1UJkylE1g2qDY0kC2xLIYK29WSEv6iaSJAOxTeLNXE3smk4iBivPcFuhDW', '邢永和', '1', '1', '1342234898', '', '0.00', '0.00', '', '3', '永和测试', '1', '', '2016-11-17 18:46:49', '127.0.0.1', '2016-11-25 15:42:16', '127.0.0.1');
-INSERT INTO `user` VALUES ('3', '17723160667', '$2y$10$55bR8O6QHIFe6X70fM0nn.FeyC07/KGZmvBpt4LtWYZ0FelBBx48S', null, '形影楓', '1', '2', '', '', '0.00', '0.00', '重庆问问我科技', '3', '永和测试', '1', '', '2016-11-17 19:15:14', '127.0.0.1', '2016-11-25 11:23:04', '127.0.0.1');
+INSERT INTO `user` VALUES ('1', '13667635645', '$2y$10$YqyRbx/vnvzKF0J/ritIPOu9cb8LI5JzekA97eJayx7x3dIWMuO3W', 'pnNc61vjmiBOM960hDQGIJybmKj04R7Dy5FJjdFXoUYU9sYYBdfdSsFl0p9i', 'adsfdsaf', '1', '1', '', '', '0.00', '0.00', '3', '永和测试', '1', 'eqwewqe@qq.com', '2016-12-10 00:43:41', '127.0.0.1', '2016-12-10 17:45:26', '127.0.0.1');
+INSERT INTO `user` VALUES ('2', '17723160667', '$2y$10$YqyRbx/vnvzKF0J/ritIPOu9cb8LI5JzekA97eJayx7x3dIWMuO3W', '9zGPHT5RDbtC0DthkXaaiXdgSNZl65Vmyve7W8VQ7sd5FHTHUPvmAIP0NS25', 'sdfsfsdfsdf', '1', '2', '', '', '0.00', '0.00', '2', '风影', '1', '12312312@qq.com', '2016-12-10 09:00:33', '127.0.0.1', '2016-12-10 09:01:54', '127.0.0.1');
 
 -- ----------------------------
 -- Table structure for user_account
@@ -476,21 +507,6 @@ INSERT INTO `user_account` VALUES ('18', '2', 'ZHB2467189254670', '0.01', '1', '
 INSERT INTO `user_account` VALUES ('19', '2', 'ZHB2467727191806', '0.01', '1', '127.0.0.1', '0', '2016-11-24 14:08:47', '用户充值，充值金额：0.01');
 
 -- ----------------------------
--- Table structure for user_ads
--- ----------------------------
-DROP TABLE IF EXISTS `user_ads`;
-CREATE TABLE `user_ads` (
-  `user_id` int(11) NOT NULL DEFAULT '0' COMMENT '用户ID',
-  `wait_account` decimal(12,2) NOT NULL DEFAULT '0.00' COMMENT '待结算金额',
-  `finish_account` decimal(12,2) NOT NULL DEFAULT '0.00' COMMENT '已结算金额'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='广告主用户扩展信息';
-
--- ----------------------------
--- Records of user_ads
--- ----------------------------
-INSERT INTO `user_ads` VALUES ('3', '0.00', '0.00');
-
--- ----------------------------
 -- Table structure for user_ads_task
 -- ----------------------------
 DROP TABLE IF EXISTS `user_ads_task`;
@@ -519,19 +535,3 @@ CREATE TABLE `user_ads_task` (
 -- Records of user_ads_task
 -- ----------------------------
 INSERT INTO `user_ads_task` VALUES ('1', '3', '重庆第一届网红大赛', '56200.00', '4', '2016-11-26 19:00:00', '2016-11-29 15:00:00', '2016-11-26 17:00:00', '邢永和', '13667635645', '问问我科技', '', '先下直播', '穿戴整洁、装扮时髦', '1', '2016-11-25 13:59:47', '2016-11-25 14:23:49');
-
--- ----------------------------
--- Table structure for user_media
--- ----------------------------
-DROP TABLE IF EXISTS `user_media`;
-CREATE TABLE `user_media` (
-  `user_id` int(11) NOT NULL DEFAULT '0' COMMENT '用户ID',
-  `medias` int(11) NOT NULL DEFAULT '0' COMMENT '媒体资源数量',
-  `wait_account` decimal(10,2) NOT NULL DEFAULT '0.00' COMMENT '待结算金额',
-  `finish_account` decimal(10,2) NOT NULL DEFAULT '0.00' COMMENT '已结算金额'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='自媒体用户扩展信息';
-
--- ----------------------------
--- Records of user_media
--- ----------------------------
-INSERT INTO `user_media` VALUES ('2', '0', '0.00', '0.00');

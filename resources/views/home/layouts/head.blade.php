@@ -17,8 +17,8 @@
                 @if (auth()->guest())
                     <li  class="bigh2"  onmouseover="displaySubMenu(this)" onmouseout="hideSubMenu(this)"><a href="javascript:void(0)">登录/注册</a>
                         <div class="xwgkdh" >
-                            <div id="wanghong"><a href="{{ route('home.register.form') }}">网红</a></div>
-                            <div id="huaxian"><a href="{{ route('home.login.form') }}">广告主</a></div>
+                            <div id="wanghong"><a href="{{ route('home.login.rednet') }}">网红</a></div>
+                            <div id="huaxian"><a href="{{ route('home.login.ads') }}">广告主</a></div>
                         </div>
                     </li>
                 @else

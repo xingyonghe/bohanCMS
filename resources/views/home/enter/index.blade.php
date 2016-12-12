@@ -15,7 +15,7 @@
     <div class="dazi">
         <h1><span>最佳的网红直播自媒体赚钱平台</span></h1>
         <h2><span>利用自身人气获取高额报酬</span></h2>
-        <div class="an"><a href="#"><img src="/assets/home/images/an2.png"/></a></div>
+        <div class="an"><a href="{{ route('home.register.rednet') }}"><img src="/assets/home/images/an2.png"/></a></div>
     </div>
 </div>
 <div class="main">

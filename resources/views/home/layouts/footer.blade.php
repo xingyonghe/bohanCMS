@@ -8,7 +8,7 @@
                     </a>
                 </li>
             @endforeach
-            <li><a href="#">关于我们</a></li>
+            <li><a href="{{ route('home.about.index') }}">关于我们</a></li>
         </ul>
     </div>
     <div class="zi">

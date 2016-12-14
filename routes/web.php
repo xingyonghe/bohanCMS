@@ -51,4 +51,8 @@ Route::group(['namespace'=>'Home','middleware'=>['channel']],function(){
     Route::get('enter/index',        'RednetEnterController@index')->name('home.enter.index');
     //关于我们
     Route::get('about/index',        'AboutController@index')->name('home.about.index');
+    //demo
+    Route::get('demo/file',         'DemoController@file')->name('home.demo.file');
+    Route::get('demo/picture',      'DemoController@picture')->name('home.demo.picture');
+    Route::get('demo/avatar',       'DemoController@avatar')->name('home.demo.avatar');
 });

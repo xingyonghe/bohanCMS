@@ -17,13 +17,8 @@
                 @if (auth()->guest())
                     <li  class="bigh2"  onmouseover="displaySubMenu(this)" onmouseout="hideSubMenu(this)"><a href="javascript:void(0)">登录/注册</a>
                         <div class="xwgkdh" >
-<<<<<<< HEAD
                             <div id="wanghong"><a href="{{ route('home.login.rednet') }}">网红</a></div>
                             <div id="huaxian"><a href="{{ route('home.login.ads') }}">广告主</a></div>
-=======
-                            <div id="wanghong"><a href="{{ route('home.login.form') }}">网红</a></div>
-                            <div id="huaxian"><a href="{{ route('home.login.form') }}">广告主</a></div>
->>>>>>> e9a371f6d7cd00c8e36bbe0ffd054acd8c092f3f
                         </div>
                     </li>
                 @else
@@ -77,4 +72,4 @@
     {{--</div>--}}
 {{--</header>--}}
 {{--<!--header end-->--}}
->>>>>>> 902e3fbc731b36e3c9d75047a9b96e779166b12b
+

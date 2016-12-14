@@ -14,7 +14,17 @@
 Route::post('captcha', function(){
     return captcha_src();
 })->name('api.captcha');
-//手机短信发送
-Route::post('sendsms', 'Api\SmsApiController@sendSMS')->name('api.sendsms');
-//手机短信验证
-Route::post('verifysms', 'Api\SmsApiController@verifySMS')->name('api.verifysms');
+
+Route::group(['namespace'=>'Api'],function(){
+    //手机短信发送
+    Route::post('sendsms',    'SmsApiController@sendSMS')->name('api.sendsms');
+    //手机短信验证
+    Route::post('verifysms',  'SmsApiController@verifySMS')->name('api.verifysms');
+    //文件上传
+    Route::post('file',       'UploadApiController@file')->name('api.file');
+    //图片上传
+    Route::post('picture',    'UploadApiController@picture')->name('api.picture');
+    //头像上传
+    Route::post('avatar',     'UploadApiController@avatar')->name('api.avatar');
+});
+

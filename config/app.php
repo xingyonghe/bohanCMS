@@ -189,6 +189,7 @@ return [
         App\Providers\SeoServiceProvider::class,
         App\Providers\SmsServiceProvider::class,
         App\Providers\AlipayServiceProvider::class,
+        App\Providers\UploadServiceProvider::class,
     ],
 
     /*
@@ -240,11 +241,12 @@ return [
         'Html' => Collective\Html\HtmlFacade::class,//HTML依赖
         'Debugbar' => Barryvdh\Debugbar\Facade::class,//Debugbar调试
         'Image' => Intervention\Image\Facades\Image::class,//图片处理
+        'Captcha' => Mews\Captcha\Facades\Captcha::class,
+        //自定义门面别名
         'SEO' => App\Facades\SEO::class,
         'SMS' => App\Facades\SMS::class,
         'Alipay' => App\Facades\Alipay::class,
-        'Captcha' => Mews\Captcha\Facades\Captcha::class,
-
+        'Upload' => App\Facades\Upload::class,
     ],
 
 ];

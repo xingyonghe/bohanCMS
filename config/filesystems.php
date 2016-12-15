@@ -63,6 +63,7 @@ return [
             'subname'  => array('date', 'Y-m-d'), //子目录创建方式，[0]-函数名，[1]-参数，多个参数使用数组
             'savename' => array('uniqid', ''), //上传文件命名规则，[0]-函数名，[1]-参数，多个参数使用数组
             'hash'     => true, //是否生成hash编码
+            'table'    => 'picture',
         ],
 
         'avatar' => [
@@ -72,6 +73,17 @@ return [
             'maxsize'  => 4*1024*1024, //上传的文件大小限制 (0-不做限制)
             'exts'     => 'jpg,gif,png,jpeg', //允许上传的文件后缀
             'subname'  => '', //子目录创建方式，[0]-函数名，[1]-参数，多个参数使用数组
+            'savename' => array('uniqid', ''), //上传文件命名规则，[0]-函数名，[1]-参数，多个参数使用数组
+            'hash'     => true, //是否生成hash编码
+        ],
+
+        'file' => [
+            'driver'   => 'local',//驱动
+            'root'     => public_path('uploads/file'),//保存根路径
+            'mimes'    => '', //允许上传的文件MiMe类型
+            'maxsize'  => 10*1024*1024, //上传的文件大小限制 (0-不做限制)
+            'exts'     => 'zip,doc,xls,rar', //允许上传的文件后缀
+            'subname'  => array('date', 'Y-m-d'), //子目录创建方式，[0]-函数名，[1]-参数，多个参数使用数组
             'savename' => array('uniqid', ''), //上传文件命名规则，[0]-函数名，[1]-参数，多个参数使用数组
             'hash'     => true, //是否生成hash编码
         ],

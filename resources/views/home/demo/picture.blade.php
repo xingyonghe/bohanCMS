@@ -8,7 +8,7 @@
 </head>
 <body>
 <br />
-<div style="width: 80px;height: 80px;cursor: pointer"  id="pickfiles">
+<div style="width: 80px;height: 80px;cursor: pointer;border: 1px solid #cccccc"  id="pickfiles">
     <img src="{{ asset('assets/static/plupload/tu5.jpg') }}" width="80" height="80">
     <input name="avatar" type="hidden" id="avatar">
 </div>
@@ -45,7 +45,7 @@
                     {title : "Image files", extensions : "jpg,gif,png,jpeg"},
 //                    {title : "Zip files", extensions : "zip"}
                 ],
-                prevent_duplicates:true //不允许选取重复文件
+                prevent_duplicates:false //不允许选取重复文件
             },
             init: {
                 //init执行完以后要执行的事件触发,即页面加载完成的时候执行，如果想实现自动上传，只需将start方法在FilesAdded（）中实现即可
@@ -53,7 +53,7 @@
                 },
                 //用户选择文件时触发
                 FilesAdded: function(up, files) {
-                    $('#'+id).find('img').remove();
+                    $('#pickfiles').find('img').remove();
                     $('#pickfiles').css("background","#ffffff url({{ asset('assets/static/plupload/loading.gif') }}) no-repeat center");
                     $('#pickfiles').css("background-size","25px 25px");
                     uploader.start();
@@ -64,15 +64,14 @@
 //                    $("#"+file.id).find('b').html('<span>' + file.percent + '%</span>');
 //                },
 
+                //当队列中每一个文件上传完成触发
                 FileUploaded: function(up,file,response) {
                     var resault = $.parseJSON(response.response);
                     if(resault.code){
-
+                        console.log(resault);
+                    }else{
+                        $('#pickfiles').append('<img src="{{ asset('assets/static/plupload/tu5.jpg') }}" width="80" height="80">');
                     }
-//                    console.log(resault);tu5.jpg
-//                    plupload.each(files, function(file) {
-//                        console.log(file);
-//                    });
                 },
 
                 //上传出错的时候触发

@@ -3,7 +3,7 @@
 namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
-use App\Libraries\File\Upload;
+use App\Libraries\Upload\Upload;
 
 class UploadServiceProvider extends ServiceProvider{
     /*

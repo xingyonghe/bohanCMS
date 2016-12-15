@@ -19,6 +19,8 @@ class Picture extends Model{
         'md5', 'sha1', 'create_time'
     ];
 
+
+
     /**
      * 文件上传
      * @param  array  $files   要上传的文件列表（通常是$_FILES数组）

@@ -14,98 +14,94 @@ namespace App\Libraries\Upload;
 use Storage;
 
 class Upload{
-    protected $config;//config/filesystems.php 文件系统配置信息
-    protected $error = ''; //上传错误信息
-    protected $rootpath;//上传根目录
+    private $config;//config/filesystems.php 文件系统配置信息
+    private $rootpath;//上传根目录
+    private $type = ['图片','头像','文件'];//上传文件的类型
+    private $error = '';//设置返回信息
 
-    public function __constuct($disk = 'picture'){
-        $this->config = Storage::disk($disk);
+    /**
+     * 自动执行一些基础的
+     * @author: xingyonghe
+     * @date: 2016-12-15
+     * @param $config
+     */
+    private function uploadInit($config){
+        $this->config = $config;
         $this->config['mimes'] = $this->stringToArray($this->config['mimes']);
         $this->config['exts']  = $this->stringToArray($this->config['exts']);
     }
 
-//    public function uploads($files,$config){
-//
-//    }
-
     /**
-     * 把字符串转化成数组,每个成员小写
-     * @author: xingyonghe
-     * @date: 2016-11-25
-     * @param $data
+     * 上传图片
+     * @param 文件信息数组 $files ，通常是 $_FILES数组
+     * @param 上传配置 $config ，位于filesystems.php中的'disks'
      */
-    protected function stringToArray($data){
-        if(!empty($data)){
-            if(is_string($data)) {
-                $data = explode(',', $data);
-            }
+    public function picture($files,$config){
+        //设置图片上传驱动
+        $config['uploader'] = Storage::disk('picture');
+        $this->uploadInit($config);
+        $picture = $this->uploads($files,$this->type[0]);
+        $return  = [];
+        if($picture){
+            //文件上传成功，记录文件信息
+            $return['code'] = 0;
+            $return['success']   = '上传成功';
+        } else {
+            $return['code'] = -1;
+            $return['error']   = $this->error;
         }
-        return array_map('strtolower', $data);
+        return $return;
     }
+
 
     /**
      * 上传文件
      * @param 文件信息数组 $files ，通常是 $_FILES数组
-     * @param 上传配置 $config ，位于filesystems.php中的'disks'
+     * @param $type 类型名称 $this->type
      */
-    protected function uploads($files,$config){
-        //自动设置
-        $this->uploadInit($config);
-        if('' === $files){
-            $files = $_FILES;
-        }
+    protected function uploads($files,$type){
+        // 文件上传检测
         if(empty($files)){
-            $this->error = '没有上传的文件！';
+            $this->error = '没有上传任何'.$type.'！';
             return false;
         }
         //检测根目录
-        $this->checkRootPath($this->config['root']);
-
+        $this->checkRootPath();
         //检测上传目录
-        $this->checkSavePath($this->config['savepath']);
-
-        // 记录上传文件信息
-        $info = array();
-
+        $this->checkSavePath();
+        $info = [];// 记录上传文件信息
         foreach ($files as $key => $file) {
             $info['name'] = $file->getClientOriginalName();// 文件原名
             $info['ext'] = $file->getClientOriginalExtension();     // 扩展名
             $info['size'] = $file->getClientSize();//文件大小
             $info['type'] = $file->getClientMimeType();//文件大小
             $info['tmp_name'] = $file->getPathname();
-
-            // 文件上传检测
-
             // 无效上传
             if (empty($info['name'])){
                 $this->error = '未知上传错误！';
                 return false;
             }
-
             //判断文件是否上传成功
             if (!$file->isValid()) {
                 $this->error = "上传失败";
                 return false;
             }
-
             // 检查文件大小
             if (!$this->checkSize($info['size'])) {
                 $this->error = '上传文件大小不符！';
                 return false;
             }
-
             // 检查文件Mime类型
             if (!$this->checkMime($info['type'])) {
                 $this->error = '上传文件MIME类型不允许！';
                 return false;
             }
-
             // 检查文件后缀
             if (!$this->checkExt($info['ext'])) {
                 $this->error = '上传文件后缀不允许';
                 return false;
             }
-
+            dd($info);
             // 获取文件hash
             if($this->config['hash']){
                 $info['md5']  = md5_file($info['tmp_name']);
@@ -167,10 +163,10 @@ class Upload{
 
     /**
      * 检查上传根目录是否存在
-     * @param $rootpath
      * @return bool
      */
-    private function checkRootPath($rootpath){
+    private function checkRootPath(){
+        $rootpath = $this->config['root'];
         if(!(is_dir($rootpath) && is_writable($rootpath))){
             $this->error = '上传根目录不存在！请尝试手动创建:'.$rootpath;
             return false;
@@ -182,9 +178,10 @@ class Upload{
     /**
      * 检测上传目录
      * @param  string $savepath 上传目录
-     * @return boolean          检测结果，true-通过，false-失败
+     * @return boolean 检测结果，true-通过，false-失败
      */
-    private function checkSavePath($savepath){
+    private function checkSavePath(){
+        $savepath = $this->config['savepath'];
         /* 检测并创建目录 */
         if (!$this->mkdir($savepath)) {
             return false;
@@ -301,6 +298,22 @@ class Upload{
             $this->error = "目录 {$savepath} 创建失败！";
             return false;
         }
+    }
+
+    /**
+     * 把字符串转化成数组,每个成员小写
+     * @author: xingyonghe
+     * @date: 2016-11-25
+     * @param $data
+     */
+    private function stringToArray($data){
+        if(empty($data)){
+            return $data;
+        }
+        if(is_string($data)) {
+            $data = explode(',', $data);
+        }
+        return array_map('strtolower', $data);
     }
 
 

@@ -13,15 +13,16 @@
     <input name="avatar" type="hidden" id="avatar">
 </div>
 <pre id="console"></pre>
+
 <script type="text/javascript">
     $(function() {
         var uploader = new plupload.Uploader({
             browse_button : 'pickfiles', //触发浏览文件按钮标签的唯一id,,在flash、html5、和silverlight中能找到触发事件的ID
 //            container: document.getElementById('containers'), //上传后展现文件列表的容器，[默认是body],不能使用jquery获取
             drop_element:document.getElementById('pickfiles'),//指定了使用拖拽方式来选择上传文件时的拖拽区域，即可以把文件拖拽到这个区域的方式来选择文件。该参数的值可以为一个DOM元素的id,也可是 DOM元素本身，还可以是一个包括多个DOM元素的数组。如果不设置该参数则拖拽上传功能不可用。目前只有html5上传方式才支持拖拽上传。
-            runtimes : 'html5,flash,silverlight,html4',//上传插件初始化选用那种方式的优先级顺序，如果第一个初始化失败就走第二个，依次类推
+            runtimes : 'html5',//上传插件初始化选用那种方式的优先级顺序，如果第一个初始化失败就走第二个，依次类推,flash,silverlight,html4
             url : "{{ route('api.picture') }}",//上传服务器地址
-            file_data_name:'file',//设置上传到服务器端的名称。默认名称为'file'
+            file_data_name:"{{$pconf['filename']}}",//设置上传到服务器端的名称。默认名称为'file'
             multi_selection:false,//是否支持选择多个文件，默认为 true
             //额外的参数键值对
             multipart_params:{
@@ -29,21 +30,20 @@
             },
             //修改图片属性 resize: {width: 320, height: 240, quality: 90}
 //            resize : {width : 320, height : 240, quality : 90},
-            //flash文件地址
-            flash_swf_url : '/static/plupload/js/Moxie.swf',
-            //silverlight文件地址
-            silverlight_xap_url : '/static/plupload/js/Moxie.xap',
+//            //flash文件地址
+//            flash_swf_url : '/static/plupload/js/Moxie.swf',
+//            //silverlight文件地址
+//            silverlight_xap_url : '/static/plupload/js/Moxie.xap',
 //            chunk_size: '1mb',//当上传文件大于服务器接收端文件大小限制的时候，可以分多次请求发给服务器，如果不需要从设置中移出
 //            rename : true,
 //            dragdrop: true,
             //过滤器
             filters : {
                 // 上传文件的最大值
-                max_file_size : '4mb',
+                {{--max_file_size : "{{$pconf['maxsize']}}"+'kb',--}}
                 // 上传文件的类型以及类型过滤
                 mime_types: [
-                    {title : "Image files", extensions : "jpg,gif,png,jpeg"},
-//                    {title : "Zip files", extensions : "zip"}
+                    {title : "Image files", extensions : "{{$pconf['exts']}}"},
                 ],
                 prevent_duplicates:false //不允许选取重复文件
             },

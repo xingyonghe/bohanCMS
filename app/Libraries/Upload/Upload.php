@@ -11,8 +11,10 @@
 */
 namespace App\Libraries\Upload;
 
+use Carbon\Carbon;
 use Storage;
 use DB;
+use Image;
 
 class Upload{
     protected $config;//config/filesystems.php 文件系统配置信息
@@ -31,46 +33,6 @@ class Upload{
         $this->config = $config;
         $this->config['mimes'] = $this->stringToArray($this->config['mimes']);
         $this->config['exts']  = $this->stringToArray($this->config['exts']);
-    }
-
-
-
-    /**
-     * 上传图片
-     * @param 文件信息数组 $files ，通常是 $_FILES数组
-     * @param 上传配置 $config ，位于filesystems.php中的'disks'
-     */
-    public function picture($files,$config){
-        //指定上传类型
-        $this->type = '图片';
-        //设置图片上传驱动
-        $config['uploader'] = Storage::disk('picture');
-        $this->uploadInit($config);
-        $picture = $this->uploads($files);
-        if($picture){
-            // 已经存在文件记录
-            if(isset($picture['id']) && is_numeric($picture['id'])){
-                return array_merge($this->return, $picture);
-            }
-            $path = str_replace(public_path(),'',$picture['rootpath']);
-            $path = str_replace('\\','/',$path);
-            /* 记录文件信息 */
-            $picture['path'] = $path.$picture['savepath'].$picture['savename'];	//在模板里的src路径
-            unset($picture['rootpath']);
-            $picture['create_time'] = \Carbon\Carbon::now();
-            dd($picture);
-            $resualt = DB::table($this->config['table'])->create($picture);
-            if($resualt === false){
-                unset($picture);
-            }else{
-                $picture['id'] = $resualt->id;
-            }
-            $return = array_merge($this->return, $picture);
-        } else {
-            $return['code'] = 1;
-            $return['error']   = $this->getError();
-        }
-        return $return;
     }
 
     protected function getError(){
@@ -136,15 +98,52 @@ class Upload{
         }
     }
 
-    public function avatar($files,$disks){
+    public function picture($files,$disks){
         //获取配置
         $config = config('filesystems.disks.'.$disks);
         //获取驱动
         $config['uploader'] = Storage::disk($disks);
         //自动执行一些基础的
         $this->uploadInit($config);
-        $avatar = $this->uploads($files);
-        dd($avatar);
+        $picture = $this->uploads($files);
+        if($picture){
+            foreach($picture as $key => &$value){
+                //存在直接返回
+                if(isset($value['id']) && is_numeric($value['id'])){
+                    continue;
+                }
+                $path = str_replace(public_path(),'',$value['rootpath']);
+                $path = str_replace('\\','/',$path);
+                //在模板里的src路径
+                $value['path'] = $path . $value['savepath'] . $value['savename'];
+                $name = explode('.',$value['path']);
+                foreach($this->config['format'] as $format){
+                    Image::make('.' . $value['path'])->fit($format[0],$format[1])->save('.' . $name[0].'.'. $format[0].'x'.$format[1] .'.'. $name[1]);
+                    $value[$format[0].'x'.$format[1]] = $name[0].'.' . $format[0].'x'.$format[1].'.' . $name[1];
+                }
+                $insert = [
+                    'path' => $value['path'],
+                    'url' => C('WEB_SITE_URL'),
+                    'md5' => $value['md5'],
+                    'sha1' => $value['sha1'],
+                    'create_time' => \Carbon\Carbon::now(),
+                ];
+                $id = DB::table($this->config['table'])->insertGetId($insert);
+                if($id){
+                    unset($value['rootpath']);
+                    unset($value['md5']);
+                    unset($value['sha1']);
+                    unset($value['savename']);
+                    unset($value['savepath']);
+                    $value['id'] = $id;
+                }else{
+                    unset($picture[$key]);
+                }
+            }
+            return ['code'=>0,'file'=>$picture[$this->config['filedata']]];
+        }else{
+            return ['code'=>-1,'error'=>$this->getError()];
+        }
     }
 
     /**
@@ -153,6 +152,10 @@ class Upload{
      */
     protected function uploads($files)
     {
+        if(!isset($files[$this->config['filedata']])){
+            $this->error = '上传信息不存在';
+            return false;
+        }
         //检测根目录
         if(!$this->checkRootPath()){
             $this->error = '上传根目录不存在！请尝试手动创建:'.$this->config['root'];
@@ -216,7 +219,7 @@ class Upload{
             // 保存文件 并记录保存成功的文件
             if ($this->config['uploader']->put($filename,file_get_contents($this->info['tmp_name']))) {
                 unset($this->info['error'], $this->info['tmp_name']);
-//                dd($file->move('E:/Programs/wanghong/public/uploads/','E:/Programs/wanghong/storage/app/uploads/2016-10-02/aaa.png'));//移动到真实存放目录
+                $data[$key] = $this->info;
             } else {
                 return false;
             }

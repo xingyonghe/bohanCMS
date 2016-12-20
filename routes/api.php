@@ -24,7 +24,5 @@ Route::group(['namespace'=>'Api'],function(){
     Route::post('file',       'UploadApiController@file')->name('api.file');
     //图片上传
     Route::post('picture',    'UploadApiController@picture')->name('api.picture');
-    //头像上传
-    Route::post('avatar',     'UploadApiController@avatar')->name('api.avatar');
 });
 

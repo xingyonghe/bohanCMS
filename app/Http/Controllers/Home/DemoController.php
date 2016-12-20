@@ -13,12 +13,7 @@ class DemoController extends Controller{
 
     public function picture(){
         $pconf = config('filesystems.disks.picture');
-        return view('home.demo.picture',compact('pconf'));
-    }
-
-    public function avatar(){
-        $aconf = config('filesystems.disks.avatar');
-        return view('home.demo.avatar',compact('aconf'));
+        return view('home.demo.avatar',compact('pconf'));
     }
 
 

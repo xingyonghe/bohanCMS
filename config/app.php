@@ -182,6 +182,7 @@ return [
         Intervention\Image\ImageServiceProvider::class,//图片处理
         Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider::class,//提示助手
         Mews\Captcha\CaptchaServiceProvider::class,//验证码库
+        Intervention\Image\ImageServiceProvider::class,//图片操作处理库 composer require intervention/image
         //自定义扩展
         App\Providers\FormExtendServiceProvider::class,//表单控件扩展
         App\Providers\ValidateExtendServiceProvider::class,//验证扩展
@@ -242,6 +243,7 @@ return [
         'Debugbar' => Barryvdh\Debugbar\Facade::class,//Debugbar调试
         'Image' => Intervention\Image\Facades\Image::class,//图片处理
         'Captcha' => Mews\Captcha\Facades\Captcha::class,
+        'Image' => Intervention\Image\Facades\Image::class,
         //自定义门面别名
         'SEO' => App\Facades\SEO::class,
         'SMS' => App\Facades\SMS::class,

@@ -13,12 +13,18 @@
 Route::group(['namespace'=>'Member','middleware'=> ['login']],function(){
     /**--**--**--**--**--**--**--**--**--**自媒体**--**--**--**--**--**--**--**--**--**--**/
     Route::group(['namespace'=>'Media'],function(){
+        //订单管理
+        Route::get('order/index',        'NetredOrderController@index')->name('netred.order.index');//订单列表netred.dispatch.index
+        //派单大厅
+        Route::get('dispatch/index',     'DispatchController@index')->name('netred.dispatch.index');//活动列表
+
         //资源管理
-        Route::get('star/index',        'StarController@index')->name('member.star.index');//网红列表
-        Route::get('star/create',       'StarController@create')->name('member.star.create');//网红新增
-        Route::get('star/edit/{id}',    'StarController@edit')->name('member.star.edit')->where('id','\d+');//网红编辑
-        Route::post('star/update',      'StarController@update')->name('member.star.update');//网红更新
-        Route::get ('star/destroy/{id}','StarController@destroy')->name('member.star.destroy')->where('id','\d+');      //网红删除
+        Route::get('star/index',        'StarController@index')->name('netred.star.index');//网红列表
+        Route::get('star/create',       'StarController@create')->name('netred.star.create');//网红新增
+        Route::get('star/edit/{id}',    'StarController@edit')->name('netred.star.edit')->where('id','\d+');//网红编辑
+        Route::post('star/update',      'StarController@update')->name('netred.star.update');//网红更新
+        Route::get ('star/destroy/{id}','StarController@destroy')->name('netred.star.destroy')->where('id','\d+');      //网红删除
+
 
     });
 

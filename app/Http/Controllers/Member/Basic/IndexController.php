@@ -16,7 +16,7 @@ class IndexController extends CommonController{
     | 会员中心基本信息
     |
     */
-    protected $navkey = 'center';//菜单标识
+    protected $navkey = 'home';//菜单标识
     public function __construct(){
         view()->share('navkey',$this->navkey);//用于设置头部菜单高亮
     }
@@ -28,11 +28,7 @@ class IndexController extends CommonController{
      * @return mixed
      */
     public function index(){
-        if(auth()->user()->type ==1){
-            $user = D('User')->with('media')->find(auth()->id());
-        }else{
-            $user = D('User')->with('advertiser')->find(auth()->id());
-        }
+        $user = auth()->user();
         SEO::setTitle(C('WEB_SITE_TITLE').'-会员中心-基本信息');
         return view('member.index.index',compact('user'));
     }

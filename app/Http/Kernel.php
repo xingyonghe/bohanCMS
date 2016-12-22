@@ -56,6 +56,7 @@ class Kernel extends HttpKernel
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
         'menu' => \App\Http\Middleware\Admin\MenuAdminMiddleware::class,
         'channel' => \App\Http\Middleware\Home\ChannelMiddleware::class,
-        'login' => \App\Http\Middleware\Member\LoginMiddleware::class,
+        'login_netred' => \App\Http\Middleware\Member\LoginNetredMiddleware::class,
+        'login_ads'    => \App\Http\Middleware\Member\LoginAdsMiddleware::class,
     ];
 }

@@ -38,9 +38,10 @@ class RouteServiceProvider extends ServiceProvider{
         $this->mapWebRoutes();
         //后台路由
         $this->mapAdminRoutes();
-        //会员中心路由
-        $this->mapMemberRoutes();
-        //
+        //网红中心路由
+        $this->mapNetredRoutes();
+        //广告主中心路由
+        $this->mapAdsRoutes();
     }
 
     /**
@@ -91,16 +92,30 @@ class RouteServiceProvider extends ServiceProvider{
     }
 
     /**
-     * 自定义会员中心路由
+     * 自定义网红中心路由
      * @return void
      */
-    protected function mapMemberRoutes(){
+    protected function mapNetredRoutes(){
         Route::group([
             'middleware' => 'web',
-            'prefix' => 'member',
+            'prefix' => 'netred',
             'namespace' => $this->namespace,
         ], function ($router) {
-            require base_path('routes/member.php');
+            require base_path('routes/netred.php');
+        });
+    }
+
+    /**
+     * 自定义广告主中心路由
+     * @return void
+     */
+    protected function mapAdsRoutes(){
+        Route::group([
+            'middleware' => 'web',
+            'prefix' => 'ads',
+            'namespace' => $this->namespace,
+        ], function ($router) {
+            require base_path('routes/ads.php');
         });
     }
 }

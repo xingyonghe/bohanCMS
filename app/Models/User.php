@@ -31,6 +31,17 @@ class User extends Authenticatable{
         'pass'  => 1, //通过认证
         'feild' => 0  //未通过认证
     ];
+    const USER_TYPE_NETRED = 1;//网红用户分类
+    const USER_TYPE_ADS = 2;//广告主用户分类
+    const AUTHEN_PASS = 1;//通过认证
+    const AUTHEN_FEILED = 0;//未通过认证
+    const STATUS_DELETE = -1;//删除
+    const STATUS_LOCKED = 0;//锁定
+    const STATUS_NORMAL = 1;//正常
+    const STATUS_VERIFY = 2;//待审核
+    const STATUS_FEILED = 3;//审核未通过
+
+
     public $timestamps = false;//模型不需要更新/新增时间
     protected $table = 'user';
     protected $fillable = [

@@ -11,7 +11,13 @@
 |
 */
 Route::group(['namespace'=>'Netred'],function(){
-
+    Route::group(['middleware'=> ['channel']],function(){
+        Route::get('login',          'LoginController@showForm')->name('netred.login.form');//网红登录页面
+        Route::post('login/post',    'LoginController@login')->name('netred.login.post');//登录
+        Route::get('logout',         'LoginController@logout')->name('netred.login.logout');//退出登录
+        Route::get('register',       'RegisterController@showForm')->name('netred.register.form'); //网红注册页面
+        Route::post('register/post', 'RegisterController@register')->name('netred.register.post');//注册
+    });
     Route::group(['middleware'=> ['login_netred']],function(){
         //首页
         Route::get('',               'IndexController@index')->name('netred.index.index');//网红中心首页

@@ -11,6 +11,14 @@
 |
 */
 Route::group(['namespace'=>'Ads','middleware'=> ['login']],function(){
+
+    Route::group(['middleware'=> ['channel']],function(){
+        Route::get('login',            'LoginController@showForm')->name('ads.login.form');//网红登录页面
+        Route::post('login/post',      'LoginController@login')->name('ads.login.post');//登录
+        Route::get('register',         'RegisterController@showForm')->name('ads.register.form'); //网红注册页面
+        Route::post('register/post',   'RegisterController@register')->name('ads.register.post');//注册
+    });
+
     //订单管理
     Route::get('order/index',        'NetredOrderController@index')->name('ads.order.index');//订单列表netred.dispatch.index
     //派单大厅

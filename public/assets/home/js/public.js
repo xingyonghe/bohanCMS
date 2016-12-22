@@ -123,19 +123,17 @@ $(function(){
      * @date 2016-11-23
      * @param msg 错误信息
      * @param id tips吸附元素选择器
-<<<<<<< HEAD
-     * @param scroll 是否执行滚动,默认滚动
-=======
->>>>>>> 902e3fbc731b36e3c9d75047a9b96e779166b12b
      * @param color tips颜色
      */
     window.alertTips = function(msg,id,color){
-        color  = color ? color : '#F77B6F';
+        color  = color ? color : '#ff6476';
         var obj = $('#'+id);//提示html对象
         layer.tips(msg, obj , {
             tips: [3, color] //配置颜色
         });
     }
+
+
 
     //加入收藏
     $("#addFavorite").click(function (){

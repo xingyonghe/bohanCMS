@@ -21,8 +21,8 @@
                     <section class="first">
                         <div class="text" style="padding-top: 10px;"><h2>专业的网红自媒体广告投放平台</h2>
                             <p class="copy">精准营销从此开始</p>
-                            <p class="button"><a href="{{ route('home.login.rednet') }}">网络入住</a></p>
-                            <p class="button"><a href="{{ route('home.login.ads') }}">广告投放</a></p></div>
+                            <p class="button"><a href="{{ route('netred.login.form') }}">网络入住</a></p>
+                            <p class="button"><a href="{{ route('ads.login.form') }}">广告投放</a></p></div>
                     </section>
                     <section>
                         <div class="text" style="padding-top: 10px;"><h2>专业的网红自媒体广告投放平台22</h2>

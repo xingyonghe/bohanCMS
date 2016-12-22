@@ -1,14 +1,14 @@
 <?php
 
-namespace App\Http\Controllers\Home;
+namespace App\Http\Controllers\Netred;
 
-use App\Http\Controllers\Home\CommonController;
+use App\Http\Controllers\Controller;
 use App\Models\MobileSms;
 use SMS;
 use App\Models\User;
 use SEO;
 
-class RegisterController extends CommonController{
+class RegisterController extends Controller{
     /*
     |--------------------------------------------------------------------------
     | Register Controller
@@ -27,25 +27,14 @@ class RegisterController extends CommonController{
      * 网红注册界面
      * @author xingyonghe
      * @date 2015-12-9
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return
      */
-    public function showRednetForm(){
-        SEO::setTitle(C('WEB_SITE_TITLE').'-网红注册');
+    public function showForm(){
+        SEO::setTitle('网红注册-'.C('WEB_SITE_TITLE'));
         $resend = config('mobilesms.driver.zdtone.resend');
-        return view('home.auth.register_rednet',compact('resend'));
+        return view('netred.auth.register',compact('resend'));
     }
 
-    /**
-     * 广告主注册界面
-     * @author xingyonghe
-     * @date 2015-12-9
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
-     */
-    public function showAdsForm(){
-        SEO::setTitle(C('WEB_SITE_TITLE').'-广告主注册');
-        $resend = config('mobilesms.driver.zdtone.resend');
-        return view('home.auth.register_ads',compact('resend'));
-    }
 
 
     /**

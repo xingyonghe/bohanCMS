@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Home;
+namespace App\Http\Controllers\Ads;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
@@ -31,33 +31,24 @@ class LoginController extends Controller{
     }
 
     /**
-     * 网红登陆界面
-     * @author xingyonghe
-     * @date 2015-12-9
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
-     */
-    public function showRednetForm(){
-        SEO::setTitle(C('WEB_SITE_TITLE').'-网红登陆');
-        return view('home.auth.login_rednet');
-    }
-
-    /**
      * 广告主登陆界面
      * @author xingyonghe
      * @date 2015-12-9
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return
      */
-    public function showAdsForm(){
+    public function showForm(){
         SEO::setTitle(C('WEB_SITE_TITLE').'-广告主登陆');
-        return view('home.auth.login_ads');
+        return view('ads.auth.login');
     }
 
-
+    /**
+     * 广告主登陆
+     * @author xingyonghe
+     * @date 2015-12-9
+     * @return
+     */
     public function login(){
-        $data = request()->except('_token');
-        if(empty($data['type']) || !in_array($data['type'],[1,2])){
-            return $this->ajaxReturn('非法操作');
-        }
+        $data = request()->only('username', 'password');
         //字段验证
         $rules = [
             'username' => 'required',
@@ -72,10 +63,10 @@ class LoginController extends Controller{
             return $this->ajaxValidator($validator);
         }
 
-        //从请求中获取所需的授权凭据。
-        $credentials = request()->only('username', 'password', 'type');
-        if ($this->guard()->attempt($credentials, request()->has('remember')) ||
-            $this->guard()->attempt(['email'=>$credentials['username'],'password'=>$credentials['password'],'type'=>$credentials['type']], request()->has('remember'))) {
+        $credentials = $data;
+        $credentials['type'] = User::USER_TYPE_ADS;
+
+        if ($this->guard()->attempt($credentials, request()->has('remember'))) {
             //记录登陆时间和登陆IP
             $user = $this->guard()->user();
             $login['login_time'] = \Carbon\Carbon::now();
@@ -83,9 +74,9 @@ class LoginController extends Controller{
             User::where('id',$user['id'])->update($login);
             request()->session()->regenerate();
             $this->clearLoginAttempts(request());
-            return $this->ajaxReturn('',1,route('home.index.index'));
+            return $this->ajaxReturn('',1,route('ads.index.index'));
         }
-        return response()->json(array('status'=>0,'info'=>'账户不存在或密码输入错误','id'=>'username'));
+        return response()->json(['status'=>0,'info'=>'账户不存在或密码输入错误','id'=>'username']);
     }
 
 

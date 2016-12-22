@@ -12,7 +12,7 @@
     <div class="top">
         <div class="zhong">
             <div class="fl">欢迎您！ 用户名：{{ auth()->user()->username }}</div>
-            <div class="fr"><a href="{{ route('home.login.logout') }}">退出登录</a></div>
+            <div class="fr"><a href="{{ route('netred.login.logout') }}">退出登录</a></div>
         </div>
     </div>
     <div class="header">

@@ -1,10 +1,12 @@
 <?php
 
-namespace App\Http\Controllers\Member\Media;
+namespace App\Http\Controllers\Netred;
 
-use App\Http\Controllers\Member\CommonController;
+use App\Http\Controllers\Controller;
+use SEO;
+use App\Models\UserNetredStar;
 
-class StarController extends CommonController{
+class StarController extends Controller{
     /*
     |--------------------------------------------------------------------------
     | Star Controller
@@ -12,11 +14,12 @@ class StarController extends CommonController{
     | @date 2016-11-23
     |--------------------------------------------------------------------------
     |
-    | 自媒体控制器
+    | 资源控制器
     |
     */
     protected $navkey = 'star';//菜单标识
-    public function __construct(){
+    public function __construct()
+    {
         view()->share('navkey',$this->navkey);//用于设置头部菜单高亮
         //新增/编辑共享直播平台数据
 //        view()->composer(['user.star.edit','user.star.add'],function($view){
@@ -25,31 +28,44 @@ class StarController extends CommonController{
     }
 
     /**
-     * 网红列表
-     * @return
+     * 资源列表
+     * @author: xingyonghe
+     * @date: 2016-12-23
+     *
      */
-    public function index(){
-        $map = array(
-            ['userid',auth()->id()],
-            ['status','>',D('Media')::STATUS_LOCKED]
-        );
-        $order = 'created_at';
-        $sort = 'desc';
-        $limit = 3;
-        $lists = D('Media')->listing($map,$order,$sort,$limit);
-        int_to_string($lists,array(
-            'status' => array(-1=>'删除',0=>'锁定',1=>'正常',2=>'待审核',3=>'未通过'),
-        ));
-        return view('member.star.index',compact('lists'));
+    public function index()
+    {
+        SEO::setTitle('资源管理-网红中心-'.C('WEB_SITE_TITLE'));
+        $lists = UserNetredStar::where('userid',auth()->id())
+            ->orderBy('created', 'desc')
+            ->paginate(C('SYSTEM_LIST_LIMIT') ?? 10);
+        $this->intToString($lists,['status'=>UserNetredStar::STATUS_TEXT]);
+        return view('netred.star.index',compact('lists'));
     }
 
     /**
-     * 网红修改
-     * @return
+     * 添加直播
+     * @author: xingyonghe
+     * @date: 2016-12-23
      */
-    public function create(){
-        return view('user.star.edit');
+    public function live()
+    {
+        SEO::setTitle('添加直播-网红中心-'.C('WEB_SITE_TITLE'));
+        return view('netred.star.live');
     }
+
+    /**
+     * 添加短视频
+     * @author: xingyonghe
+     * @date: 2016-12-23
+     */
+    public function video()
+    {
+        SEO::setTitle('添加短视频-网红中心-'.C('WEB_SITE_TITLE'));
+        return view('netred.star.video');
+    }
+
+
 
     /**
      * 网红修改
@@ -61,7 +77,7 @@ class StarController extends CommonController{
             ->where('userid',auth()->id())
             ->whereIn('status',[D('Media')::STATUS_CREATE,D('Media')::STATUS_FAILED])
             ->findOrFail($id);
-        return view('member.star.edit',compact('info'));
+        return view('netred.star.edit',compact('info'));
     }
 
     /**

@@ -30,10 +30,10 @@
                         </div>
                         <div class="btn-group pull-right">
                             {!! Form::open(['url' => route('admin.channel.index'),'method'=>'get']) !!}
-                            <div class="dataTables_filter" id="sample_1_filter">
+                            <div class="dataTables_filter">
                                 <button class="btn btn-primary" type="submit"><i class="fa  icon-zoom-in"></i>搜索</button>
                             </div>
-                            <div class="dataTables_filter" id="sample_1_filter">
+                            <div class="dataTables_filter">
                                 导航名称：<input type="text" name="title" aria-controls="sample_1" value="{{ $params['title'] }}" class="form-controls">
                             </div>
                             {!!Form::close()!!}

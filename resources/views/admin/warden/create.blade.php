@@ -17,6 +17,22 @@
                         </div>
                     </div>
                     <div class="form-group ">
+                        <label for="cname" class="control-label col-lg-2">QQ</label>
+                        <div class="col-lg-10">
+                            <input class=" form-control" placeholder="填写管理员的QQ账号" name="qq" type="text" value="" />
+                        </div>
+                    </div>
+                    <div class="form-group ">
+                        <label for="cname" class="control-label col-lg-2">分类</label>
+                        <div class="col-lg-10">
+                            <select class="form-control m-bot15" name="type">
+                                @foreach($admin_type as $type_id=>$type_name)
+                                    <option value="{{ $type_id }}">{{ $type_name }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group ">
                         <label for="cemail" class="control-label col-lg-2">密码</label>
                         <div class="col-lg-10">
                             <input class="form-control " placeholder="用于后台登陆的密码"  type="password" name="password" />

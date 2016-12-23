@@ -23,28 +23,22 @@
                                 新增 <i class="fa icon-plus"></i>
                             </a>
                         </div>
-                    </div>
-                </div>
-                <div id="sample_1_wrapper" class="dataTables_wrapper form-inline" role="grid">
-                    <div class="row">
-                        <div class="col-sm-12">
+                        <div class="btn-group pull-right">
                             {!! Form::open(['url' => route('admin.warden.index'),'method'=>'get']) !!}
-                            <div class="dataTables_filter" id="sample_1_filter">
-                                <button class="btn btn-primary" type="submit"><i class="fa icon-search"></i>搜索</button>
+                            <div class="dataTables_filter">
+                                <button class="btn btn-primary" type="submit"><i class="fa  icon-zoom-in"></i>搜索</button>
                             </div>
-                            <div class="dataTables_filter" id="sample_1_filter">
-                                <label>
-                                    昵称：<input type="text" name="nickname"  value="{{ $params['nickname'] }}" class="form-control">
-                                </label>
+                            <div class="dataTables_filter">
+                                昵称：<input type="text" name="nickname"  value="{{ $params['nickname'] }}" class="form-controls">
                             </div>
-                            <div class="dataTables_filter" id="sample_1_filter">
-                                <label>
-                                    用户名：<input type="text" name="username"  value="{{ $params['username'] }}" class="form-control">
-                                </label>
+                            <div class="dataTables_filter">
+                                用户名：<input type="text" name="username"  value="{{ $params['username'] }}" class="form-controls">
                             </div>
                             {!!Form::close()!!}
                         </div>
                     </div>
+                </div>
+                <div id="sample_1_wrapper" class="dataTables_wrapper form-inline" role="grid">
                     <table class="table table-striped border-top" id="sample_1">
                         <thead>
                         <tr>
@@ -53,6 +47,8 @@
                             <th>UID</th>
                             <th class="hidden-phone">用户名</th>
                             <th class="hidden-phone">昵称</th>
+                            <th class="hidden-phone">客服QQ</th>
+                            <th class="hidden-phone">分类</th>
                             <th class="hidden-phone">用户组</th>
                             <th class="hidden-phone">注册时间</th>
                             <th class="hidden-phone">最近登录时间</th>
@@ -68,6 +64,8 @@
                                 <td>{{ $data->id }}</td>
                                 <td>{{ $data->username }}</td>
                                 <td>{{ $data->nickname }}</td>
+                                <td>{{ $data->qq }}</td>
+                                <td>{{ $data->type_text }}</td>
                                 <td>{{ $data->role_id_text }}</td>
                                 <td class="hidden-phone">{{ $data->reg_time->format('Y-m-d H:i') }}</td>
                                 <td class="hidden-phone">{{ $data->login_time->format('Y-m-d H:i') }}</td>

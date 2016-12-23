@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin\User;
 
 use App\Http\Controllers\Admin\CommonController;
 use App\Http\Requests\Admin\AdminRequest;
+use App\Models\SysAdmin;
 
 
 class WardenController extends CommonController{
@@ -18,17 +19,26 @@ class WardenController extends CommonController{
     |
     */
 
+    public function __construct()
+    {
+        view()->composer(['admin.warden.edit','admin.warden.create'],function($view){
+            $view->with('admin_type',SysAdmin::TYPE_TEXT);
+        });
+
+    }
+
     /**
      * 列表
      * @author xingyonghe
      * @date 2016-11-15
      * @return
      */
-    public function index(){
+    public function index()
+    {
         $username = (string)request()->get('username','');
         $nickname = (string)request()->get('nickname','');
         $lists = D('SysAdmin')
-            ->select(['id', 'username', 'nickname', 'role_id', 'status', 'reg_time', 'login_time','login_ip'])
+            ->select(['id', 'username', 'nickname', 'role_id', 'status', 'reg_time', 'login_time','login_ip','type','qq'])
             ->whereIn('status',[D('SysAdmin')::STATUS_LOCK,D('SysAdmin')::STATUS_NORMAL])
             ->where(function ($query) use($username){
                 if($username){
@@ -47,7 +57,8 @@ class WardenController extends CommonController{
         $groups = array_add($groups,1,'超级管理员');
 
         $this->intToString($lists,array(
-            'status' => D('SysAdmin')::STATUS_TEXT,
+            'status' => SysAdmin::STATUS_TEXT,
+            'type'   => SysAdmin::TYPE_TEXT,
             'role_id'=> $groups
         ));
 
@@ -64,7 +75,8 @@ class WardenController extends CommonController{
      * @date 2016-11-16
      * @return
      */
-    public function create(){
+    public function create()
+    {
         $groups = D('SysAuthGroup')->getGroup();
         $view = view('admin.warden.create',compact('groups'));
         return $this->ajaxReturn($view->render(),1,'','新增管理员账号');
@@ -77,7 +89,8 @@ class WardenController extends CommonController{
      * @param AdminRequest $request
      * @return
      */
-    public function add(AdminRequest $request){
+    public function add(AdminRequest $request)
+    {
         $info = D('SysAdmin')->where(array(['username','=',$request->username],['status','>','-1']))->first();
         if(!empty($info)){
             return $this->ajaxReturn('管理员账号已存在');
@@ -97,7 +110,8 @@ class WardenController extends CommonController{
      * @param int $id
      * @return
      */
-    public function edit(int $id){
+    public function edit(int $id)
+    {
         $info = D('SysAdmin')->find($id);
         $groups = D('SysAuthGroup')->getGroup();
         $view = view('admin.warden.edit',compact('info','groups'));
@@ -112,7 +126,7 @@ class WardenController extends CommonController{
      * @return mixed
      */
     public function update(){
-        $resault = D('SysAdmin')->updateData(request()->only(['nickname','role_id','id','status']));
+        $resault = D('SysAdmin')->updateData(request()->only(['nickname','role_id','id','status','type','qq']));
         if($resault){
             return $this->ajaxReturn('修改管理员信息新增成功',1,url()->previous());
         }else{

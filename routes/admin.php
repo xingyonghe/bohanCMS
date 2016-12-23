@@ -94,18 +94,15 @@ Route::group(['namespace'=>'Admin'],function(){
             Route::get ('group/access/{id}',   'GroupController@access')->name('admin.group.access')->where('id','\d+'); //用户组授权
             Route::post('group/write',         'GroupController@write')->name('admin.group.write');//用户组授权写入
 
-            /**--普通会员--**/
-            Route::get ('personal/index',              'PersonalController@index')->name('admin.user.index');//普通会员管理
-            Route::get ('personal/add',                'PersonalController@add');//添加
-            Route::get ('personal/edit/{id}',          'PersonalController@edit');//修改
-            Route::post('personal/post',               'PersonalController@post');//更新
-            Route::post('personal/update',             'PersonalController@update'); //新增
-            Route::get ('personal/destroy/{id}',       'PersonalController@destroy');//删除
-            Route::get ('personal/forbid/{id}',        'PersonalController@forbid'); //禁用
-            Route::get ('personal/resume/{id}',        'PersonalController@resume'); //启用
-            Route::get ('personal/verify/{id}',        'PersonalController@verify');//审核
-            Route::get ('personal/addCustom/{id}',     'PersonalController@addCustom');   //添加客服
-            Route::post('personal/postCustom',         'PersonalController@postCustom'); //更新客服
+            /**--网红管理--**/
+            Route::get ('netred/index',              'NetredController@index')->name('admin.netred.index');//网红列表
+            Route::get ('netred/show/{id}',          'NetredController@show')->name('admin.netred.show')->where('id','\d+');//网红详情
+            Route::get ('netred/edit/{id}',          'NetredController@edit')->name('admin.netred.edit')->where('id','\d+');//网红修改
+            Route::get ('netred/verify/{id}',        'NetredController@verify')->name('admin.netred.verify')->where('id','\d+');//审核
+            /**--广告主管理--**/
+            Route::get ('ads/index',              'AdsController@index')->name('admin.ads.index');//网红列表
+            Route::get ('ads/show/{id}',          'AdsController@index')->name('admin.ads.show')->where('id','\d+');//网红详情
+            Route::get ('ads/verify/{id}',        'AdsController@verify')->name('admin.ads.verify')->where('id','\d+');//审核
         });
 
         /**--**--**--**--**--**--**--**--**--**内容管理**--**--**--**--**--**--**--**--**--**--**/

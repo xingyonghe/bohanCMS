@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50547
 File Encoding         : 65001
 
-Date: 2016-12-15 18:49:56
+Date: 2016-12-23 17:26:39
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -151,6 +151,8 @@ CREATE TABLE `sys_admin` (
   `username` varchar(100) NOT NULL DEFAULT '' COMMENT '用户名',
   `password` varchar(255) NOT NULL DEFAULT '' COMMENT '密码',
   `nickname` varchar(100) NOT NULL DEFAULT '' COMMENT '昵称',
+  `type` tinyint(4) DEFAULT '1' COMMENT '管理员分类：1系统管理员2网红管理员3广告主管理员',
+  `qq` varchar(30) DEFAULT '' COMMENT '客服QQ',
   `role_id` tinyint(4) NOT NULL DEFAULT '0' COMMENT '用户组ID',
   `status` tinyint(4) NOT NULL DEFAULT '1' COMMENT '状态：-1删除，0禁用，1正常',
   `remember_token` varchar(100) DEFAULT NULL COMMENT '记住我标识',
@@ -164,9 +166,9 @@ CREATE TABLE `sys_admin` (
 -- ----------------------------
 -- Records of sys_admin
 -- ----------------------------
-INSERT INTO `sys_admin` VALUES ('1', 'admin', '$2y$10$gcM59gn/8fF7loOVC1a.QuffmG1wM1hKl.OpBc6BdiCh2Fz1WawRa', '超管', '1', '1', 'NUpLpFBJYvFzJHS5xSLyiM51bdN5M40PLMLqBa5rGFDwTqn7FYN652F4LeCc', '2016-11-15 09:17:38', '2016-12-10 16:19:55', '127.0.0.1');
-INSERT INTO `sys_admin` VALUES ('2', 'xingyonghe', '$2y$10$1gGSm8H9xJx3/butYr/KheO2.gPnmh8prxOQ0AcPaXL0AgINKxM0m', '风影', '2', '1', 'KNYnalxXCJmMIp7OTmQywx2ybHgoaFLQPR27QqRmnGrfqeqr8zFh1Jdrxcaf', '2016-11-16 03:30:16', '2016-11-17 02:16:55', '127.0.0.1');
-INSERT INTO `sys_admin` VALUES ('3', 'xingyingfeng', '$2y$10$6m.iqImB7wikG6L0SVJPt.pM0kdRQvvNzMvZWq4ETHw628LNycZ6C', '永和测试', '2', '1', null, '2016-11-16 03:33:25', '2016-11-16 03:33:25', '');
+INSERT INTO `sys_admin` VALUES ('1', 'admin', '$2y$10$gcM59gn/8fF7loOVC1a.QuffmG1wM1hKl.OpBc6BdiCh2Fz1WawRa', '超管', '1', '', '1', '1', 'NUpLpFBJYvFzJHS5xSLyiM51bdN5M40PLMLqBa5rGFDwTqn7FYN652F4LeCc', '2016-11-15 09:17:38', '2016-12-23 12:48:02', '127.0.0.1');
+INSERT INTO `sys_admin` VALUES ('2', 'xingyonghe', '$2y$10$1gGSm8H9xJx3/butYr/KheO2.gPnmh8prxOQ0AcPaXL0AgINKxM0m', '风影', '3', '365754061', '2', '1', 'KNYnalxXCJmMIp7OTmQywx2ybHgoaFLQPR27QqRmnGrfqeqr8zFh1Jdrxcaf', '2016-11-16 03:30:16', '2016-11-17 02:16:55', '127.0.0.1');
+INSERT INTO `sys_admin` VALUES ('3', 'xingyingfeng', '$2y$10$6m.iqImB7wikG6L0SVJPt.pM0kdRQvvNzMvZWq4ETHw628LNycZ6C', '永和测试', '1', '1342234898', '2', '1', null, '2016-11-16 03:33:25', '2016-11-16 03:33:25', '');
 
 -- ----------------------------
 -- Table structure for sys_auth_group
@@ -185,8 +187,8 @@ CREATE TABLE `sys_auth_group` (
 -- Records of sys_auth_group
 -- ----------------------------
 INSERT INTO `sys_auth_group` VALUES ('1', '超级管理员', '拥有网站所有权限', '1', '');
-INSERT INTO `sys_auth_group` VALUES ('2', '用户组1', '用户组1', '1', '[\"1\",\"13\",\"15\",\"41\",\"16\",\"17\",\"18\",\"12\",\"11\",\"19\",\"42\",\"43\",\"45\",\"46\",\"47\",\"20\",\"54\"]');
-INSERT INTO `sys_auth_group` VALUES ('3', '用户组2', '用户组2', '1', '[\"1\",\"13\",\"15\",\"41\",\"16\",\"17\",\"18\",\"12\",\"11\",\"19\",\"42\",\"43\",\"45\",\"46\",\"47\",\"20\",\"54\"]');
+INSERT INTO `sys_auth_group` VALUES ('2', '市场部', '市场部', '1', '[\"1\",\"13\",\"15\",\"41\",\"16\",\"17\",\"18\",\"12\",\"11\",\"19\",\"42\",\"43\",\"45\",\"46\",\"47\",\"20\",\"54\"]');
+INSERT INTO `sys_auth_group` VALUES ('3', '技术部', '技术部', '1', '[\"1\",\"13\",\"15\",\"41\",\"16\",\"17\",\"18\",\"12\",\"11\",\"19\",\"42\",\"43\",\"45\",\"46\",\"47\",\"20\",\"54\"]');
 
 -- ----------------------------
 -- Table structure for sys_auth_rule
@@ -198,7 +200,7 @@ CREATE TABLE `sys_auth_rule` (
   `name` varchar(100) NOT NULL DEFAULT '' COMMENT '规则唯一英文标识,url',
   `type` tinyint(4) NOT NULL DEFAULT '1' COMMENT '类型:1url，2主菜单',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=82 DEFAULT CHARSET=utf8mb4 COMMENT='权限规则';
+) ENGINE=InnoDB AUTO_INCREMENT=72 DEFAULT CHARSET=utf8mb4 COMMENT='权限规则';
 
 -- ----------------------------
 -- Records of sys_auth_rule
@@ -236,6 +238,31 @@ INSERT INTO `sys_auth_rule` VALUES ('42', '新增', 'admin.config.create', '1');
 INSERT INTO `sys_auth_rule` VALUES ('43', '修改', 'admin.config.edit', '1');
 INSERT INTO `sys_auth_rule` VALUES ('45', '更新', 'admin.config.update', '1');
 INSERT INTO `sys_auth_rule` VALUES ('46', '排序', 'admin.config.sort', '1');
+INSERT INTO `sys_auth_rule` VALUES ('47', '审核', 'admin.ads.verify', '1');
+INSERT INTO `sys_auth_rule` VALUES ('48', '更新', 'admin.config.post', '1');
+INSERT INTO `sys_auth_rule` VALUES ('49', '更新排序', 'admin.config.order', '1');
+INSERT INTO `sys_auth_rule` VALUES ('50', '新增', 'article.category.create', '1');
+INSERT INTO `sys_auth_rule` VALUES ('51', '修改', 'article.category.edit', '1');
+INSERT INTO `sys_auth_rule` VALUES ('52', '详情', 'admin.ads.show', '1');
+INSERT INTO `sys_auth_rule` VALUES ('53', '审核', 'admin.netred.verify', '1');
+INSERT INTO `sys_auth_rule` VALUES ('54', '详情', 'admin.netred.show', '1');
+INSERT INTO `sys_auth_rule` VALUES ('55', '排序', 'admin.menu.sort', '1');
+INSERT INTO `sys_auth_rule` VALUES ('56', '更新', 'article.setting.update', '1');
+INSERT INTO `sys_auth_rule` VALUES ('57', '删除', 'admin.article.destroy', '1');
+INSERT INTO `sys_auth_rule` VALUES ('58', '更新', 'admin.article.update', '1');
+INSERT INTO `sys_auth_rule` VALUES ('59', '修改', 'admin.article.edit', '1');
+INSERT INTO `sys_auth_rule` VALUES ('60', '删除', 'article.category.destroy', '1');
+INSERT INTO `sys_auth_rule` VALUES ('61', '更新', 'article.category.update', '1');
+INSERT INTO `sys_auth_rule` VALUES ('62', '更新排序', 'admin.menu.order', '1');
+INSERT INTO `sys_auth_rule` VALUES ('63', '网红列表', 'admin.netred.index', '1');
+INSERT INTO `sys_auth_rule` VALUES ('64', '分类管理', 'article.category.index', '1');
+INSERT INTO `sys_auth_rule` VALUES ('65', '广告主列表', 'admin.ads.index', '1');
+INSERT INTO `sys_auth_rule` VALUES ('66', '模块配置', 'article.setting.index', '1');
+INSERT INTO `sys_auth_rule` VALUES ('67', '内容', 'admin.article.index', '2');
+INSERT INTO `sys_auth_rule` VALUES ('68', '新增内容', 'admin.article.create', '1');
+INSERT INTO `sys_auth_rule` VALUES ('69', '导航管理', 'admin.channel.index', '1');
+INSERT INTO `sys_auth_rule` VALUES ('70', '内容信息', 'admin.article.index', '1');
+INSERT INTO `sys_auth_rule` VALUES ('71', '回收站', 'admin.article.recycle', '1');
 
 -- ----------------------------
 -- Table structure for sys_channel
@@ -295,7 +322,7 @@ INSERT INTO `sys_config` VALUES ('6', '网站名称', 'WEB_SITE_TITLE', '0', '2'
 INSERT INTO `sys_config` VALUES ('7', '是否开启会员注册', 'WEB_REGISTER_ALLOW', '0', '4', '3', 'user', '1', '0:不允许\r\n1:允许', '是否开启网站会员注册功能', '2016-11-17 02:30:04', '2016-11-17 02:30:04');
 INSERT INTO `sys_config` VALUES ('8', '注册是否需要审核', 'WEB_REGISTER_VERIFY', '0', '4', '3', 'user', '0', '0:不需要\r\n1:需要', '网站会员注册是否需要审核', '2016-11-17 02:30:48', '2016-11-17 02:30:48');
 INSERT INTO `sys_config` VALUES ('9', '自媒体是否需要审核', 'USER_MEDIA_VERIFY', '0', '4', '3', 'user', '0', '0:不需要\r\n1:需要', '新增自媒体是否需要后台管理员审核', '2016-11-17 02:31:48', '2016-11-18 11:48:04');
-INSERT INTO `sys_config` VALUES ('10', '网站会员角色', 'WEB_SITE_MEMBER', '0', '3', '3', 'user', '1:自媒体\r\n2:广告主', '', '网站会员可以注册的角色', '2016-11-17 03:34:35', '2016-11-17 03:34:35');
+INSERT INTO `sys_config` VALUES ('10', '网站会员角色', 'WEB_SITE_MEMBER', '0', '3', '3', 'user', '1:网红\r\n2:广告主', '', '网站会员可以注册的角色', '2016-11-17 03:34:35', '2016-12-22 12:56:01');
 INSERT INTO `sys_config` VALUES ('11', '网站模块', 'CONFIG_MODULE_LIST', '0', '3', '1', 'system', 'system:系统\r\narticle:内容\r\nuser:会员', '', '网站主要模块，用于网站模块设置', '2016-11-18 11:32:04', '2016-11-18 11:47:52');
 INSERT INTO `sys_config` VALUES ('12', '前台分页数量', 'ARTICLE_PAGE_NUM', '0', '1', '3', 'article', '10', '', '前台列表分页数量', '2016-11-18 16:56:37', '2016-11-18 17:06:25');
 
@@ -313,7 +340,7 @@ CREATE TABLE `sys_menu` (
   `icon` varchar(50) NOT NULL DEFAULT '' COMMENT 'class样式名称',
   `group` varchar(50) NOT NULL DEFAULT '' COMMENT '分组',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=82 DEFAULT CHARSET=utf8mb4 COMMENT='系统菜单';
+) ENGINE=InnoDB AUTO_INCREMENT=88 DEFAULT CHARSET=utf8mb4 COMMENT='系统菜单';
 
 -- ----------------------------
 -- Records of sys_menu
@@ -327,7 +354,7 @@ INSERT INTO `sys_menu` VALUES ('6', '编辑', '4', '0', 'admin.menu.edit', '1', 
 INSERT INTO `sys_menu` VALUES ('7', '更新', '4', '0', 'admin.menu.update', '1', '', '系统设置');
 INSERT INTO `sys_menu` VALUES ('8', '网站配置', '2', '2', 'admin.config.index', '0', '', '系统设置');
 INSERT INTO `sys_menu` VALUES ('9', '网站设置', '2', '3', 'admin.config.setting', '0', '', '系统设置');
-INSERT INTO `sys_menu` VALUES ('10', '管理员', '3', '0', 'admin.warden.index', '0', '', '权限管理');
+INSERT INTO `sys_menu` VALUES ('10', '管理员', '3', '3', 'admin.warden.index', '0', '', '权限管理');
 INSERT INTO `sys_menu` VALUES ('11', '批量新增', '4', '0', 'admin.menu.batch', '1', '', '系统设置');
 INSERT INTO `sys_menu` VALUES ('12', '批量更新', '4', '0', 'admin.menu.submit', '1', '', '系统设置');
 INSERT INTO `sys_menu` VALUES ('13', '新增', '10', '0', 'admin.warden.create', '1', '', '权限管理');
@@ -339,7 +366,7 @@ INSERT INTO `sys_menu` VALUES ('18', '启用', '10', '0', 'admin.warden.resume',
 INSERT INTO `sys_menu` VALUES ('19', '删除', '10', '0', 'admin.warden.destroy', '1', '', '权限管理');
 INSERT INTO `sys_menu` VALUES ('20', '重置密码', '10', '0', 'admin.warden.resetpass', '1', '', '权限管理');
 INSERT INTO `sys_menu` VALUES ('21', '更新密码', '10', '0', 'admin.warden.change', '1', '', '权限管理');
-INSERT INTO `sys_menu` VALUES ('22', '用户组', '3', '0', 'admin.group.index', '0', '', '权限管理');
+INSERT INTO `sys_menu` VALUES ('22', '用户组', '3', '4', 'admin.group.index', '0', '', '权限管理');
 INSERT INTO `sys_menu` VALUES ('23', '新增', '22', '0', 'admin.group.create', '1', '', '权限管理');
 INSERT INTO `sys_menu` VALUES ('24', '修改', '22', '0', 'admin.group.edit', '1', '', '权限管理');
 INSERT INTO `sys_menu` VALUES ('25', '更新', '22', '0', 'admin.group.update', '1', '', '权限管理');
@@ -370,16 +397,12 @@ INSERT INTO `sys_menu` VALUES ('67', '更新', '38', '0', 'article.setting.updat
 INSERT INTO `sys_menu` VALUES ('68', '排序', '4', '0', 'admin.menu.sort', '1', '', '系统设置');
 INSERT INTO `sys_menu` VALUES ('69', '更新排序', '4', '0', 'admin.menu.order', '1', '', '系统设置');
 INSERT INTO `sys_menu` VALUES ('70', '导航管理', '2', '4', 'admin.channel.index', '0', '', '系统设置');
-INSERT INTO `sys_menu` VALUES ('72', 'seo管理', '2', '6', 'admin.seo.index', '0', '', 'SEO设置');
-INSERT INTO `sys_menu` VALUES ('73', '变量管理', '2', '5', 'admin.seoname.index', '0', '', 'SEO设置');
-INSERT INTO `sys_menu` VALUES ('74', '新增', '72', '0', 'admin.seo.create', '1', '', 'SEO设置');
-INSERT INTO `sys_menu` VALUES ('75', '修改', '72', '0', 'admin.seo.edit', '1', '', 'SEO设置');
-INSERT INTO `sys_menu` VALUES ('76', '更新', '72', '0', 'admin.seo.update', '1', '', 'SEO设置');
-INSERT INTO `sys_menu` VALUES ('77', '删除', '72', '0', 'admin.seo.destroy', '1', '', 'SEO设置');
-INSERT INTO `sys_menu` VALUES ('78', '新增', '73', '0', 'admin.seoname.create', '1', '', 'SEO设置');
-INSERT INTO `sys_menu` VALUES ('79', '修改', '73', '0', 'admin.seoname.edit', '1', '', 'SEO设置');
-INSERT INTO `sys_menu` VALUES ('80', '更新', '73', '0', 'admin.seoname.update', '1', '', 'SEO设置');
-INSERT INTO `sys_menu` VALUES ('81', '删除', '73', '0', 'admin.seoname.destroy', '1', '', 'SEO设置');
+INSERT INTO `sys_menu` VALUES ('82', '网红列表', '3', '1', 'admin.netred.index', '0', '', '用户管理');
+INSERT INTO `sys_menu` VALUES ('83', '详情', '82', '0', 'admin.netred.show', '1', '', '用户管理');
+INSERT INTO `sys_menu` VALUES ('84', '审核', '82', '0', 'admin.netred.verify', '1', '', '用户管理');
+INSERT INTO `sys_menu` VALUES ('85', '广告主列表', '3', '2', 'admin.ads.index', '0', '', '用户管理');
+INSERT INTO `sys_menu` VALUES ('86', '详情', '85', '0', 'admin.ads.show', '1', '', '用户管理');
+INSERT INTO `sys_menu` VALUES ('87', '审核', '85', '0', 'admin.ads.verify', '1', '', '用户管理');
 
 -- ----------------------------
 -- Table structure for sys_seo
@@ -454,7 +477,7 @@ CREATE TABLE `user` (
 -- ----------------------------
 -- Records of user
 -- ----------------------------
-INSERT INTO `user` VALUES ('2', '13667635645', '$2y$10$niPF43uYPuOUX7n5OWnU/ubUXZqaoz6MvBVdfYUOtaOxoDmTI.3xi', '1Ck5x35XY9M5z8ldPseu9juFOjbBzJkHdmyGI21EA9uuvxUsL6NMLz77aBJ8', '邢永和', '1', '1', '1342234898', '', '0.00', '0.00', '', '3', '永和测试', '1', '', '2016-11-17 18:46:49', '127.0.0.1', '2016-12-09 17:41:31', '127.0.0.1');
+INSERT INTO `user` VALUES ('2', '13667635645', '$2y$10$niPF43uYPuOUX7n5OWnU/ubUXZqaoz6MvBVdfYUOtaOxoDmTI.3xi', 'oYrwYqAA17Q5l57WA17dUdICSgkV573CQMSjHLp2DgZt6tvYSZ1hcOC1ZklY', '邢永和', '1', '1', '1342234898', '', '0.00', '0.00', '', '3', '永和测试', '1', '', '2016-11-17 18:46:49', '127.0.0.1', '2016-12-23 16:58:53', '127.0.0.1');
 INSERT INTO `user` VALUES ('3', '17723160667', '$2y$10$55bR8O6QHIFe6X70fM0nn.FeyC07/KGZmvBpt4LtWYZ0FelBBx48S', null, '形影楓', '1', '2', '', '', '0.00', '0.00', '重庆问问我科技', '3', '永和测试', '1', '', '2016-11-17 19:15:14', '127.0.0.1', '2016-11-25 11:23:04', '127.0.0.1');
 
 -- ----------------------------
@@ -498,21 +521,6 @@ INSERT INTO `user_account` VALUES ('18', '2', 'ZHB2467189254670', '0.01', '1', '
 INSERT INTO `user_account` VALUES ('19', '2', 'ZHB2467727191806', '0.01', '1', '127.0.0.1', '0', '2016-11-24 14:08:47', '用户充值，充值金额：0.01');
 
 -- ----------------------------
--- Table structure for user_ads
--- ----------------------------
-DROP TABLE IF EXISTS `user_ads`;
-CREATE TABLE `user_ads` (
-  `user_id` int(11) NOT NULL DEFAULT '0' COMMENT '用户ID',
-  `wait_account` decimal(12,2) NOT NULL DEFAULT '0.00' COMMENT '待结算金额',
-  `finish_account` decimal(12,2) NOT NULL DEFAULT '0.00' COMMENT '已结算金额'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='广告主用户扩展信息';
-
--- ----------------------------
--- Records of user_ads
--- ----------------------------
-INSERT INTO `user_ads` VALUES ('3', '0.00', '0.00');
-
--- ----------------------------
 -- Table structure for user_ads_task
 -- ----------------------------
 DROP TABLE IF EXISTS `user_ads_task`;
@@ -543,17 +551,37 @@ CREATE TABLE `user_ads_task` (
 INSERT INTO `user_ads_task` VALUES ('1', '3', '重庆第一届网红大赛', '56200.00', '4', '2016-11-26 19:00:00', '2016-11-29 15:00:00', '2016-11-26 17:00:00', '邢永和', '13667635645', '问问我科技', '', '先下直播', '穿戴整洁、装扮时髦', '1', '2016-11-25 13:59:47', '2016-11-25 14:23:49');
 
 -- ----------------------------
--- Table structure for user_media
+-- Table structure for user_netred_star
 -- ----------------------------
-DROP TABLE IF EXISTS `user_media`;
-CREATE TABLE `user_media` (
-  `user_id` int(11) NOT NULL DEFAULT '0' COMMENT '用户ID',
-  `medias` int(11) NOT NULL DEFAULT '0' COMMENT '媒体资源数量',
-  `wait_account` decimal(10,2) NOT NULL DEFAULT '0.00' COMMENT '待结算金额',
-  `finish_account` decimal(10,2) NOT NULL DEFAULT '0.00' COMMENT '已结算金额'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='自媒体用户扩展信息';
+DROP TABLE IF EXISTS `user_netred_star`;
+CREATE TABLE `user_netred_star` (
+  `id` int(10) NOT NULL AUTO_INCREMENT COMMENT '资源ID',
+  `userid` int(10) DEFAULT NULL COMMENT '网红ID',
+  `status` tinyint(4) DEFAULT '1' COMMENT '状态:-1删除1正常2待审核3审核未通过',
+  `avatar` int(10) DEFAULT NULL COMMENT '头像ID',
+  `stage_name` varchar(255) DEFAULT '' COMMENT '艺名',
+  `sex` tinyint(2) DEFAULT '1' COMMENT '1男2女',
+  `province` int(10) DEFAULT '0' COMMENT '省份ID',
+  `city` int(10) DEFAULT '0' COMMENT '城市ID',
+  `district` int(10) DEFAULT '0' COMMENT '地区ID',
+  `area` varchar(100) DEFAULT '' COMMENT '地区字符',
+  `type` tinyint(2) DEFAULT '1' COMMENT '资源分类：1直播2短视频',
+  `fans` int(12) DEFAULT '0' COMMENT '粉丝数量',
+  `platform` tinyint(4) DEFAULT '0' COMMENT '所属平台',
+  `platform_id` varchar(100) DEFAULT '' COMMENT '平台ID',
+  `average_num` int(10) DEFAULT '0' COMMENT '平均观看人数',
+  `max_num` int(10) DEFAULT '0' COMMENT '最高观看人数',
+  `style` varchar(255) DEFAULT '' COMMENT '风格',
+  `ad_type` varchar(255) DEFAULT '' COMMENT '广告形式',
+  `form_price` varchar(255) DEFAULT '' COMMENT '广告形式及价格',
+  `note` varchar(2000) DEFAULT '' COMMENT '备注',
+  `advantage` varchar(2000) DEFAULT '' COMMENT '优势',
+  `introduce` varchar(2000) DEFAULT '' COMMENT '介绍',
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4;
 
 -- ----------------------------
--- Records of user_media
+-- Records of user_netred_star
 -- ----------------------------
-INSERT INTO `user_media` VALUES ('2', '0', '0.00', '0.00');

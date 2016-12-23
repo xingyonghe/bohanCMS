@@ -40,7 +40,13 @@ class User extends Authenticatable{
     const STATUS_NORMAL = 1;//正常
     const STATUS_VERIFY = 2;//待审核
     const STATUS_FEILED = 3;//审核未通过
-
+    const STATUS_TEXT = [
+        self::STATUS_DELETE => '<span class="label label-danger">删除</span>',
+        self::STATUS_LOCKED => '<span class="label label-info">禁用</span>',
+        self::STATUS_NORMAL => '<span class="label label-success">正常</span>',
+        self::STATUS_VERIFY => '待审核',
+        self::STATUS_FEILED => '审核未通过',
+    ];
 
     public $timestamps = false;//模型不需要更新/新增时间
     protected $table = 'user';

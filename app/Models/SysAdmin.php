@@ -18,24 +18,28 @@ class SysAdmin extends Authenticatable{
     | 系统管理员模型
     |
     */
-
-    //删除状态
-    const STATUS_DELETE = -1;
-    //禁用状态
-    const STATUS_LOCK   = 0;
-    //正常状态
-    const STATUS_NORMAL = 1;
+    const STATUS_DELETE = -1;//删除状态
+    const STATUS_LOCK   = 0;//禁用状态
+    const STATUS_NORMAL = 1; //正常状态
     //状态含义
     const STATUS_TEXT   = array(
       self::STATUS_DELETE =>'<span class="label label-danger">删除</span>',
       self::STATUS_LOCK   =>'<span class="label label-info">禁用</span>',
       self::STATUS_NORMAL =>'<span class="label label-success">正常</span>'
     );
+    const TYPE_SYS = 1;//系统管理员
+    const TYPE_RED = 2;//网红管理员
+    const TYPE_ADS = 3;//广告主管理员
+    const TYPE_TEXT = [
+        self::TYPE_SYS   =>'系统管理员',
+        self::TYPE_RED   =>'网红管理员',
+        self::TYPE_ADS   =>'广告主管理员'
+    ];
 
     public $timestamps = false;//模型不需要更新/新增时间
     protected $table = 'sys_admin';
     protected $fillable = [
-        'username', 'password','reg_time','login_time','login_ip','role_id','nickname','status'
+        'username', 'password','reg_time','login_time','login_ip','role_id','nickname','status','type','qq'
     ];
     protected $hidden = [
         'password', 'remember_token',

@@ -30,6 +30,13 @@ class UploadApiController extends Controller{
         return response()->json($info);
     }
 
+    public function logo(){
+        $files = request()->file();
+        $disks = 'picture';//配置名称
+        $info = Upload::logo($files,$disks);
+        return response()->json($info);
+    }
+
 
 
 

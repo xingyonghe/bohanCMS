@@ -98,6 +98,8 @@ class Upload{
         }
     }
 
+
+
     public function picture($files,$disks){
         //获取配置
         $config = config('filesystems.disks.'.$disks);
@@ -146,6 +148,50 @@ class Upload{
         }
     }
 
+    public function logo($files,$disks){
+        //获取配置
+        $config = config('filesystems.disks.'.$disks);
+        //获取驱动
+        $config['uploader'] = Storage::disk($disks);
+        //自动执行一些基础的
+        $this->uploadInit($config);
+        $logo = $this->uploads($files);
+        if($logo){
+            foreach($logo as $key => &$value){
+                //存在直接返回
+                if(isset($value['id']) && is_numeric($value['id'])){
+                    continue;
+                }
+                $path = str_replace(public_path(),'',$value['rootpath']);
+                $path = str_replace('\\','/',$path);
+                //在模板里的src路径
+                $value['path'] = $path . $value['savepath'] . $value['savename'];
+                $name = explode('.',$value['path']);
+                $insert = [
+                    'path' => $value['path'],
+                    'url' => C('WEB_SITE_URL'),
+                    'md5' => $value['md5'],
+                    'sha1' => $value['sha1'],
+                    'create_time' => \Carbon\Carbon::now(),
+                ];
+                $id = DB::table($this->config['table'])->insertGetId($insert);
+                if($id){
+                    unset($value['rootpath']);
+                    unset($value['md5']);
+                    unset($value['sha1']);
+                    unset($value['savename']);
+                    unset($value['savepath']);
+                    $value['id'] = $id;
+                }else{
+                    unset($logo[$key]);
+                }
+            }
+            return ['code'=>0,'file'=>$logo[$this->config['filedata']]];
+        }else{
+            return ['code'=>-1,'error'=>$this->getError()];
+        }
+    }
+
     /**
      * 上传文件
      * @param 文件信息数组 $files ，通常是 $_FILES数组
@@ -186,19 +232,18 @@ class Upload{
                 $this->info['sha1']  = $this->hash($this->info['tmp_name'],'sha1');
             }
             // 检测文件是否存在
-//            $map = array('md5' => $info['md5'],'sha1'=>$info['sha1']);
-//            $_data = DB::table($this->config['table'])->where($map)->first();
-//            if($_data){
-//                $exists = file_exists('.'.$_data->path);
-//                //判断路径存不存在，如存在则返回
-//                if ( file_exists('.'.$_data->path)) {
-//                    $this->info = $_data->toArray();
-//                    continue;
-//                }else {
-//                    //如果不存在，删除垃圾数据
-//                    DB::table($this->config['table'])->where(array('id'=>$_data->id))->delete();
-//                }
-//            }
+            $map = array('md5' => $this->info['md5'],'sha1'=>$this->info['sha1']);
+            $file_info = DB::table($this->config['table'])->where($map)->first();
+            if($file_info){
+                //判断路径存不存在，如存在则返回
+                if ( file_exists('.'.$file_info->path)) {
+                    $data[$key] = (array)$file_info;
+                    continue;
+                }else {
+                    //如果不存在，删除垃圾数据
+                    DB::table($this->config['table'])->where(array('id'=>$file_info->id))->delete();
+                }
+            }
             // 检测并创建子目录
             $subpath = $this->getSubPath($this->info['name']);
             if(false === $subpath){
@@ -334,7 +379,7 @@ class Upload{
         $rule    = $this->config['subname'];
         if (!empty($rule)) {
             $subpath = $this->getName($rule, $filename) . '/';
-            if(!empty($subpath) && !$this->mkdir($this->config['savepath'] . $subpath)){
+            if(!empty($subpath) && !$this->mkdir($this->config['root'] . $subpath)){
                 return false;
             }
         }

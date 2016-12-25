@@ -33,19 +33,19 @@ class CommonModel extends Model{
             //新增
             $resualt = $this->create($data);
             if($resualt === false){
-                $this->error = '新增信息失败';
                 return false;
             }
         }else{
             //编辑
             $info = $this->find($data['id']);
             if(empty($info) || $info->update($data)===false){
-                $this->error = '修改信息失败';
                 return false;
             }
         }
         return $data;
     }
+
+
 
     /**
      * 返回模型的错误信息
@@ -98,6 +98,32 @@ class CommonModel extends Model{
             }
         }
         return;
+    }
+
+
+    /**
+     * 更新/新增数据
+     * @author: xingyonghe
+     * @date: 2016-11-10
+     * @param $data 表单数据
+     * @return bool
+     */
+    protected function toUpdate($data)
+    {
+        if(empty($data['id'])){
+            //新增
+            $resualt = $this->create($data);
+            if($resualt === false){
+                return false;
+            }
+        }else{
+            //编辑
+            $info = $this->find($data['id']);
+            if(empty($info) || $info->update($data)===false){
+                return false;
+            }
+        }
+        return $data;
     }
 
     

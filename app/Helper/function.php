@@ -168,3 +168,57 @@ function create_order_sn(){
     $order_sn = 'ZH'. strtoupper(dechex(date('m'))).date('d').substr(time(),-5).substr(microtime(),2,5).sprintf('%d',rand(0,9));
     return $order_sn;
 }
+
+/**
+ * 获取广告平台字段信息
+ * @author xingyonghe
+ * @date 2015-12-25
+ * @param $id 广告平台ID
+ * @param string $field 广告平台字段名称
+ * @return string 广告平台字段名称对应的平台ID的值
+ */
+function  get_platform_filed($id,$field ='name')
+{
+    if(empty($id)){
+        return '';
+    }
+    $info = \App\Models\UserPlatform::find($id);
+    if(empty($info)){
+        return '';
+    }
+    return $info[$field];
+}
+
+/**
+ * 获取广告平台形式信息
+ * @author xingyonghe
+ * @date 2015-12-25
+ * @param $id 广告平台ID
+ * @param string $field 广告形式字段名称
+ * @return string 广告形式字段名称对应的形式ID的值
+ */
+function  get_adform_filed($id,$field ='name')
+{
+    if(empty($id)){
+        return '';
+    }
+    $info = \App\Models\UserAdform::find($id);
+    if(empty($info)){
+        return '';
+    }
+    return $info[$field];
+}
+
+
+function  get_custom_qq($custom_id)
+{
+    if(empty($custom_id)){
+        return '';
+    }
+    $info = \App\Models\SysAdmin::find($custom_id);
+    if(empty($info) || empty($info['qq'])){
+        return '';
+    }
+    $qq_url = 'tencent://message/?uin='.$info['qq'].'&Site=&Menu=yes';
+    return $qq_url;
+}

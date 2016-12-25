@@ -73,6 +73,22 @@ Route::group(['namespace'=>'Admin'],function(){
 
         /**--**--**--**--**--**--**--**--**--**用户管理**--**--**--**--**--**--**--**--**--**--**/
         Route::group(['namespace'=>'User'],function(){
+            /**--模块设置--**/
+            Route::get ('user/index',  'UserSettingController@index')->name('user.setting.index');//模块设置
+            Route::post('user/update', 'UserSettingController@update')->name('user.setting.update');//更新
+
+
+
+            /**--网红管理--**/
+            Route::get ('netred/index',              'NetredController@index')->name('admin.netred.index');//网红列表
+            Route::get ('netred/show/{id}',          'NetredController@show')->name('admin.netred.show')->where('id','\d+');//网红详情
+            Route::get ('netred/edit/{id}',          'NetredController@edit')->name('admin.netred.edit')->where('id','\d+');//网红修改
+            Route::get ('netred/verify/{id}',        'NetredController@verify')->name('admin.netred.verify')->where('id','\d+');//审核
+            /**--广告主管理--**/
+            Route::get ('ads/index',              'AdsController@index')->name('admin.ads.index');//网红列表
+            Route::get ('ads/show/{id}',          'AdsController@index')->name('admin.ads.show')->where('id','\d+');//网红详情
+            Route::get ('ads/verify/{id}',        'AdsController@verify')->name('admin.ads.verify')->where('id','\d+');//审核
+
             /**--管理员--**/
             Route::get ('warden/index',         'WardenController@index')->name('admin.warden.index'); //管理员列表
             Route::get ('warden/create',        'WardenController@create')->name('admin.warden.create');//新增
@@ -94,15 +110,9 @@ Route::group(['namespace'=>'Admin'],function(){
             Route::get ('group/access/{id}',   'GroupController@access')->name('admin.group.access')->where('id','\d+'); //用户组授权
             Route::post('group/write',         'GroupController@write')->name('admin.group.write');//用户组授权写入
 
-            /**--网红管理--**/
-            Route::get ('netred/index',              'NetredController@index')->name('admin.netred.index');//网红列表
-            Route::get ('netred/show/{id}',          'NetredController@show')->name('admin.netred.show')->where('id','\d+');//网红详情
-            Route::get ('netred/edit/{id}',          'NetredController@edit')->name('admin.netred.edit')->where('id','\d+');//网红修改
-            Route::get ('netred/verify/{id}',        'NetredController@verify')->name('admin.netred.verify')->where('id','\d+');//审核
-            /**--广告主管理--**/
-            Route::get ('ads/index',              'AdsController@index')->name('admin.ads.index');//网红列表
-            Route::get ('ads/show/{id}',          'AdsController@index')->name('admin.ads.show')->where('id','\d+');//网红详情
-            Route::get ('ads/verify/{id}',        'AdsController@verify')->name('admin.ads.verify')->where('id','\d+');//审核
+
+
+
         });
 
         /**--**--**--**--**--**--**--**--**--**内容管理**--**--**--**--**--**--**--**--**--**--**/
@@ -122,9 +132,56 @@ Route::group(['namespace'=>'Admin'],function(){
             Route::post('artcate/update',         'ArticleCategoryController@update')->name('article.category.update');       //更新
             Route::get ('artcate/destroy/{id}',   'ArticleCategoryController@destroy')->name('article.category.destroy')->where('id','\d+');//删除
 
-            /**--模块配置--**/
-            Route::get ('artset/index',  'ArticleSettingController@index')->name('article.setting.index');     //分类列表
+            /**--模块设置--**/
+            Route::get ('artset/index',  'ArticleSettingController@index')->name('article.setting.index');     //模块设置
             Route::post('artset/update', 'ArticleSettingController@update')->name('article.setting.update');       //更新
+        });
+
+        /**--**--**--**--**--**--**--**--**--**资源**--**--**--**--**--**--**--**--**--**--**/
+        Route::group(['namespace'=>'Star'],function(){
+            /**--模块设置--**/
+            //分类
+            Route::get ('starcate/index',         'StarCategoryController@index')->name('star.category.index');//分类列表
+            Route::get ('starcate/create',        'StarCategoryController@create')->name('star.category.create');//新增
+            Route::get ('starcate/edit/{id}',     'StarCategoryController@edit')->name('star.category.edit')->where('id','\d+');//修改
+            Route::post('starcate/update',        'StarCategoryController@update')->name('star.category.update');//更新
+            Route::get ('starcate/destroy/{id}',  'StarCategoryController@destroy')->name('star.category.destroy')->where('id','\d+');//删除
+            //模块配置
+            Route::get ('starset/index',          'StarSettingController@index')->name('star.setting.index');//模块配置
+            Route::post('starset/update',         'StarSettingController@update')->name('star.setting.update');//配置更新
+            //平台管理
+            Route::get ('platform/index',         'PlatformController@index')->name('admin.platform.index');//平台列表
+            Route::get ('platform/create',        'PlatformController@create')->name('admin.platform.create');//新增平台
+            Route::get ('platform/edit/{id}',     'PlatformController@edit')->name('admin.platform.edit')->where('id','\d+');//修改平台
+            Route::post('platform/update',        'PlatformController@update')->name('admin.platform.update');//更新平台
+            Route::get ('platform/destroy/{id}',  'PlatformController@destroy')->name('admin.platform.destroy')->where('id','\d+');//删除平台
+            Route::get ('platform/sort',          'PlatformController@sort')->name('admin.platform.sort');//排序
+            Route::post('platform/order',         'PlatformController@order')->name('admin.platform.order');//更新排序
+            //广告形式
+            Route::get ('adform/index',         'AdformController@index')->name('admin.adform.index');//广告形式列表
+            Route::get ('adform/create',        'AdformController@create')->name('admin.adform.create');//新增广告形式
+            Route::get ('adform/edit/{id}',     'AdformController@edit')->name('admin.adform.edit')->where('id','\d+');//修改广告形式
+            Route::post('adform/update',        'AdformController@update')->name('admin.adform.update');//更新广告形式
+            Route::get ('adform/destroy/{id}',  'AdformController@destroy')->name('admin.adform.destroy')->where('id','\d+');//删除广告形式
+            Route::get ('adform/sort',          'AdformController@sort')->name('admin.adform.sort');//排序
+            Route::post('adform/order',         'AdformController@order')->name('admin.adform.order');//更新排序
+
+            /**--资源管理--**/
+            //资源列表
+            Route::get ('star/index',             'StarController@index')->name('admin.star.index');//列表
+            Route::get ('star/create',            'StarController@create')->name('admin.star.create');//新增
+            Route::get ('star/edit/{id}',         'StarController@edit')->name('admin.star.edit')->where('id','\d+'); //修改
+            Route::post('star/update',            'StarController@update')->name('admin.star.update');//更新
+            Route::get ('star/destroy/{id}',      'StarController@destroy')->name('admin.star.destroy')->where('id','\d+');//删除
+            //等待审核
+            Route::get ('star/verify',            'StarController@verify')->name('admin.star.verify');//待审核列表
+            Route::get ('star/show/{id}',         'StarController@show')->name('admin.star.show')->where('id','\d+'); //审核
+            Route::get ('star/pass/{id}',         'StarController@pass')->name('admin.star.pass')->where('id','\d+');//通过审核
+            Route::get ('star/refuse/{id}',       'StarController@refuse')->name('admin.star.refuse')->where('id','\d+'); //拒绝审核
+            //回收站
+            Route::get ('star/recycle',           'StarController@recycle')->name('admin.star.recycle');//回收站列表
+
+
         });
 
     });

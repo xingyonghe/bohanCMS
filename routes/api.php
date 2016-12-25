@@ -22,7 +22,9 @@ Route::group(['namespace'=>'Api'],function(){
     Route::post('verifysms',  'SmsApiController@verifySMS')->name('api.verifysms');
     //文件上传
     Route::post('file',       'UploadApiController@file')->name('api.file');
-    //图片上传
+    //图片上传，返回图片ID
     Route::post('picture',    'UploadApiController@picture')->name('api.picture');
+    //图片上传，返回图片路径
+    Route::post('logo',       'UploadApiController@logo')->name('api.logo');
 });
 

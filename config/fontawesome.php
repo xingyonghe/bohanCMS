@@ -17,6 +17,7 @@ return [
     '内容管理' => 'icon-file-text-alt',
     'SEO设置' => 'icon-zoom-out',
     '用户管理' => 'icon-user-md',
+    '资源管理' => 'icon-sun',
 //    '系统设置' => 'icon-cogs',
 //    '系统设置' => 'icon-cogs',
 

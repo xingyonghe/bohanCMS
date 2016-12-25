@@ -106,7 +106,7 @@
                 if(!protocol){
                     alertTips('您还没有阅读并同意条款《策推中国用户协议》','protocol');return false;
                 }
-                 $(that).addClass('disabled').attr('autocomplete','off').prop('disabled',true);
+                $(that).addClass('disabled').attr('autocomplete','off').prop('disabled',true);
                 $.post(target,query).success(function(data){
                     if (data.status==1){
                         $(that).removeClass('disabled').prop('disabled',false);

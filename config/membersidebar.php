@@ -40,7 +40,7 @@ return [
         ],
         'center' => [
             'name' => '个人中心',
-            'url' => 'netred.account.index',
+            'url' => 'netred.center.index',
             'child' => [],
         ],
     ],

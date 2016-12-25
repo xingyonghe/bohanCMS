@@ -21,6 +21,11 @@ Route::group(['namespace'=>'Netred'],function(){
     Route::group(['middleware'=> ['login_netred']],function(){
         //首页
         Route::get('',               'IndexController@index')->name('netred.index.index');//网红中心首页
+        //个人中心
+        Route::get('center/index',     'CenterController@index')->name('netred.center.index');//修改基本资料
+        Route::post('center/update',  'CenterController@update')->name('netred.center.update');//更新基本资料
+        Route::get('center/password', 'CenterController@password')->name('netred.center.password');//修改密码
+        Route::post('center/reset',   'CenterController@reset')->name('netred.center.reset');//更新密码
 
         //订单管理
         Route::get('order/index',        'OrderController@index')->name('netred.order.index');//订单列表
@@ -31,16 +36,12 @@ Route::group(['namespace'=>'Netred'],function(){
         //资源管理->where('type', '(1|2)')
         Route::get('star/index',        'StarController@index')->name('netred.star.index');//资源列表
         Route::get('star/live',         'StarController@live')->name('netred.star.live');//直播资源新增
-        Route::post('star/post',        'StarController@post')->name('netred.star.post');//直播资源更新
         Route::get('star/video',        'StarController@video')->name('netred.star.video');//短视频资源新增
-        Route::post('star/update',      'StarController@update')->name('netred.star.update');//短视频资源更新
-        Route::get('star/edit/{id}',    'StarController@edit')->name('netred.star.edit')->where('id','\d+');//短视频资源修改
-        Route::get('star/destroy/{id}', 'StarController@edit')->name('netred.star.destroy')->where('id','\d+');//短视频资源删除
+        Route::post('star/update',      'StarController@update')->name('netred.star.update');//资源更新
+        Route::get ('star/edit/{id}',   'StarController@edit')->name('netred.star.edit')->where('id','\d+');//短视频资源修改
+        Route::get('star/destroy/{id}', 'StarController@destroy')->name('netred.star.destroy')->where('id','\d+');//短视频资源删除
 
-        Route::get('index/edit',     'IndexController@edit')->name('netred.index.edit');//修改基本资料
-        Route::post('index/update',  'IndexController@update')->name('netred.index.update');//更新基本资料
-        Route::get('index/password', 'IndexController@password')->name('netred.index.password');//修改密码
-        Route::post('index/reset',   'IndexController@reset')->name('netred.index.reset');//更新密码
+
 
         //账户管理
         Route::get('account/index',         'AccountController@index')->name('netred.account.index');//我的账户

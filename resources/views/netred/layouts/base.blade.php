@@ -21,10 +21,15 @@
     </div>
     @include('netred.layouts.footer')
     <script type="text/javascript" src="{{ asset('assets/member/js/jquery-1.8.3.min.js') }}"></script>
+    <!-- 自定义验证规则 -->
+    <script type="text/javascript" src="{{ asset('assets/static/validator/validator.js') }}"></script>
+    <!-- 地区 -->
+    <script type="text/javascript" src="{{ asset('assets/member/js/region.js') }}"></script>
     <!-- layer插件 -->
     <script type="text/javascript" src="{{ asset('assets/static/layer/layer.js') }}"></script>
     <!-- 自定义js -->
     <script type="text/javascript" src="{{ asset('assets/member/js/common.js') }}"></script>
+
     @yield('script')
 </body>
 </html>

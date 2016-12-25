@@ -7,40 +7,65 @@ $(function(){
         extend:'../../static/layer/skin/member/style.css'
     });
 
-    //ajax post请求
-    $('body').on('click','.ajax-post',function(){
-        var form,that,target,query;
-        form = $('.data-form');
-        target = form.get(0).action;
-        that = this;
-        query = form.serialize();
-        $(that).addClass('disabled').attr('autocomplete','off').prop('disabled',true);
-        $.post(target,query).success(function(data){
+
+    /**
+     * 表单提交（管理或者继续发布）
+     * @param formObj form表单的class或者id
+     * @param that 绑定提交事情的对象，一般为submit按钮对象
+     */
+    window.formAjaxPost = function(formObj,that){
+        var target,query;
+        target = formObj.get(0).action;
+        query = formObj.serialize();
+        // that.addClass('disabled').attr('autocomplete','off').prop('disabled',true);
+        $.post(target,query,function(data){
             if (data.status==1){
-                $(that).removeClass('disabled').prop('disabled',false);
-                layer.open({
-                    type    : 1,
-                    skin    : 'layer-ext-c',
-                    closeBtn: 1,
-                    title   : '消息提醒',
-                    area    : ['600px'],
-                    btn     : ['确定', '取消'],
-                    content : data.info,
-                    time    : 3000,
-                    yes     : function (index) {
-                        window.location = data.url;
-                    },
-                    end     : function (index) {
-                        window.location = data.url;
-                    }
-                });
+                // that.removeClass('disabled').prop('disabled',false);
+                if(data.url){
+                    layer.open({
+                        type    : 1,
+                        skin    : 'layer-ext-member',
+                        title   : '消息提醒',
+                        area    : ['600px'],
+                        closeBtn: 1,
+                        btn     : ['确定', '取消'],
+                        shade   : false,
+                        content : data.info,
+                        time    : 5000,
+                        yes  : function (index) {
+                            window.location = data.url;
+                        },
+                        end  : function (index) {
+                            window.location = data.url;
+                        }
+                    });
+                }else{
+                    //两种选择
+                    layer.open({
+                        type    : 1,
+                        skin    : 'layer-ext-member',
+                        title   : '消息提醒',
+                        area    : ['600px'],
+                        closeBtn: 1,
+                        btn     : ['资源管理', '继续发布'],
+                        shade   : false,
+                        content : data.info,
+                        yes     : function (index) {
+                            window.location = data.list_url;
+                        },
+                        end  : function (index) {
+                            window.location = data.pub_url;
+                        }
+                    });
+                }
             }else{
-                $(that).removeClass('disabled').prop('disabled',false);
+                // that.removeClass('disabled').prop('disabled',false);
                 alertTips(data.info,data.id);
             }
-        });
-        return false;
-    });
+        },'json');
+    }
+    
+    
 
     //删除确认
     $('body').on('click','.ajax-confirm',function(){
@@ -125,30 +150,13 @@ $(function(){
      * @param scroll 是否执行滚动,默认滚动
      * @param color tips颜色
      */
-    window.alertTips = function(msg,obj,scroll,color){
-        var Obj;
-        color  = color ? color : '#F77B6F';
-        scroll = scroll ? scroll : 1;
-        if(typeof id=="object"){
-            var Obj = $(obj);//提示该对象
-        }else{
-            var Obj = $('#'+obj);//提示html对象
-        }
+    window.alertTips = function(msg,obj){
+        var Obj = $('#'+obj);//提示html对象
+        //页面自动滚动到提示错误的对象的偏移量的top处
+        $('body,html').animate({scrollTop: Obj.offset().top},500,'swing');
 
-        if(Obj.get(0).nodeName == 'INPUT' || Obj.get(0).nodeName == 'TEXTAREA'){
-            if(Obj.hasClass('datetimepicker')){
-
-            }else{
-                Obj.focus();
-            }
-        }else{
-            if(scroll == 1){
-                //页面自动滚动到提示错误的对象的偏移量的top处
-                $('body,html').animate({scrollTop: Obj.offset().top},500,'swing');
-            }
-        }
         layer.tips(msg, Obj , {
-            tips: [3, color] //配置颜色
+            tips: [3, '#F77B6F'] //配置颜色
         });
     }
 

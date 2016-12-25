@@ -3,8 +3,11 @@
 namespace App\Http\Controllers\Netred;
 
 use App\Http\Controllers\Controller;
+use App\Models\Category;
 use SEO;
 use App\Models\UserNetredStar;
+use App\Models\UserAdform;
+use App\Models\UserPlatform;
 
 class StarController extends Controller{
     /*
@@ -21,10 +24,14 @@ class StarController extends Controller{
     public function __construct()
     {
         view()->share('navkey',$this->navkey);//用于设置头部菜单高亮
-        //新增/编辑共享直播平台数据
-//        view()->composer(['user.star.edit','user.star.add'],function($view){
-//            $view->with('mediaType',parse_config_attr(C('USER_MEDIA_TYPE')));
-//        });
+        //资源风格
+        $style = parse_config_attr(C('NETRED_STYLE'));
+        //分类
+        $category = Category::where('model','star')->orderBy('sort','asc')->orderBy('id','asc')->get(['id','name','pid'])->toArray();
+        $category = list_to_tree($category);
+        view()->composer(['netred.star.live','netred.star.video'],function($view) use($style,$category){
+                $view->with('styles',$style)->with('categorys',$category);
+        });
     }
 
     /**
@@ -35,12 +42,37 @@ class StarController extends Controller{
      */
     public function index()
     {
-        SEO::setTitle('资源管理-网红中心-'.C('WEB_SITE_TITLE'));
+        $type       = (int)request()->get('type','');
+        $status     = (int)request()->get('status','');
+        $stage_name = (string)request()->get('stage_name','');
+
         $lists = UserNetredStar::where('userid',auth()->id())
-            ->orderBy('created', 'desc')
+            ->where(function ($query) use($type) {
+                if($type){
+                    $query->where('type',$type);
+                }
+            })
+            ->where(function ($query) use($status) {
+                if($status){
+                    $query->where('status',$status);
+                }
+            })
+            ->where(function ($query) use($stage_name) {
+                if($stage_name){
+                    $query->where('stage_name','like','%'.$stage_name.'%');
+                }
+            })
+            ->where('status','>',0)
+            ->orderBy('created_at', 'desc')
             ->paginate(C('SYSTEM_LIST_LIMIT') ?? 10);
         $this->intToString($lists,['status'=>UserNetredStar::STATUS_TEXT]);
-        return view('netred.star.index',compact('lists'));
+        SEO::setTitle('资源管理-网红中心-'.C('WEB_SITE_TITLE'));
+        $params = [
+            'type'       => $type,
+            'status'     => $status,
+            'stage_name' => $stage_name,
+        ];
+        return view('netred.star.index',compact('lists','params'));
     }
 
     /**
@@ -50,95 +82,126 @@ class StarController extends Controller{
      */
     public function live()
     {
+        //平台
+        $platforms = UserPlatform::where('category',1)->orderBy('sort','asc')->pluck('name','id');
+        //广告形式
+        $adforms = UserAdform::where('category',1)->orderBy('sort','asc')->pluck('name','id');
         SEO::setTitle('添加直播-网红中心-'.C('WEB_SITE_TITLE'));
-        return view('netred.star.live');
+        return view('netred.star.live',compact('platforms','adforms'));
     }
 
     /**
      * 添加短视频
      * @author: xingyonghe
-     * @date: 2016-12-23
+     * @date: 2016-12-25
      */
     public function video()
     {
+        //平台
+        $platforms = UserPlatform::where('category',2)->orderBy('sort','asc')->pluck('name','id');
+        //广告形式
+        $adforms = UserAdform::where('category',2)->orderBy('sort','asc')->pluck('name','id');
         SEO::setTitle('添加短视频-网红中心-'.C('WEB_SITE_TITLE'));
-        return view('netred.star.video');
+        return view('netred.star.video',compact('platforms','adforms'));
     }
 
 
 
     /**
-     * 网红修改
+     * 资源修改
+     * @author: xingyonghe
+     * @date: 2016-12-25
      * @return
      */
     public function edit(int $id){
+        $templete = [
+            1 => 'live',
+            2 => 'video',
+        ];
         //允许修改的状态条件
-        $info = D('Media')
-            ->where('userid',auth()->id())
-            ->whereIn('status',[D('Media')::STATUS_CREATE,D('Media')::STATUS_FAILED])
+        $info = UserNetredStar::where('userid',auth()->id())
+            ->whereIn('status',[UserNetredStar::STATUS_NORMAL,UserNetredStar::STATUS_FEILED])
             ->findOrFail($id);
-        return view('netred.star.edit',compact('info'));
+        //平台
+        $platforms = UserPlatform::where('category',$info['type'])->orderBy('sort','asc')->pluck('name','id');
+        //广告形式
+        $adforms = UserAdform::where('category',$info['type'])->orderBy('sort','asc')->pluck('name','id');
+        SEO::setTitle('修改资源-网红中心-'.C('WEB_SITE_TITLE'));
+
+        return view('netred.star.'.$templete[$info['type']],compact('info','platforms','adforms'));
     }
 
     /**
-     * 网红列表更新
+     * 短视频更新
+     * @author: xingyonghe
+     * @date: 2016-12-25
      * @return
      */
     public function update(){
         $data = request()->all();
-        if(empty($data['platform'])){
-            $data['platform'] = $data['platform_select'];
+        if((!in_array($data['type'],[1,2])) || request()->method() != 'POST'){
+            echo '非法操作';die;
         }
-        unset($data['platform_select']);
+        //后面待完善
         $rules = [
             'avatar'     => 'required',
-            'username'   => 'required',
-            'type'       => 'required',
+            'stage_name' => 'required',
+            'sex'       => 'required',
+            'province'   => 'required',
+            'city'    => 'required',
             'platform'   => 'required',
-            'room_id'    => 'required',
-            'homepage'   => 'required',
-            'form_money' => 'required',
+            'platform_id' => 'required',
+            'fans' => 'required|integer',
+            'average_num' => 'required|integer',
+            'max_num' => 'required_if:type,1|integer',
+            'style' => 'required',
+            'catids' => 'required',
+            'form' => 'required',
+            'money' => 'required',
         ];
         $msgs = [
             'avatar.required'     => '请上传头像',
             'avatar.image'        => '头像格式不正确',
-            'username.required'   => '请填写用户名',
-            'type.required'       => '请选择资源类别',
-            'platform.required'   => '请选择直播平台',
-            'room_id.required'    => '请填写直播平台房间号',
-            'homepage.required'   => '请填写直播平台ID',
-            'form_money.required' => '请填写展现形式及报价',
+            'stage_name.required'   => '请填写用户名',
+            'sex.required'       => '请选择资源类别',
+            'province.required'   => '请选择直播平台',
+            'city.required'    => '请填写直播平台房间号',
+            'platform.required'   => '请填写直播平台ID',
+            'platform_id.required' => '请填写展现形式及报价',
         ];
         $validator = validator()->make($data,$rules,$msgs);
         if ($validator->fails()) {
             return $this->ajaxValidator($validator);
         }
-        $resualt = D('Media')->updateData($data);
+        $resualt = UserNetredStar::toUpdate($data);
         if($resualt){
-            return $this->ajaxReturn(isset($resualt['id'])?'网红信息修改成功!':'网红信息添加成功!',1,route('user.star.index'));
+            if(!isset($resualt['id'])){
+                return response()->json(['info'=>'资源信息添加成功!','status'=>1,'list_url'=>route('netred.star.index'),'pub_url'=>route('netred.star.video')]);
+            }else{
+                return $this->ajaxReturn('资源信息修改成功!',1,route('netred.star.index'));
+            }
+
         }else{
-            return $this->ajaxReturn(D('Media')->getError());
+            return $this->ajaxReturn('资源信息操作失败');
         }
     }
 
     /**
      * 删除信息
+     * @author: xingyonghe
+     * @date: 2016-12-25
      * @param int $id
      * @return
      */
     public function destroy(int $id){
-        $info = D('Media')
-            ->where('userid',auth()->id())
-            ->whereIn('status',[D('Media')::STATUS_CREATE,D('Media')::STATUS_FAILED])
-            ->find($id);
-        if(empty($info)){
-            return $this->ajaxReturn('信息删除失败');
-        }
-        $resualt = $info->update(array('status'=>D('Media')::STATUS_DELETE));
+        $info = UserNetredStar::where('userid',auth()->id())
+            ->whereIn('status',[UserNetredStar::STATUS_NORMAL,UserNetredStar::STATUS_FEILED])
+            ->findOrFail($id);
+        $resualt = $info->update(array('status'=>UserNetredStar::STATUS_DELETE));
         if($resualt){
-            return $this->ajaxReturn('信息删除成功',1,url()->previous());
+            return $this->ajaxReturn('资源信息删除成功',1,url()->previous());
         }else{
-            return $this->ajaxReturn('信息删除失败');
+            return $this->ajaxReturn('资源信息删除失败');
         }
     }
 

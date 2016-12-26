@@ -23,7 +23,7 @@ class LoginNetredMiddleware{
         //是否登陆
         if (auth()->guard()->check()) {
             if(auth()->user()->type == 2){
-                //广告主没有权限访问
+                //网红没有权限访问
                 return redirect(route('ads.index.index'));
             }
             $topnav = config('membersidebar.netred');
@@ -31,6 +31,6 @@ class LoginNetredMiddleware{
             return $next($request);
         }
         //没有登陆前往登陆界面
-        return redirect(route('home.login.form'));
+        return redirect(route('netred.login.form'));
     }
 }

@@ -1,11 +1,12 @@
 <?php
 
-namespace App\Http\Controllers\Member\Ads;
+namespace App\Http\Controllers\Ads;
 
-use App\Http\Controllers\Member\CommonController;
+use App\Http\Controllers\Controller;
 use SEO;
+use App\Models\UserAdsTask;
 
-class TaskController extends CommonController{
+class TaskController extends Controller{
     /*
     |--------------------------------------------------------------------------
     | Task Controller
@@ -13,7 +14,7 @@ class TaskController extends CommonController{
     | @date 2016-11-24
     |--------------------------------------------------------------------------
     |
-    | 会员中心派单大厅
+    | 推广管理
     |
     */
     protected $navkey = 'task';//菜单标识
@@ -28,16 +29,15 @@ class TaskController extends CommonController{
      * @return mixed
      */
     public function index(){
-        $lists = D('UserAdsTask')
-            ->where('userid',auth()->id())
-            ->where('status','>',D('UserAdsTask')::STATUS_D)
+        $lists = UserAdsTask::where('userid',auth()->id())
+            ->where('status','>',UserAdsTask::STATUS_D)
             ->orderBy('created_at','desc')
-            ->paginate(10);
+            ->paginate(C('SYSTEM_LIST_LIMIT') ?? 10);
         $this->intToString($lists,array(
-            'status' => D('UserAdsTask')::STATUS_TEXT,
+            'status' => UserAdsTask::STATUS_TEXT,
         ));
-        SEO::setTitle(C('WEB_SITE_TITLE').'-会员中心-我的派单');
-        return view('member.task.index',compact('lists'));
+        SEO::setTitle('推广管理-会员中心-'.C('WEB_SITE_TITLE'));
+        return view('ads.task.index',compact('lists'));
     }
 
     /**
@@ -48,7 +48,7 @@ class TaskController extends CommonController{
      */
     public function create(){
         SEO::setTitle(C('WEB_SITE_TITLE').'-会员中心-新增派单');
-        return view('member.task.edit');
+        return view('ads.task.edit');
     }
 
     /**
@@ -60,12 +60,11 @@ class TaskController extends CommonController{
      */
     public function edit(int $id){
         //允许修改的状态条件
-        $info = D('UserAdsTask')
-            ->where('userid',auth()->id())
-            ->whereIn('status',[D('UserAdsTask')::STATUS_1,D('UserAdsTask')::STATUS_3])
+        $info = UserAdsTask::where('userid',auth()->id())
+            ->whereIn('status',[UserAdsTask::STATUS_1,UserAdsTask::STATUS_3])
             ->findOrFail($id);
         SEO::setTitle(C('WEB_SITE_TITLE').'-会员中心-修改派单');
-        return view('member.task.edit',compact('info'));
+        return view('ads.task.edit',compact('info'));
     }
 
     /**
@@ -119,12 +118,12 @@ class TaskController extends CommonController{
         $data['start_time'] = \Carbon\Carbon::parse($data['start_time']);
         $data['end_time']   = \Carbon\Carbon::parse($data['end_time']);
         $data['dead_time']  = \Carbon\Carbon::parse($data['dead_time']);
-        $data['status'] = D('UserAdsTask')::STATUS_1;
-        $resualt = D('UserAdsTask')->updateData($data);
+        $data['status'] = UserAdsTask::STATUS_1;
+        $resualt = UserAdsTask::toUpdate($data);
         if($resualt){
             return $this->ajaxReturn(isset($resualt['id'])?'派单信息修改成功!':'派单信息添加成功!',1,route('member.task.index'));
         }else{
-            return $this->ajaxReturn(D('UserAdsTask')->getError());
+            return $this->ajaxReturn();
         }
     }
 
@@ -136,11 +135,10 @@ class TaskController extends CommonController{
      * @return \Illuminate\Http\JsonResponse
      */
     public function destroy(int $id){
-        $info = D('UserAdsTask')
-            ->where('userid',auth()->id())
-            ->whereIn('status',[D('UserAdsTask')::STATUS_1,D('UserAdsTask')::STATUS_3,D('UserAdsTask')::STATUS_4])
+        $info = UserAdsTask::where('userid',auth()->id())
+            ->whereIn('status',[UserAdsTask::STATUS_1,UserAdsTask::STATUS_3,UserAdsTask::STATUS_4])
             ->findOrFail($id);
-        $resualt = $info->update(array('status'=>D('UserAdsTask')::STATUS_D));
+        $resualt = $info->update(array('status'=>UserAdsTask::STATUS_D));
         if($resualt){
             return $this->ajaxReturn('信息删除成功',1,url()->previous());
         }else{

@@ -37,7 +37,7 @@ class LoginController extends Controller{
      * @return
      */
     public function showForm(){
-        SEO::setTitle(C('WEB_SITE_TITLE').'-广告主登陆');
+        SEO::setTitle('广告主登陆-'.C('WEB_SITE_TITLE'));
         return view('ads.auth.login');
     }
 

@@ -4,7 +4,7 @@
             <img src="{{ asset('assets/member/images/logo.png') }}" width="151"; height="55"/>
         </a>
     </div>
-    <div class="kefuqq fr"><p>专属客服QQ<a href="javascript:void(0)"><img src="{{ asset('assets/member/images/qq.png') }}"/></a></p></div>
+    <div class="kefuqq fr"><p>专属客服QQ<a href="{{ get_custom_qq(auth()->user()->custom_id) }}"><img src="{{ asset('assets/member/images/qq.png') }}"/></a></p></div>
 </div>
 <div class="nav_bg">
     <div class="nav">

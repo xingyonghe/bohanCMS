@@ -1,4 +1,4 @@
-@extends('member.layouts.base')
+@extends('ads.layouts.base')
 @section('style')
 @endsection
 @section('script')

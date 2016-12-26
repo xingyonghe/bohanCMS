@@ -32,6 +32,6 @@ class LoginAdsMiddleware{
             return $next($request);
         }
         //没有登陆前往登陆界面
-        return redirect(route('home.login.form'));
+        return redirect(route('ads.login.form'));
     }
 }

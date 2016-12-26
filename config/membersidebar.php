@@ -45,65 +45,35 @@ return [
         ],
     ],
     'ads' => [
-        'center' => [
-            'name' => '个人中心',
+        'home' => [
+            'name' => '首页',
             'url'  => 'ads.index.index',
-            'child' => [
-                '0' => [
-                    'name' => '基本信息',
-                    'url' => 'ads.index.index',
-                ],
-                '1' => [
-                    'name' => '修改密码',
-                    'url' => 'ads.index.password',
-                ],
-            ],
+            'child' => [],
         ],
-        'order' => [
-            'name' => '活动订单',
-            'url' => 'ads.index.index',
-            'child' => [
-                '0' => [
-                    'name' => '基本信息',
-                    'url' => 'ads.index.index',
-                ],
-                '1' => [
-                    'name' => '修改密码',
-                    'url' => 'ads.index.index',
-                ],
-            ],
+        'netred' => [
+            'name' => '资源列表',
+            'url' => 'ads.netred.live',
+            'child' => [],
         ],
         'task' => [
-            'name' => '派单大厅',
+            'name' => '推广管理',
             'url' => 'ads.task.index',
-            'child' => [
-                '0' => [
-                    'name' => '新增派单',
-                    'url' => 'ads.task.create',
-                ],
-                '1' => [
-                    'name' => '我的派单',
-                    'url' => 'ads.task.index',
-                ],
-            ],
+            'child' => [],
+        ],
+        'star' => [
+            'name' => '订单管理',
+            'url' => 'netred.star.index',
+            'child' => [],
         ],
         'account' => [
-            'name' => '账户查询',
-            'url' => 'ads.account.index',
-            'child' => [
-                '0' => [
-                    'name' => '我的账户',
-                    'url' => 'ads.account.index',
-                ],
-                '1' => [
-                    'name' => '收支记录',
-                    'url' => 'ads.account.records',
-                ],
-                '2' => [
-                    'name' => '提现记录',
-                    'url' => 'ads.account.notes',
-                ],
-            ],
+            'name' => '投放审查',
+            'url' => 'netred.account.index',
+            'child' => [],
+        ],
+        'center' => [
+            'name' => '个人中心',
+            'url' => 'netred.center.index',
+            'child' => [],
         ],
     ],
 

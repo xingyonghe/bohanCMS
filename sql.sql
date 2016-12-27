@@ -2,15 +2,15 @@
 Navicat MySQL Data Transfer
 
 Source Server         : 本地
-Source Server Version : 50547
+Source Server Version : 50553
 Source Host           : localhost:3306
 Source Database       : bohan
 
 Target Server Type    : MYSQL
-Target Server Version : 50547
+Target Server Version : 50553
 File Encoding         : 65001
 
-Date: 2016-12-27 18:05:11
+Date: 2016-12-27 21:54:26
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -152,7 +152,7 @@ CREATE TABLE `picture` (
   `sha1` char(40) NOT NULL DEFAULT '' COMMENT '文件sha1编码',
   `create_time` timestamp NULL DEFAULT NULL COMMENT '创建时间',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=42 DEFAULT CHARSET=utf8mb4 COMMENT='图片表';
+) ENGINE=InnoDB AUTO_INCREMENT=43 DEFAULT CHARSET=utf8mb4 COMMENT='图片表';
 
 -- ----------------------------
 -- Records of picture
@@ -181,6 +181,7 @@ INSERT INTO `picture` VALUES ('38', '/uploads/picture/2016-12-25/585f332bafc6d.j
 INSERT INTO `picture` VALUES ('39', '/uploads/picture/2016-12-25/585f343175346.jpg', 'http://www.bohan.com', '11e799b594ce3157c0fe004e943df8b8', 'e8eec4f89c8f2797efa4a0ecdf75589ccc9cf8f3', '2016-12-25 10:51:29');
 INSERT INTO `picture` VALUES ('40', '/uploads/picture/2016-12-25/585f6da5e7a5f.jpg', 'http://www.bohan.com', '0ee40422d62103efc0d119f8b4020656', 'd1e6f9f4fd59f0c37449e8885268efc428c33c1f', '2016-12-25 14:56:37');
 INSERT INTO `picture` VALUES ('41', '/uploads/picture/2016-12-27/586227d12bebf.jpg', 'http://www.bohan.com', '7204de355e615e69ab06039e83381c99', 'a18aee2851a40e3ecfd239d564565406dc8b2c4f', '2016-12-27 16:35:29');
+INSERT INTO `picture` VALUES ('42', '/uploads/picture/2016-12-27/586264a65bab7.jpg', 'http://www.bohan.com', '69f313b7d4dadd659949819129713712', 'a3805b80f9d666bb0832a8397ccbe248c9c41c9d', '2016-12-27 20:55:02');
 
 -- ----------------------------
 -- Table structure for region
@@ -3547,7 +3548,7 @@ CREATE TABLE `sys_config` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8mb4 COMMENT='网站配置';
+) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8mb4 COMMENT='网站配置';
 
 -- ----------------------------
 -- Records of sys_config
@@ -3558,11 +3559,13 @@ INSERT INTO `sys_config` VALUES ('3', '后台系统列表页数目', 'SYSTEM_LIS
 INSERT INTO `sys_config` VALUES ('4', '网站LOGO', 'WEB_SITE_LOGO', '0', '5', '2', 'system', '', '', '网站LOGO', '2016-11-14 13:49:36', '2016-11-14 13:49:36');
 INSERT INTO `sys_config` VALUES ('5', '网站域名地址', 'WEB_SITE_URL', '0', '2', '2', 'system', 'http://www.bohan.com', '', '网站域名地址', '2016-11-14 13:50:27', '2016-11-14 13:50:27');
 INSERT INTO `sys_config` VALUES ('6', '网站名称', 'WEB_SITE_TITLE', '0', '2', '2', 'system', '策推互动', '', '网站标题前台显示标题', '2016-11-17 02:27:55', '2016-12-08 08:59:03');
-INSERT INTO `sys_config` VALUES ('9', '自媒体是否需要审核', 'USER_MEDIA_VERIFY', '0', '4', '3', 'star', '1', '0:不需要\r\n1:需要', '新增自媒体是否需要后台管理员审核', '2016-11-17 02:31:48', '2016-12-25 14:51:22');
+INSERT INTO `sys_config` VALUES ('9', '资源审核', 'USER_MEDIA_VERIFY', '0', '4', '3', 'star', '1', '0:不需要\r\n1:需要', '新增自媒体是否需要后台管理员审核', '2016-11-17 02:31:48', '2016-12-27 20:35:29');
 INSERT INTO `sys_config` VALUES ('11', '网站模块', 'CONFIG_MODULE_LIST', '0', '3', '1', 'system', 'system:系统\r\narticle:内容\r\nuser:会员\r\nstar:资源', '', '网站主要模块，用于网站模块设置', '2016-11-18 11:32:04', '2016-12-24 16:09:01');
 INSERT INTO `sys_config` VALUES ('12', '前台分页数量', 'ARTICLE_PAGE_NUM', '0', '1', '3', 'article', '10', '', '前台列表分页数量', '2016-11-18 16:56:37', '2016-11-18 17:06:25');
 INSERT INTO `sys_config` VALUES ('15', '资源风格', 'NETRED_STYLE', '0', '3', '3', 'star', '1:明星/名人\r\n2:段子手\r\n3:娱乐搞笑\r\n4:时尚搭配\r\n5:美容美妆\r\n6:游戏/动漫     \r\n7:影视/音乐\r\n8:体育/健身\r\n9:美食\r\n10:户外/旅行\r\n11:母婴/育儿\r\n12:汽车\r\n13:摄影\r\n14:金融/理财\r\n15:教育\r\n16:其他', '', '', '2016-12-24 13:58:08', '2016-12-24 18:18:36');
-INSERT INTO `sys_config` VALUES ('16', '广告类型', 'ADS_TASK_TYPE', '0', '3', '3', 'star', '1:电商\r\n2:APP\r\n3:游戏\r\n4:金融\r\n5:品牌推广\r\n6:发布会', '', '', '2016-12-27 16:27:49', '2016-12-27 16:30:06');
+INSERT INTO `sys_config` VALUES ('16', '活动广告类型', 'ADS_TASK_TYPE', '0', '3', '3', 'star', '1:电商\r\n2:APP\r\n3:游戏\r\n4:金融\r\n5:品牌推广\r\n6:发布会', '', '', '2016-12-27 16:27:49', '2016-12-27 20:38:13');
+INSERT INTO `sys_config` VALUES ('17', '资源类型', 'NETRED_TYPE', '0', '3', '3', 'star', '1:直播\r\n2:短视频', '', '资源类型和广告投放类型都要用到', '2016-12-27 20:34:01', '2016-12-27 20:34:01');
+INSERT INTO `sys_config` VALUES ('18', '活动审核', 'ADS_TASK_VERIFY', '0', '4', '3', 'star', '1', '不需要\r\n需要', '', '2016-12-27 20:36:52', '2016-12-27 20:36:52');
 
 -- ----------------------------
 -- Table structure for sys_menu
@@ -3748,8 +3751,8 @@ CREATE TABLE `user` (
 -- ----------------------------
 -- Records of user
 -- ----------------------------
-INSERT INTO `user` VALUES ('2', '13667635645', '$2y$10$D6JkE5X1i.ShnE5igAaNVOt//HKWHEke1f4ApUS8znYYP24MIDR/K', '2WitdgH0jSICzADOGI6isDVRShRZjotBl6dTUIQHtUfZ5jRPPuZQidYsUHPu', '邢永和', '1', '1', '1342234898', 'sdfddd', '0.00', '0.00', '', '3', '永和测试', '1', 'asdfasd@qq.com', '2016-11-17 18:46:49', '127.0.0.1', '2016-12-27 14:14:05', '127.0.0.1');
-INSERT INTO `user` VALUES ('3', '17723160667', '$2y$10$55bR8O6QHIFe6X70fM0nn.FeyC07/KGZmvBpt4LtWYZ0FelBBx48S', null, '形影楓', '1', '2', '123123123', '', '0.00', '0.00', '重庆问问我科技', '3', '永和测试', '1', '', '2016-11-17 19:15:14', '127.0.0.1', '2016-12-27 16:24:13', '127.0.0.1');
+INSERT INTO `user` VALUES ('2', '13667635645', '$2y$10$D6JkE5X1i.ShnE5igAaNVOt//HKWHEke1f4ApUS8znYYP24MIDR/K', '2WitdgH0jSICzADOGI6isDVRShRZjotBl6dTUIQHtUfZ5jRPPuZQidYsUHPu', '邢永和', '1', '1', '1342234898', 'sdfddd', '0.00', '0.00', '', '3', '永和测试', '1', 'asdfasd@qq.com', '2016-11-17 18:46:49', '127.0.0.1', '2016-12-27 21:12:27', '127.0.0.1');
+INSERT INTO `user` VALUES ('3', '17723160667', '$2y$10$55bR8O6QHIFe6X70fM0nn.FeyC07/KGZmvBpt4LtWYZ0FelBBx48S', 'Bap70KsObpnZO2MsKHeAtQR33H3y3bT8sao2M2cM95OLNj5qZe9LVewoCKyg', '形影楓', '1', '2', '123123123', '', '0.00', '0.00', '重庆问问我科技', '3', '永和测试', '1', '', '2016-11-17 19:15:14', '127.0.0.1', '2016-12-27 16:24:13', '127.0.0.1');
 
 -- ----------------------------
 -- Table structure for user_account
@@ -3824,7 +3827,7 @@ INSERT INTO `user_adform` VALUES ('8', '线下驻场', '2', '8', '', '2016-12-24
 DROP TABLE IF EXISTS `user_ads_task`;
 CREATE TABLE `user_ads_task` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `status` tinyint(4) NOT NULL DEFAULT '0' COMMENT '状态:-1删除、1正常、2等待审核、3审核未通过、4活动结束、5活动过期',
+  `status` tinyint(4) NOT NULL DEFAULT '0' COMMENT '状态:-1删除、1正常、2等待审核、3审核未通过、4活动结束、5活动过期、6发布未完成',
   `userid` int(11) NOT NULL DEFAULT '0' COMMENT '广告主用户ID',
   `title` varchar(255) NOT NULL DEFAULT '' COMMENT '活动名称',
   `logo` varchar(255) DEFAULT '' COMMENT '推广logo',
@@ -3834,20 +3837,19 @@ CREATE TABLE `user_ads_task` (
   `start_time` timestamp NULL DEFAULT NULL COMMENT '投放开始时间',
   `end_time` timestamp NULL DEFAULT NULL COMMENT '投放结束时间',
   `dead_time` timestamp NULL DEFAULT NULL COMMENT '截至时间',
-  `name` varchar(100) NOT NULL DEFAULT '' COMMENT '联系人',
-  `mobile` varchar(50) NOT NULL DEFAULT '' COMMENT '联系电话',
   `shape` varchar(255) NOT NULL DEFAULT '' COMMENT '广告形式',
   `demand` varchar(2000) NOT NULL DEFAULT '' COMMENT '网红需求',
   `notes` varchar(2000) NOT NULL DEFAULT '' COMMENT '活动要求',
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COMMENT='广告主任务';
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COMMENT='广告主任务';
 
 -- ----------------------------
 -- Records of user_ads_task
 -- ----------------------------
-INSERT INTO `user_ads_task` VALUES ('1', '1', '3', '重庆第一届网红大赛', '', '56200.00', '1', '4', '2016-11-26 19:00:00', '2016-11-29 15:00:00', '2016-11-26 17:00:00', '邢永和', '13667635645', '先下直播', '穿戴整洁、装扮时髦', '', '2016-11-25 13:59:47', '2016-11-25 14:23:49');
+INSERT INTO `user_ads_task` VALUES ('1', '1', '3', '重庆第一届网红大赛', '/uploads/picture/2016-12-27/586264a65bab7.jpg', '56200.00', '2', '4', '2016-12-29 00:00:00', '2016-12-31 00:00:00', '2016-12-28 00:00:00', '4', '穿戴整洁、装扮时髦', '啊士大夫士大夫的', '2016-11-25 13:59:47', '2016-12-27 21:08:28');
+INSERT INTO `user_ads_task` VALUES ('2', '1', '3', '活动测试1001', '/uploads/picture/2016-12-25/585f20f4410a7.jpg', '1233.00', '1', '12', '2016-12-29 00:00:00', '2016-12-30 00:00:00', '2016-11-29 00:00:00', '3', '活动测试1001活动测试1001活动测试1001活动测试1001活动测试1001活动测试1001活动测试1001活动测试1001活动测试1001活动测试1001', '活动测试1001活动测试1001活动测试1001活动测试1001活动测试1001活动测试1001活动测试1001活动测试1001活动测试1001活动测试1001活动测试1001活动测试1001', '2016-12-27 19:57:59', '2016-12-27 19:57:59');
 
 -- ----------------------------
 -- Table structure for user_netred_star

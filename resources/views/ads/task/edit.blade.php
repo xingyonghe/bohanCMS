@@ -51,9 +51,9 @@
                 init: {
                     //用户选择文件时触发
                     FilesAdded: function(up, files) {
-                        $('#avatar').find('img').remove();
-                        $('#avatar').css("background","#ffffff url({{ asset('assets/static/plupload/loading.gif') }}) no-repeat center");
-                        $('#avatar').css("background-size","25px 25px");
+                        $('#logo').find('img').remove();
+                        $('#logo').css("background","#ffffff url({{ asset('assets/static/plupload/loading.gif') }}) no-repeat center");
+                        $('#logo').css("background-size","25px 25px");
                         uploader.start();
                     },
 
@@ -62,9 +62,9 @@
                         var resault = $.parseJSON(response.response);
                         if(resault.code){
                             updateAlert(resault.error);
-                            $('#avatar').html('<img src="{{ asset('assets/member/images/ren.jpg') }}" width="115" height="145">').css('background','');
+                            $('#logo').html('<img src="{{ asset('assets/member/images/ren.jpg') }}" width="115" height="145">').css('background','');
                         }else{
-                            $('#avatar').html('<input type="hidden" name="avatar" value="'+ resault.file.path +'"><img src="'+resault.file.path+'" width="115" height="145">').css('background','');
+                            $('#logo').html('<input type="hidden" name="logo" value="'+ resault.file.path +'"><img src="'+resault.file.path+'" width="115" height="145">').css('background','');
                         }
                     },
 
@@ -148,7 +148,7 @@
             当前位置：<a href="{{ route('netred.index.index') }}">首页</a>><a href="{{ route('ads.task.index') }}">资源管理</a>><span>@if(isset($info))修改@else发布@endif 推广活动</span>
         </div>
         <div class="biao2">
-            <form role="form" class="data-form" action="{{ route('ads.task.update') }}" metho="post">
+            <form role="form" class="data-form" action="{{ route('ads.task.update') }}" method="post">
                 {{ csrf_field() }}
                 @if(isset($info))
                     <input  type="hidden" name="id" value="{{ $info->id }}"/>
@@ -172,13 +172,13 @@
                 </div>
                 <div class="textkuang">
                     <p><span>*</span>投放周期：
-                        <input type="text"  placeholder="请选择投放开始时间" name="start_time" id="start_time" value="{{ $info->start_time ?? '' }}" class="form-control datetimepicker"/>--
-                        <input type="text"  placeholder="请选择投放结束时间" name="end_time" id="end_time" value="{{ $info->end_time ?? '' }}" class="form-control datetimepicker"/>
+                        <input type="text"  placeholder="请选择投放开始时间" name="start_time" id="start_time" value="{{ isset($info) ? $info['start_time']->format('Y-m-d') : '' }}" class="form-control datetimepicker"/>--
+                        <input type="text"  placeholder="请选择投放结束时间" name="end_time" id="end_time" value="{{ isset($info) ? $info['end_time']->format('Y-m-d') : '' }}" class="form-control datetimepicker"/>
                     </p>
                 </div>
                 <div class="textkuang">
                     <p><span>*</span>截至时间：
-                        <input type="text"  placeholder="请选择活动截至时间" name="dead_time" id="dead_time" value="{{ $info->dead_time ?? '' }}" class="form-control datetimepicker"/>
+                        <input type="text"  placeholder="请选择活动截至时间" name="dead_time" id="dead_time" value="{{ isset($info) ? $info['dead_time']->format('Y-m-d') : '' }}" class="form-control datetimepicker"/>
                     </p>
                 </div>
                 <div class="sele">
@@ -186,8 +186,8 @@
                         <p><span>*</span>广告类型：
                             <select name="shape" id="shape">
                                 <option value="">请选择广告类型</option>
-                                @foreach($shape as $key=>$item)
-                                    <option @if(isset($item['shape']) && ($item['shape'] == $key)) selected @endif value="{{ $key }}">{{ $item }}</option>
+                                @foreach($shape_arr as $key=>$shape)
+                                    <option @if(isset($info['shape']) && ($info['shape'] == $key)) selected @endif value="{{ $key }}">{{ $shape }}</option>
                                 @endforeach
                             </select>
                         </p>
@@ -196,8 +196,7 @@
                 <div class="raw">
                     <p>
                         <span>*</span>投放类型：
-                        <input type="radio" id="type" @if(isset($info['type']) && ($info['type'] == 1)) checked @endif @if(!isset($info['type'])) checked @endif name="type" value="1">直播
-                        <input type="radio" name="type" @if(isset($info['type']) && ($info['type'] == 2)) checked @endif value="2">短视频
+                        {!! Form::homeRadios('type',$type_arr,$info['type'] ?? 1) !!}
                     </p>
                 </div>
                 <div class="wenben">

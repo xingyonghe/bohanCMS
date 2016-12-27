@@ -14,7 +14,7 @@
         <div class="detail">
             <div class="query fr">
                 <a href="{{ route('ads.task.create') }}" class="search">发布推广活动</a>
-            </div>git
+            </div>
         </div>
         <div class="jilu"><p>共计：{{ $lists->total() }}个活动</p></div>
         <div class="xijie">
@@ -24,11 +24,11 @@
                         <td width="90">活动ID</td>
                         <td width="110">活动名称</td>
                         <td width="110">投放类型</td>
-                        <td width="110">广告类型</td>
                         <td width="110">预算</td>
                         <td width="100">需求人数</td>
                         <td width="100">投标数量</td>
                         <td width="110">发布日期</td>
+                        <td width="110">状态</td>
                         <td width="100">操作</td>
                     </tr>
                 </table>
@@ -40,7 +40,7 @@
                             <tr>
                                 <td width="90">{{ $data->id }}</td>
                                 <td width="110">{{ $data->title }}</td>
-                                <td width="110">{{ $data->id }}</td>
+                                <td width="110">@if($data->type == 1)直播@else短视频@endif</td>
                                 <td width="110">{{ $data->id }}</td>
                                 <td width="110">{{ $data->id }}</td>
                                 <td width="110">{{ $data->money }}</td>
@@ -48,6 +48,10 @@
                                 <td width="110">{{ $data->money }}</td>
                                 <td width="110">{{ $data->created_at->format('Y-m-d') }}</td>
                                 <td width="100">
+                                    @if($data->status == 6)
+                                        <a href="{{ route('ads.task.edit',[$data->id]) }}">继续发布</a>
+                                        <a class="ajax-confirm destroy" href="javascript:void(0)" url="{{ route('ads.task.destroy',[$data->id]) }}">删除</a>
+                                    @endif
                                     @if($data->status == 1 || $data->status == 3)
                                         <a href="{{ route('ads.task.edit',[$data->id]) }}">编辑</a>
                                         <a class="ajax-confirm destroy" href="javascript:void(0)" url="{{ route('ads.task.destroy',[$data->id]) }}">删除</a>

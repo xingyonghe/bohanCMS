@@ -21,9 +21,11 @@ class TaskController extends Controller{
     protected $navkey = 'task';//菜单标识
     public function __construct(){
         view()->share('navkey',$this->navkey);//用于设置头部菜单高亮
-        $shape = parse_config_attr(C('ADS_TASK_TYPE'));
-        view()->composer(['ads.task.edit'],function($view) use($shape){
-            $view->with('shape',$shape);
+        view()->composer(['ads.task.edit'],function($view){
+            $view->with('shape_arr',parse_config_attr(C('ADS_TASK_TYPE')));//活动广告类型
+        });
+        view()->composer(['ads.task.index','ads.task.edit'],function($view){
+            $view->with('type_arr',parse_config_attr(C('NETRED_TYPE')));//资源类型，活动投放类型关联这个
         });
     }
 
@@ -66,30 +68,30 @@ class TaskController extends Controller{
     public function edit(int $id){
         //允许修改的状态条件
         $info = UserAdsTask::where('userid',auth()->id())
-            ->whereIn('status',[UserAdsTask::STATUS_1,UserAdsTask::STATUS_3])
+            ->whereIn('status',[UserAdsTask::STATUS_6,UserAdsTask::STATUS_3])
             ->findOrFail($id);
         SEO::setTitle('修改推广活动-广告主中心-'.C('WEB_SITE_TITLE'));
         return view('ads.task.edit',compact('info'));
     }
 
     /**
-     * 派单更新
+     * 活动更新
      * @author: xingyonghe
      * @date: 2016-11-25
-     * @return \Illuminate\Http\JsonResponse
+     * @return
      */
     public function update(){
         $data = request()->all();
         $rules = [
             'title'      => 'required|max:100',
             'money'      => 'required|money',
-            'logo'       => 'required|image',
+            'logo'       => 'required',
             'start_time' => 'required|date',
             'end_time'   => 'required|date|after:start_time',
             'dead_time'  => 'required|date|before:start_time',
             'num'        => 'required|positive_integer',
             'shape'      => 'required',
-            'type'     => 'required',
+            'type'       => 'required',
 
         ];
         $msgs = [
@@ -98,7 +100,6 @@ class TaskController extends Controller{
             'money.required'      => '请填写预算金额',
             'money.money'         => '预算金额格式不正确',
             'logo.required'       => '请上传推广logo',
-            'logo.image'          => '推广logo格式不正确',
             'start_time.required' => '请选择投放开始时间',
             'start_time.date'     => '投放开始时间格式错误',
             'end_time.required'   => '请选择投放结束时间',
@@ -118,15 +119,16 @@ class TaskController extends Controller{
             return $this->ajaxValidator($validator);
         }
         $data['userid']     = auth()->id();
-        $data['start_time'] = \Carbon\Carbon::parse($data['start_time']);
-        $data['end_time']   = \Carbon\Carbon::parse($data['end_time']);
-        $data['dead_time']  = \Carbon\Carbon::parse($data['dead_time']);
-        $data['status'] = UserAdsTask::STATUS_1;
+        $data['status'] = UserAdsTask::STATUS_6;
         $resualt = UserAdsTask::toUpdate($data);
         if($resualt){
-            return $this->ajaxReturn(isset($resualt['id'])?'派单信息修改成功!':'派单信息添加成功!',1,route('member.task.index'));
+            if(isset($resualt['id'])){
+                return $this->ajaxReturn('派单信息修改成功!',1,route('ads.task.index'));
+            }else{
+                return $this->ajaxReturn('推广活动发布成功,正在跳转支付界面...',1,route('ads.task.index'));
+            }
         }else{
-            return $this->ajaxReturn();
+            return $this->ajaxReturn('操作失败，请稍后再试');
         }
     }
 

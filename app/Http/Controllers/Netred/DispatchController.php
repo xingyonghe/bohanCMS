@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Netred;
 
 use App\Http\Controllers\Controller;
 use SEO;
+use App\Models\UserAdsTask;
 
 class DispatchController extends Controller{
     /*
@@ -20,9 +21,9 @@ class DispatchController extends Controller{
     public function __construct(){
         view()->share('navkey',$this->navkey);//用于设置头部菜单高亮
         //新增/编辑共享直播平台数据
-//        view()->composer(['user.star.edit','user.star.add'],function($view){
-//            $view->with('mediaType',parse_config_attr(C('USER_MEDIA_TYPE')));
-//        });
+        view()->composer(['netred.dispatch.index','netred.dispatch.show'],function($view){
+            $view->with('task_type_arr',parse_config_attr(C('NETRED_TYPE')));//资源类型，活动投放类型关联这个
+        });
     }
 
     /**
@@ -32,8 +33,14 @@ class DispatchController extends Controller{
      * @return
      */
     public function index(){
+        $lists = UserAdsTask::whereIn('status',[UserAdsTask::STATUS_1,UserAdsTask::STATUS_4,UserAdsTask::STATUS_5])
+            ->orderBy('created_at','desc')
+            ->paginate(C('SYSTEM_LIST_LIMIT') ?? 10);
+        $this->intToString($lists,array(
+            'status' => UserAdsTask::STATUS_TEXT,
+        ));
+
         SEO::setTitle('派单大厅-网红中心-'.C('WEB_SITE_TITLE'));
-        $lists = [];
         return view('netred.dispatch.index',compact('lists'));
     }
 

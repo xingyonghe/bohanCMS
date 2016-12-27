@@ -26,101 +26,45 @@
                 </ul>
             </div>
         </div>
-        <div class="project">
+        @foreach($lists as $key=>$item)
+            <div class="project">
 
-            <div class="tg">
-                <div class="fl">
-                    <h5><span>梦幻西游手游推广梦幻西游手游推广</span></h5>
+                <div class="tg">
+                    <div class="fl">
+                        <h5><span>{{ $item['title'] }}</span></h5>
+                    </div>
+                    <div class="fr">
+                        <img src="{{ asset('assets/member/images/clock.png') }}"/>起始日期：{{ $item['start_time']->format('Y年m月d日') }}
+                        <b>一</b>
+                        <img src="{{ asset('assets/member/images/clock.png') }}"/>结束日期：{{ $item['end_time']->format('Y年m月d日') }}
+                    </div>
                 </div>
-                <div class="fr"><img src="{{ asset('assets/member/images/clock.png') }}"/>起始日期：2016年12月30日<b>一</b><img src="{{ asset('assets/member/images/clock.png') }}"/>结束日期：2016年12月30日</div>
-            </div>
-            <div class="tupian fl">
-                <img src="{{ asset('assets/member/images/1hao.jpg') }}"/>
-                <p><input type="button" value="我要参加" style="background-color:#ff6476" /></p>
-            </div>
-            <div class="introduce fl">
-                <table>
-                    <tr>
-                        <td width="300"><label>赏金：</label><input name="" type="text"  value="80000元" /></td>
-                        <td width="300"><label>投放类型：</label><input name="" type="text"  value="直播" /></td>
-                        <td width="300"><label>投放平台：</label><input name="" type="text"  value="不限" /></td>
-                    </tr>
-                    <tr>
-                        <td width="300"><label>产品类型：</label><input name="" type="text"  value="手游" /></td>
-                        <td width="300"><label>需要人数：</label><input name="" type="text"  value="8人" /></td>
-                        <td width="300"><label>广告形式：</label><input name="" type="text"  value="口播" /></td>
-                    </tr>
-                </table>
-                <div class="duanluo">
-                    <p><span>网红要求：</span>突出游戏特色，最好在线直播带领观众一起加入游戏！考核标准会有新增用户的考核在内！突出游戏特色，最好在线直<br/>播带领观众一起加入游戏！考核标准会有新增用户的考核在内！</p>
-                    <p><span>活动要求：</span>突出游戏特色，最好在线直播带领观众一起加入游戏！考核标准会有新增用户的考核在内！突出游戏特色，最好在线直播带领观众一起加入游戏！考核标准会有新增用户的考核在内！</p>
+                <div class="tupian fl">
+                    <img src="{{ $item['logo'] }}" width="235" height="204"/>
+                    <p><input type="button" value="我要参加" style="background-color:#ff6476" /></p>
                 </div>
-            </div>
-        </div>
-        <div class="project">
-
-            <div class="tg">
-                <div class="fl">
-                    <h5><span>梦幻西游手游推广梦幻西游手游推广</span></h5>
-                </div>
-                <div class="fr"><img src="{{ asset('assets/member/images/clock.png') }}"/>起始日期：2016年12月30日<b>一</b><img src="{{ asset('assets/member/images/clock.png') }}"/>结束日期：2016年12月30日</div>
-            </div>
-            <div class="tupian fl">
-                <img src="{{ asset('assets/member/images/1hao.jpg') }}"/>
-                <p><input type="button" value="我要参加" style="background-color:#ff6476" /></p>
-            </div>
-            <div class="introduce fl">
-                <table>
-                    <tr>
-                        <td width="300"><label>赏金：</label><input name="" type="text"  value="80000元" /></td>
-                        <td width="300"><label>投放类型：</label><input name="" type="text"  value="直播" /></td>
-                        <td width="300"><label>投放平台：</label><input name="" type="text"  value="不限" /></td>
-                    </tr>
-                    <tr>
-                        <td width="300"><label>产品类型：</label><input name="" type="text"  value="手游" /></td>
-                        <td width="300"><label>需要人数：</label><input name="" type="text"  value="8人" /></td>
-                        <td width="300"><label>广告形式：</label><input name="" type="text"  value="口播" /></td>
-                    </tr>
-                </table>
-                <div class="duanluo">
-                    <p><span>网红要求：</span>突出游戏特色，最好在线直播带领观众一起加入游戏！考核标准会有新增用户的考核在内！突出游戏特色，最好在线直<br/>播带领观众一起加入游戏！考核标准会有新增用户的考核在内！</p>
-                    <p><span>活动要求：</span>突出游戏特色，最好在线直播带领观众一起加入游戏！考核标准会有新增用户的考核在内！突出游戏特色，最好在线直播带领观众一起加入游戏！考核标准会有新增用户的考核在内！</p>
+                <div class="introduce fl">
+                    <table>
+                        <tr>
+                            <td width="300"><label>赏金：</label>{{ $item['money'] }}元</td>
+                            <td width="300"><label>投放类型：</label>{{ $task_type_arr[$item['type']] }}</td>
+                            <td width="300"><label>投放平台：</label>{{ $item['id'] }}</td>
+                        </tr>
+                        <tr>
+                            <td width="300"><label>产品类型：</label>{{ $item['id'] }}</td>
+                            <td width="300"><label>需要人数：</label>{{ $item['num'] }}人</td>
+                            <td width="300"><label>广告形式：</label>{{ $item['id'] }}</td>
+                        </tr>
+                    </table>
+                    <div class="duanluo">
+                        <p><span>网红要求：</span>{{ $item['demand'] }}</p>
+                        <p><span>活动要求：</span>{{ $item['notes'] }}</p>
+                    </div>
                 </div>
             </div>
-        </div>
-        <div class="project">
-
-            <div class="tg">
-                <div class="fl">
-                    <h5><span>梦幻西游手游推广梦幻西游手游推广</span></h5>
-                </div>
-                <div class="fr"><img src="{{ asset('assets/member/images/clock.png') }}"/>起始日期：2016年12月30日<b>一</b><img src="{{ asset('assets/member/images/clock.png') }}"/>结束日期：2016年12月30日</div>
-            </div>
-            <div class="tupian fl">
-                <img src="{{ asset('assets/member/images/1hao.jpg') }}"/>
-                <p><input type="button" value="我要参加" style="background-color:#ff6476" /></p>
-            </div>
-            <div class="introduce fl">
-                <table>
-                    <tr>
-                        <td width="300"><label>赏金：</label><input name="" type="text"  value="80000元" /></td>
-                        <td width="300"><label>投放类型：</label><input name="" type="text"  value="直播" /></td>
-                        <td width="300"><label>投放平台：</label><input name="" type="text"  value="不限" /></td>
-                    </tr>
-                    <tr>
-                        <td width="300"><label>产品类型：</label><input name="" type="text"  value="手游" /></td>
-                        <td width="300"><label>需要人数：</label><input name="" type="text"  value="8人" /></td>
-                        <td width="300"><label>广告形式：</label><input name="" type="text"  value="口播" /></td>
-                    </tr>
-                </table>
-                <div class="duanluo">
-                    <p><span>网红要求：</span>突出游戏特色，最好在线直播带领观众一起加入游戏！考核标准会有新增用户的考核在内！突出游戏特色，最好在线直<br/>播带领观众一起加入游戏！考核标准会有新增用户的考核在内！</p>
-                    <p><span>活动要求：</span>突出游戏特色，最好在线直播带领观众一起加入游戏！考核标准会有新增用户的考核在内！突出游戏特色，最好在线直播带领观众一起加入游戏！考核标准会有新增用户的考核在内！</p>
-                </div>
-            </div>
-        </div>
+        @endforeach
     </div>
     <div id="showpage" class="cpage">
-        <a class="cur" href="#" >1</a><a href="#" >2</a><a href="#">3</a><span>…</span><a href="#">18</a><a href="#"><img src="{{ asset('assets/member/images/logo.png') }}sanjiao.jpg"/></a>
+        {!! $lists->render() !!}
     </div>
 @endsection

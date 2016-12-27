@@ -10,7 +10,7 @@ class UserAdsTask extends CommonModel{
     | @date 2016-11-24
     |--------------------------------------------------------------------------
     |
-    | 广告主发布任务模型
+    | 广告主活动模型
     |
     */
 
@@ -28,7 +28,8 @@ class UserAdsTask extends CommonModel{
     ];
     protected $table = 'user_ads_task';
     protected $fillable = [
-        'userid','title', 'money', 'num','start_time','end_time', 'dead_time', 'name','mobile','company', 'email', 'shape', 'demand', 'status'
+        'userid', 'title', 'logo', 'money', 'num', 'start_time', 'end_time', 'dead_time', 'name', 'mobile',
+        'shape', 'demand', 'status', 'notes', 'type'
     ];
     protected $dates = ['start_time','end_time','dead_time','created_at','updated_at'];
 }

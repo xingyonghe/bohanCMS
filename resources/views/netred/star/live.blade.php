@@ -179,7 +179,8 @@
 @section('body')
     <div class="juzhong">
         <div class="weizhi">
-            当前位置：<a href="{{ route('netred.index.index') }}">首页</a>><a href="{{ route('netred.star.index') }}">资源管理</a>><span>@if(isset($info))修改@else添加@endif短视频账户</span>
+            当前位置：<a href="{{ route('netred.index.index') }}">首页</a>>   <a href="{{ route('netred.star.index') }}">资源管理</a>>
+            <span>@if(isset($info))修改@else添加@endif短视频账户</span>
         </div>
         <div class="biao2">
             <form role="form" class="data-form" action="{{ route('netred.star.update') }}" metho="post">

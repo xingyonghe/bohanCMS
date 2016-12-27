@@ -34,7 +34,7 @@ return [
             'child' => [],
         ],
         'account' => [
-            'name' => '账户查询',
+            'name' => '财务中心',
             'url' => 'netred.account.index',
             'child' => [],
         ],
@@ -52,7 +52,7 @@ return [
         ],
         'netred' => [
             'name' => '资源列表',
-            'url' => 'ads.netred.live',
+            'url' => 'ads.netred.index',
             'child' => [],
         ],
         'task' => [
@@ -66,13 +66,13 @@ return [
             'child' => [],
         ],
         'account' => [
-            'name' => '投放审查',
+            'name' => '财务中心',
             'url' => 'netred.account.index',
             'child' => [],
         ],
         'center' => [
             'name' => '个人中心',
-            'url' => 'netred.center.index',
+            'url' => 'ads.center.index',
             'child' => [],
         ],
     ],

@@ -39,58 +39,25 @@ class NetredController extends Controller{
      * @date: 2016-12-26
      * @return mixed
      */
-    public function live(){
+    public function index(){
         $type       = (int)request()->get('type','');
         $status     = (int)request()->get('status','');
         $stage_name = (string)request()->get('stage_name','');
-
-        $lists = UserNetredStar::where('type',1)
-            ->where('status',UserNetredStar::STATUS_NORMAL)
+        $lists = UserNetredStar::where('status',UserNetredStar::STATUS_NORMAL)
             ->where(function ($query) use($type) {
                 if($type){
                     $query->where('type',$type);
                 }
             })
-            ->where('status','>',0)
             ->orderBy('created_at', 'desc')
             ->paginate(C('SYSTEM_LIST_LIMIT') ?? 10);
         dd($lists);
         //平台
-        $platforms = UserPlatform::where('category',1)->orderBy('sort','asc')->pluck('name','id');
+        $platforms = UserPlatform::orderBy('sort','asc')->pluck('name','id');
         //广告形式
-        $adforms = UserAdform::where('category',1)->orderBy('sort','asc')->pluck('name','id');
-        SEO::setTitle('直播列表-广告主中心'.C('WEB_SITE_TITLE'));
-        return view('ads.netred.live');
-    }
-
-    /**
-     * 短视频列表
-     * @author: xingyonghe
-     * @date: 2016-12-26
-     * @return mixed
-     */
-    public function video(){
-        $type       = (int)request()->get('type','');
-        $status     = (int)request()->get('status','');
-        $stage_name = (string)request()->get('stage_name','');
-
-        $lists = UserNetredStar::where('type',2)
-            ->where('status',UserNetredStar::STATUS_NORMAL)
-            ->where(function ($query) use($type) {
-                if($type){
-                    $query->where('type',$type);
-                }
-            })
-            ->where('status','>',0)
-            ->orderBy('created_at', 'desc')
-            ->paginate(C('SYSTEM_LIST_LIMIT') ?? 10);
-        dd($lists);
-        //平台
-        $platforms = UserPlatform::where('category',2)->orderBy('sort','asc')->pluck('name','id');
-        //广告形式
-        $adforms = UserAdform::where('category',3)->orderBy('sort','asc')->pluck('name','id');
-        SEO::setTitle('短视频列表-广告主中心'.C('WEB_SITE_TITLE'));
-        return view('ads.netred.live');
+        $adforms = UserAdform::orderBy('sort','asc')->pluck('name','id');
+        SEO::setTitle('资源列表-广告主中心'.C('WEB_SITE_TITLE'));
+        return view('ads.netred.index');
     }
 
 

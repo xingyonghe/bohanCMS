@@ -144,7 +144,7 @@ class StarController extends Controller{
         }
         //后面待完善
         $rules = [
-            'avatar'     => 'required',
+            'avatar'     => 'required|image',
             'stage_name' => 'required',
             'sex'       => 'required',
             'province'   => 'required',

@@ -14,7 +14,7 @@
         <div class="detail">
             <div class="query fr">
                 <a href="{{ route('ads.task.create') }}" class="search">发布推广活动</a>
-            </div>
+            </div>git
         </div>
         <div class="jilu"><p>共计：{{ $lists->total() }}个活动</p></div>
         <div class="xijie">
@@ -22,14 +22,13 @@
                 <table width="1008" >
                     <tr>
                         <td width="90">活动ID</td>
-                        <td width="110">发布日期</td>
                         <td width="110">活动名称</td>
                         <td width="110">投放类型</td>
-                        <td width="110">活动要求</td>
-                        <td width="110">网红要求</td>
+                        <td width="110">广告类型</td>
                         <td width="110">预算</td>
                         <td width="100">需求人数</td>
                         <td width="100">投标数量</td>
+                        <td width="110">发布日期</td>
                         <td width="100">操作</td>
                     </tr>
                 </table>
@@ -40,7 +39,6 @@
                         <table width="1008" >
                             <tr>
                                 <td width="90">{{ $data->id }}</td>
-                                <td width="110">{{ $data->created_at->format('Y-m-d') }}</td>
                                 <td width="110">{{ $data->title }}</td>
                                 <td width="110">{{ $data->id }}</td>
                                 <td width="110">{{ $data->id }}</td>
@@ -48,6 +46,7 @@
                                 <td width="110">{{ $data->money }}</td>
                                 <td width="110">{{ $data->money }}</td>
                                 <td width="110">{{ $data->money }}</td>
+                                <td width="110">{{ $data->created_at->format('Y-m-d') }}</td>
                                 <td width="100">
                                     @if($data->status == 1 || $data->status == 3)
                                         <a href="{{ route('ads.task.edit',[$data->id]) }}">编辑</a>

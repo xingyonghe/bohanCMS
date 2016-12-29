@@ -4,6 +4,21 @@
 <meta charset="utf-8">
 <title>直播</title>
 <link rel="stylesheet" type="text/css" href="index.css"/>
+<link type="text/javascript" src="jquery.datetimepicker.full.js"/>
+<link type="text/javascript" src="jquery-1.8.3.min.js"/>
+<script type="text/javascript" src="jquery-1.8.3.min.js"></script>
+    <script type="text/javascript" src="jquery.datetimepicker.full.js"></script>
+    <script>
+        $(function () {
+            $.datetimepicker.setLocale('ch');
+            $('.datetimepicker').datetimepicker({
+                format:"Y-m-d",      //格式化日期
+                todayButton:false,    //关闭选择今天按钮
+                minDate:true,
+                timepicker:false,    //关闭时间选项
+            });
+        });
+    </script>
 </head>
 
 <body>
@@ -131,6 +146,14 @@
                     <label for="ch16">其他</label></li>
             	</ul>
             </div>
+            	<div class="kuang fl"><span>品牌植入: 价格：</span><input type="text"> <span>元</span></div>
+                <div class="kuang fl"><span>有效期: </span><input type="text" placeholder="请选择活动截至时间"  class="datetimepicker"/></div>
+                <div class="qingchu"></div>
+                <div class="kuang fl"><span>品牌植入: 价格：</span><input type="text"> <span>元</span></div>
+                <div class="kuang fl"><span>有效期: </span><input type="text" placeholder="请选择活动截至时间"  class="datetimepicker"/></div>
+                <div class="qingchu"></div>
+                
+    
             </div>
                  <div class="qingchu"></div>
             </div>
@@ -191,8 +214,14 @@
                         <li><input type="checkbox" id="ch47"><label for="ch47">酒店餐厅</label></li>
                         <li><input type="checkbox" id="ch48"><label for="ch48">旅游景区</label></li>
                     </ul>
+                    <div class="qingchu"></div>
                 </div>
-    
+               <div class="kuang fl"><span>品牌植入: 价格：</span><input type="text"> <span>元</span></div>
+                <div class="kuang fl"><span>有效期: </span><input type="text" placeholder="请选择活动截至时间"  class="datetimepicker"/></div>
+                <div class="qingchu"></div>
+                <div class="kuang fl"><span>品牌植入:价格：</span><input type="text"> <span>元</span></div>
+                <div class="kuang fl"><span>有效期: </span><input type="text" placeholder="请选择活动截至时间"  class="datetimepicker"/></div>
+                <div class="qingchu"></div>
             </div>
                  <div class="qingchu"></div>
             </div>
@@ -209,6 +238,12 @@
                         <li><input type="checkbox" id="ch54"><label for="ch54">其他</label></li>
                     </ul>
                  </div>
+                <div class="kuang fl"><span>品牌植入: 价格：</span><input type="text"> <span>元</span></div>
+                <div class="kuang fl"><span>有效期: </span><input type="text" placeholder="请选择活动截至时间"  class="datetimepicker"/></div>
+                <div class="qingchu"></div>
+                <div class="kuang fl"><span>品牌植入: 价格：</span><input type="text"> <span>元</span></div>
+                <div class="kuang fl"><span>有效期: </span><input type="text" placeholder="请选择活动截至时间"  class="datetimepicker"/></div>
+                <div class="qingchu"></div>
                 </div>
             </div>
 

@@ -46,14 +46,27 @@ class UserNetredStar extends CommonModel{
      */
     protected function toUpdate($data)
     {
-        //组装广告形式和相应价格到form_price字段
-        $data['form_price'] = array_combine($data['form'],$data['money']);//合并数组，前一个数组的值为新数组的索引，后一个数组的值为新数组的值
+        //过滤空值得广告形式参考价格和价格有效期
+        $data['money'] = array_where($data['money'], function ($value,$key) {
+            if(!empty($value))return $value;
+        });
+        $data['term'] = array_where($data['term'], function ($value,$key) {
+            if(!empty($value))return $value;
+        });
         //设置最高价格与最低价格
         $money = array_sort($data['money'],function ($value){
             return $value;
         });
-        $data['min_money'] = array_first($money);
-        $data['max_money'] = array_last($money);
+        $data['min_money'] = head($money);
+        $data['max_money'] = last($money);
+        //组装广告形式和相应价格及有效期到form_price字段
+//        array_combine($data['form'],)
+        $money_term = [];
+        foreach($data['money'] as $key=>$item){
+            $money_term[$key] = ['price'=>$item,'term'=>$data['term'][$key]];
+        }
+        $data['form_price'] = array_combine($data['form'],$money_term);
+        unset($data['form']);unset($data['money']);unset($data['term']);
         //组装地区area字段
         $area = Region::whereIn('id',[$data['province'],$data['city'],$data['district']])->pluck('name')->toArray();
         $data['area'] = implode(',',$area);

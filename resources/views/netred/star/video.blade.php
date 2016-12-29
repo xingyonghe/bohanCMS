@@ -1,8 +1,10 @@
 @extends('netred.layouts.base')
 @section('style')
+    <link href="{{ asset('assets/static/datetimepicker/datetimepicker.css') }}" rel="stylesheet">
 @endsection
 @section('script')
     <script type="text/javascript" src="{{ asset('assets/static/plupload/plupload.full.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('assets/static/datetimepicker/jquery.datetimepicker.full.js') }}"></script>
     <script type="text/javascript">
         $(function(){
             var uploader = new plupload.Uploader({
@@ -68,19 +70,18 @@
 
             //广告形式及价格
             $('.adforms').find('input').click(function(){
-                var title = $(this).attr('title');
                 var adform = $(this).val();
+                var form_adform = $('.form_'+adform);
                 if($(this).is(':checked') ){
-                    if(!$('.form_'+adform).length){
-                        var html = '<li class="form_'+adform+'">'+title+'价格：<input type="text"  name="money[]" value="">元</li>';
-                        $('#moneys').append(html);
+                    if(form_adform.is(':hidden')){
+                        form_adform.show();
                     }
-
                 }else{
-                    if($('.form_'+adform).length){
-                        $('.form_'+adform).remove();
+                    if(form_adform.is(':visible')){
+                        form_adform.hide();
                     }
                 }
+                form_adform.find('input').val('');
             });
             
             $('.ajax-post').click(function(){
@@ -96,7 +97,8 @@
                 var style = $('input[name="style[]"]').is(':checked');
                 var catids = $('input[name="catids[]"]').is(':checked');
                 var form = $('input[name="form[]"]').is(':checked');
-                var moneys = $('#moneys').find('input');
+                var moneys = $('#moneys').find("input[name='money[]']:visible");
+                var terms = $('#moneys').find("input[name='term[]']:visible");
                 if(!avatar){
                     alertTips('请上传头像','avatar');return false;
                 }
@@ -144,10 +146,19 @@
                     }
                 });
                 if(!money){
-                    alertTips('请填写广告形式金额','price');return false;
+                    alertTips('请填写广告形式参考价格','form_price');return false;
                 }
                 if(!money_format){
-                    alertTips('广告形式金额格式错误','price');return false;
+                    alertTips('广告形式参考价格格式错误','form_price');return false;
+                }
+                var term_format = true;
+                $.each(terms, function() {
+                    if(!$(this).val()){
+                        term_format = false;
+                    }
+                });
+                if(!term_format){
+                    alertTips('请填写广告形式价格有效期','form_price');return false;
                 }
                 var that = $(this);
                 formAjaxPost($('.data-form'),that);
@@ -160,6 +171,14 @@
             @else
                 show_region();
             @endif
+
+
+             $('.datetimepicker').datetimepicker({
+                format:"Y-m-d",      //格式化日期
+                todayButton:false,    //关闭选择今天按钮
+                minDate:true,
+                timepicker:false,    //关闭时间选项
+            });
         })
     </script>
 @endsection
@@ -240,7 +259,13 @@
                         </div>
                         <div class="qingchu"></div>
                     </div>
-
+                    <div class="formdl">
+                        <div class="formzi fl"><span>*</span>平均在线观看人数：</div>
+                        <div class="textkuang fl">
+                            <input type="text" name="average_num" id="average_num" value="{{ $info['average_num'] ?? '' }}">
+                        </div>
+                        <div class="qingchu"></div>
+                    </div>
                     <div class="formdl">
                         <div class="formzi fl"><span>*</span>风格（多选）：</div>
                         <div class="dxk">
@@ -291,15 +316,34 @@
                                         </li>
                                     @endforeach
                                 </ul>
-                                <div class="textkuang fl"  id="moneys">
-                                    @if(isset($info['form_price']))
-                                        @foreach($info['form_price'] as $form=>$price)
-                                            <li class="form_{{ $form }}">{{ get_adform_filed($form) }}价格：<input type="text"  name="money[]" value="{{ $price }}">元</li>
+                                <div id="moneys">
+                                    @if(isset($info))
+                                        @foreach($adforms as $key=>$adform)
+                                            @if(array_has($info['form_price'],$key))
+                                                <div class="form_{{ $key }}">
+                                                    <div class="kuang fl"><span>{{ $adform }}:价格：</span><input name="money[]" value="{{ $info['form_price'][$key]['price'] }}" type="text"> <span>元</span></div>
+                                                    <div class="kuang fl"><span>有效期: </span><input type="text" value="{{ $info['form_price'][$key]['term'] }}" placeholder="请选择活动截至时间"  class="datetimepicker"/></div>
+                                                    <div class="qingchu"></div>
+                                                </div>
+                                            @else
+                                                <div class="form_{{ $key }}" style="display: none">
+                                                    <div class="kuang fl"><span>{{ $adform }}:价格：</span><input name="money[]" value="" type="text"> <span>元</span></div>
+                                                    <div class="kuang fl"><span>有效期: </span><input type="text" name="term[]" placeholder="请选择活动截至时间"  class="datetimepicker"/></div>
+                                                    <div class="qingchu"></div>
+                                                </div>
+                                            @endif
+                                        @endforeach
+                                    @else
+                                        @foreach($adforms as $key=>$adform)
+                                            <div class="form_{{ $key }}" style="display: none">
+                                                <div class="kuang fl"><span>{{ $adform }}:价格：</span><input name="money[]" value="" type="text"> <span>元</span></div>
+                                                <div class="kuang fl"><span>有效期: </span><input type="text" name="term[]" placeholder="请选择活动截至时间"  class="datetimepicker"/></div>
+                                                <div class="qingchu"></div>
+                                            </div>
                                         @endforeach
                                     @endif
                                 </div>
                             </div>
-
                         </div>
                     </div>
                     <div class="qingchu"></div>

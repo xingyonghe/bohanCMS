@@ -67,11 +67,10 @@
                         <td width="130">类型</td>
                         <td width="110">入驻平台</td>
                         <td width="110">粉丝数</td>
-                        <td width="150">参考报价</td>
-                        <td width="120">价格有效期</td>
-                        <td width="110">审核状态</td>
-                        <td width="120">上下架状态</td>
-                        <td colspan="3"  width="126">操作</td>
+                        <td width="300">价格有效期</td>
+                        <td width="120">添加时间</td>
+                        <td class="no" width="110">状态</td>
+                        <td colspan="3"  width="130">操作</td>
                     </tr>
                 </table>
             </div>
@@ -84,17 +83,16 @@
                                 <td width="130">@if($item['type'] == 1)直播@else短视频@endif</td>
                                 <td width="110">{{ get_platform_filed($item['platform']) }}</td>
                                 <td width="110">{{ $item['fans'] }}</td>
-                                <td width="110">{{ $item['average_num'] }}</td>
-                                <td class="no" width="150">
+                                <td class="no" width="300">
                                     @if($item['form_price'])
-                                        @foreach($item['form_price'] as $form=>$price)
-                                            <p>{{ get_adform_filed($form) }}：{{ $price }}元</p>
+                                        @foreach($item['form_price'] as $form=>$price_term)
+                                            <p>{{ get_adform_filed($form) }}：{{ $price_term['price'] }}元(有效期：{{ $price_term['term'] }})</p>
                                         @endforeach
                                     @endif
                                 </td>
-                                <td width="120">{{ $item['created_at']->format('Y-m-d') }}</td>
+                                <td class="no" width="120">{{ $item['created_at']->format('Y-m-d') }}</td>
                                 <td class="no" width="110">{!! $item['status_text'] !!}</td>
-                                <td class="lan" width="126">
+                                <td class="lan" width="130">
                                     @if($item['status'] == 1 || $item['status'] == 3)
                                         <a href="{{ route('netred.star.edit',[$item['id']]) }}">编辑</a>|
                                         <a  class="ajax-confirm destroy" href="{{ route('netred.star.destroy',[$item['id']]) }}">删除</a>

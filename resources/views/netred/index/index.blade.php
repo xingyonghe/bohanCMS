@@ -67,19 +67,19 @@
                     <p>点击派单大厅，进去挑选适合<br/>
                        自己的广告任务！</p>
                 </div>
-                <div class="img fl"><img src="{{ asset('assets/member/images/jiantou.png') }}"/></div>
+                <div class="img fl"><img src="{{ asset('assets/member/netred/images/jiantou.png') }}"/></div>
                 <div class="buzhou fl">
                     <h6>第一步</h6>
                     <p>点击派单大厅，进去挑选适合<br/>
                        自己的广告任务！</p>
                 </div>
-                <div class="img fl"><img src="{{ asset('assets/member/images/jiantou.png') }}"/></div>
+                <div class="img fl"><img src="{{ asset('assets/member/netred/images/jiantou.png') }}"/></div>
                 <div class="buzhou fl">
                     <h6>第一步</h6>
                     <p>点击派单大厅，进去挑选适合<br/>
                        自己的广告任务！</p>
                 </div>
-                <div class="img fl"><img src="{{ asset('assets/member/images/jiantou.png') }}"/></div>
+                <div class="img fl"><img src="{{ asset('assets/member/netred/images/jiantou.png') }}"/></div>
                 <div class="buzhou fl">
                     <h6>第一步</h6>
                     <p>点击派单大厅，进去挑选适合<br/>

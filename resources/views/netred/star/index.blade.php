@@ -6,53 +6,78 @@
         $(function(){
 
         })
+
+        function displaySubMenu(li) {
+
+            var subMenu = li.getElementsByTagName("div")[0];
+            subMenu.style.display = "block";
+        }
+        function hideSubMenu(li) {
+
+            var subMenu = li.getElementsByTagName("div")[0];
+            subMenu.style.display = "none";
+        }
     </script>
 @endsection
 @section('body')
-    <div class="content">
+    <div class="inner_c">
         <div class="dingdan">
-            <div class="xuan fl">
-                {!! Form::open(['url' => route('netred.star.index'),'method'=>'get']) !!}
-                    <span>账户类别：</span>
-                    <select class="duoxuan" name="type">
-                        <option value="">请选择</option>
-                        <option value="1" @if($params['type'] == 1) selected @endif>直播</option>
-                        <option value="2" @if($params['type'] == 2) selected @endif>短视频</option>
-                    </select>
-                    <span>账户状态：</span>
-                    <select class="duoxuan" name="status">
-                        <option value="">请选择</option>
-                        <option value="1" @if($params['status'] == 1) selected @endif>正常</option>
-                        <option value="2" @if($params['status'] == 2) selected @endif>待审核</option>
-                        <option value="3" @if($params['status'] == 3) selected @endif>未通过</option>
-                    </select>
-                    <input class="yi" type="text" name="stage_name" value="{{ $params['stage_name'] ?? '' }}" placeholder="艺人名称"/>
-                    <input class="so" type="submit" value=""/>
-                {!!Form::close()!!}
+            <div class="fl">
+                <ul>
+                    {!! Form::open(['url' => route('netred.star.index'),'method'=>'get']) !!}
+                    <li>
+                        <span>账户类别：</span>
+                        <select class="duoxuan" name="type">
+                            <option value="">请选择</option>
+                            <option value="1" @if($params['type'] == 1) selected @endif>直播</option>
+                            <option value="2" @if($params['type'] == 2) selected @endif>短视频</option>
+                        </select>
+                    </li>
+                    <li>
+                        <span>账户状态：</span>
+                        <select class="duoxuan" name="status">
+                            <option value="">请选择</option>
+                            <option value="1" @if($params['status'] == 1) selected @endif>正常</option>
+                            <option value="2" @if($params['status'] == 2) selected @endif>待审核</option>
+                            <option value="3" @if($params['status'] == 3) selected @endif>未通过</option>
+                        </select>
+                    </li>
+                    <li><input class="yi" type="text" name="stage_name" value="{{ $params['stage_name'] ?? '' }}" placeholder="艺人名称"/></li>
+                    <li><input class="so" type="submit" value=""/></li>
+                    {!!Form::close()!!}
+                </ul>
             </div>
-            <div class="fr"><a href="{{ route('netred.star.live') }}"><input class="tianjia" type="button" value="添加直播"/></a></div>
-            <div class="fr"><a href="{{ route('netred.star.video') }}"><input class="tianjia" type="button" value="添加短视频"/></a></div>
+            <div class="fr">
+                <ul>
+                    <li class="tianjia"  onmouseover="displaySubMenu(this)" onmouseout="hideSubMenu(this)"><a href="#" class="adj">添加账号</a>
+                        <div class="xwgkdh" >
+                            <div><a href="{{ route('netred.star.video') }}">添加短视频媒体账户</a></div>
+                            <div><a href="{{ route('netred.star.live') }}">添加直播媒体账户</a></div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
         </div>
         <div class="zhanghu"><p>共计：{{ $lists->total() }}个账户</p></div>
         <div class="zixun">
             <div class="biaoti">
-                <table width="1136">
+                <table width="1136" >
                     <tr>
                         <td width="130">艺人名称</td>
                         <td width="130">类型</td>
                         <td width="110">入驻平台</td>
                         <td width="110">粉丝数</td>
-                        <td width="110">平均在线观看人数</td>
                         <td width="150">参考报价</td>
-                        <td width="120">添加时间</td>
+                        <td width="120">价格有效期</td>
                         <td width="110">审核状态</td>
-                        <td colspan="3" width="126">操作</td>
+                        <td width="120">上下架状态</td>
+                        <td colspan="3"  width="126">操作</td>
                     </tr>
                 </table>
             </div>
             @if($lists->total())
-                @foreach($lists as $item)
-                    <div class="xiangqing">
+                @foreach($lists as $key=>$item)
+                    <div @if($key<1) class="xiangqing" @else class="xiangqingmo" @endif>
                         <table width="1136">
                             <tr>
                                 <td width="130">{{ $item['stage_name'] }}</td>
@@ -81,7 +106,7 @@
                     </div>
                 @endforeach
             @else
-                <div class="xiangqingmo">
+                <div class="xiangqing">
                     <table width="1136">
                         <tr>
                             <td width="130" colspan="9">

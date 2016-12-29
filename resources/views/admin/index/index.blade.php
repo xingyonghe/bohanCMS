@@ -9,8 +9,8 @@
     <link href="{{ asset('assets/admin/css/bootstrap.min.css') }}" rel="stylesheet">
     <link href="{{ asset('assets/admin/css/bootstrap-reset.css') }}" rel="stylesheet">
     <!--external css-->
-    <link href="{{ asset('assets/admin/assets/font-awesome/css/font-awesome.css') }}" rel="stylesheet" />
-    <link href="{{ asset('assets/admin/assets/jquery-easy-pie-chart/jquery.easy-pie-chart.css') }}" rel="stylesheet" type="text/css" media="screen"/>
+    <link href="{{ asset('assets/admin/font-awesome/css/font-awesome.css') }}" rel="stylesheet" />
+    <link href="{{ asset('assets/admin/jquery-easy-pie-chart/jquery.easy-pie-chart.css') }}" rel="stylesheet" type="text/css" media="screen"/>
     <link href="{{ asset('assets/admin/css/owl.carousel.css') }}" rel="stylesheet" type="text/css" />
     <!-- Custom styles for this template -->
     <link href="{{ asset('assets/admin/css/style.css') }}" rel="stylesheet" />

@@ -164,9 +164,11 @@
     </script>
 @endsection
 @section('body')
-    <div class="juzhong">
+    <div class="inner_c">
         <div class="weizhi">
-            当前位置：<a href="{{ route('netred.index.index') }}">首页</a>><a href="{{ route('netred.star.index') }}">资源管理</a>><span>@if(isset($info))修改@else添加@endif短视频账户</span>
+            当前位置：<a href="{{ route('netred.index.index') }}">首页</a>>
+            <a href="{{ route('netred.star.index') }}">资源管理</a>>
+            <span>@if(isset($info))修改@else添加@endif短视频账户</span>
         </div>
         <div class="biao2">
             <form role="form" class="data-form" action="{{ route('netred.star.update') }}" metho="post">
@@ -174,112 +176,162 @@
                 @if(isset($info))
                     <input  type="hidden" name="id" value="{{ $info->id }}"/>
                 @endif
-                <div class="touxiang">
-                    <div class="zi2"><span>*</span>上传头像：</div>
-                    <div class="ren" id="avatar" style="width: 115px;height: 145px">
-                        <input type="hidden" name="avatar" value="{{ isset($info['avatar']) ? $info['avatar'] : '' }}">
-                        <img src="{{ isset($info['avatar']) ? asset($info['avatar']) :asset('assets/member/images/ren.jpg') }}" width="115" height="145"/>
+                <div class="addshoukuan">
+                    <div class="formdl">
+                        <div class="formzi fl"><span>*</span>上传头像：</div>
+                        <div class="ren fl" id="avatar" style="width: 115px;height: 145px">
+                            <input type="hidden" name="avatar" value="{{ isset($info['avatar']) ? $info['avatar'] : '' }}">
+                            <img src="{{ isset($info['avatar']) ? asset($info['avatar']) :asset('assets/member/netred/images/ren.jpg') }}" width="115" height="145"/>
+                        </div>
+                        <span class="annw fl">
+                            <input class="btan" type="button" id="upload" value="选择图片">
+                        </span>
+                        <div class="qingchu"></div>
                     </div>
-                    <div class="anniu"><button id="upload">选择图片</button></div>
-                </div>
-                <div class="textkuang">
-                    <p><span>*</span>艺名：<input type="text" name="stage_name"  value="{{ $info['stage_name'] ?? '' }}" id="stage_name"></p>
-                </div>
-                <div class="raw">
-                    <p>
-                        <span>*</span>性别：
-                        <input type="radio" id="sex" @if(isset($info['sex']) && ($info['sex'] == 1)) checked @endif @if(!isset($info['sex'])) checked @endif name="sex" value="1"><label for="boy">男</label>
-                        <input type="radio" name="sex" @if(isset($info['sex']) && ($info['sex'] == 2)) checked @endif value="2"><label for="girl">女</label>
-                    </p>
-                </div>
-                <div class="sele">
-                    <div class="sele1">
-                        <p><span>*</span>所在地：
+                    <div class="formdl">
+                        <div class="formzi fl"><span>*</span>艺名：</div>
+                        <div class="textkuang fl">
+                            <input type="text" name="stage_name"  value="{{ $info['stage_name'] ?? '' }}" id="stage_name">
+                        </div>
+                        <div class="qingchu"></div>
+                    </div>
+                    <div class="formdl">
+                        <div class="formzi2 fl"><span>*</span>性别：</div>
+                        <div class="raw fl">
+                            <input type="radio" id="sex" @if(isset($info['sex']) && ($info['sex'] == 1)) checked @endif @if(!isset($info['sex'])) checked @endif name="sex" value="1"><label for="boy">男</label>
+                            <input type="radio" name="sex" @if(isset($info['sex']) && ($info['sex'] == 2)) checked @endif value="2"><label for="girl">女</label>
+                        </div>
+                        <div class="qingchu"></div>
+                    </div>
+                    <div class="formdl">
+                        <div class="formzi fl"><span>*</span>所在地：</div>
+                        <div class="sele1 fl">
                             <span id="regoin">
                                 <select name="province" id="province" class="province"></select>
                                 <select name="city" id="city" class="city"></select>
                                 <select name="district" id="district" class="district"></select>
                             </span>
-                        </p>
+                        </div>
+                        <div class="qingchu"></div>
                     </div>
-                    <div class="sele2">
-                        <p>
-                            <span>*</span>所属平台：
+                    <div class="formdl">
+                        <div class="formzi fl"><span>*</span>所属平台：</div>
+                        <div class="sele2 fl">
                             <select name="platform" id="platform">
                                 <option value="">请选择所属平台</option>
                                 @foreach($platforms as $key=>$platform)
                                     <option @if(isset($info['platform']) && ($info['platform'] == $key)) selected @endif value="{{ $key }}">{{ $platform }}</option>
                                 @endforeach
                             </select>
-                        </p>
+                        </div>
+                        <div class="qingchu"></div>
                     </div>
-                </div>
-                <div class="textkuang">
-                    <p><span>*</span>平台ID：<input type="text" name="platform_id" id="platform_id" value="{{ $info['platform_id'] ?? '' }}"></p>
-                </div>
-                <div class="textkuang2">
-                    <p><span>*</span>粉丝量级：<input type="text" name="fans" id="fans" value="{{ $info['fans'] ?? '' }}"></p>
-                    <p><span>*</span>平均在线观看人数：<input type="text" name="average_num" id="average_num" value="{{ $info['average_num'] ?? '' }}"></p>
-                </div>
-                <div class="duoxuan">
-                    <div class="wenzi1"><span>*</span>风格（多选）：</div>
-                    <div class="dxk" id="style">
-                        <ul>
-                            @foreach($styles as $key=>$style)
-                                <li style="float: left;padding-right: 5px"><input type="checkbox" name="style[]" @if(isset($info['style']) && (in_array('style_'.$key,$info['style']))) checked @endif value="style_{{ $key }}">{{ $style }}</li>
-                            @endforeach
-                        </ul>
+                    <div class="formdl">
+                        <div class="formzi fl"><span>*</span>平台ID：</div>
+                        <div class="textkuang fl">
+                            <input type="text" name="platform_id" id="platform_id" value="{{ $info['platform_id'] ?? '' }}">
+                        </div>
+                        <div class="qingchu"></div>
                     </div>
-                    <div class="qingchu"></div>
-                    <div class="wenzi2"><span>*</span>适合您的广告类型（多选）：</div>
-                    <div class="dxk" id="catids">
-                        @foreach($categorys as $category)
-                            <div class="kind">
-                                <h5 class="fl">{{ $category['name'] }}：</h5>
-                                @if(isset($category['_child']))
-                                    <ul>
-                                        @foreach($category['_child'] as $key=>$cate)
-                                        <li style="float: left;padding-right: 5px"><input type="checkbox" @if(isset($info['catids']) && (in_array('catid_'.$cate['id'],$info['catids']))) checked @endif  name="catids[]" value="catid_{{ $cate['id'] }}">{{ $cate['name'] }}</li>
-                                        @endforeach
-                                    </ul>
-                                @endif
+                    <div class="formdl">
+                        <div class="formzi fl"><span>*</span>粉丝量级：</div>
+                        <div class="textkuang fl">
+                            <input type="text" name="fans" id="fans" value="{{ $info['fans'] ?? '' }}">
+                        </div>
+                        <div class="qingchu"></div>
+                    </div>
+
+                    <div class="formdl">
+                        <div class="formzi fl"><span>*</span>风格（多选）：</div>
+                        <div class="dxk">
+                            <div class="dxk_c" id="style">
+                                <ul>
+                                    @foreach($styles as $key=>$style)
+                                        <li>
+                                            <input type="checkbox" name="style[]" @if(isset($info['style']) && (in_array('style_'.$key,$info['style']))) checked @endif value="style_{{ $key }}">
+                                            <label for="ch1">{{ $style }}</label>
+                                        </li>
+                                    @endforeach
+                                </ul>
                             </div>
-                        @endforeach
+                        </div>
+                        <div class="qingchu"></div>
+                    </div>
+                    <div class="formdl">
+                        <div class="formzi fl"><span>*</span>类型选择（多选）：</div>
+                        <div class="dxk" id="catids">
+                            @foreach($categorys as $category)
+                                <div class="kind">
+                                    <h5 class="fl">{{ $category['name'] }}：</h5>
+                                    @if(isset($category['_child']))
+                                        <ul>
+                                            @foreach($category['_child'] as $key=>$cate)
+                                                <li>
+                                                    <input type="checkbox" @if(isset($info['catids']) && (in_array('catid_'.$cate['id'],$info['catids']))) checked @endif  name="catids[]" value="catid_{{ $cate['id'] }}">
+                                                    <label for="ch17">{{ $cate['name'] }}</label>
+                                                </li>
+                                            @endforeach
+                                        </ul>
+                                        <div class="qingchu"></div>
+                                    @endif
+                                </div>
+                            @endforeach
+                        </div>
+                        <div class="qingchu"></div>
+                    </div>
+                    <div class="formdl">
+                        <div class="formzi fl"><span>*</span>广告形式（多选）：</div>
+                        <div class="dxk">
+                            <div class="dxk_c" id="form_price">
+                                <ul class="adforms">
+                                    @foreach($adforms as $key=>$adform)
+                                        <li>
+                                            <input type="checkbox" @if(isset($info['form_price']) && (array_has($info['form_price'],$key))) checked @endif name="form[]" value="{{ $key }}" title="{{ $adform }}">
+                                            <label for="ch49">{{ $adform }}</label>
+                                        </li>
+                                    @endforeach
+                                </ul>
+                                <div class="textkuang fl"  id="moneys">
+                                    @if(isset($info['form_price']))
+                                        @foreach($info['form_price'] as $form=>$price)
+                                            <li class="form_{{ $form }}">{{ get_adform_filed($form) }}价格：<input type="text"  name="money[]" value="{{ $price }}">元</li>
+                                        @endforeach
+                                    @endif
+                                </div>
+                            </div>
+
+                        </div>
                     </div>
                     <div class="qingchu"></div>
-                    <h6>选择广告形式后，请输入广告参考价与价格有效时间！</h6>
-                    <div class="wenzi3"><span>*</span>广告形式（多选）：</div>
-                    <div class="dxk" id="form_price">
-                        <ul class="adforms">
-                            @foreach($adforms as $key=>$adform)
-                                <li style="float: left;padding-right: 5px"><input type="checkbox" @if(isset($info['form_price']) && (array_has($info['form_price'],$key))) checked @endif name="form[]" value="{{ $key }}" title="{{ $adform }}">{{ $adform }}</li>
-                            @endforeach
-                        </ul>
+                    <div class="formdl"><h6><a href="#">点击查看各类型广告术语解释</a></h6></div>
+                    <div class="formdl">
+                        <div class="formzi fl">接单备注：</div>
+                        <div class="wenben fl">
+                            <textarea name="note"  id="note" cols="91" rows="5">{{ $info['note'] ?? '' }}</textarea>
+                        </div>
+                        <div class="qingchu"></div>
                     </div>
-                    <div class="qingchu">
+                    <div class="formdl">
+                        <div class="formzi fl">资源优势：</div>
+                        <div class="wenben fl">
+                            <textarea name="advantage"  id="advantage"  cols="91" rows="5">{{ $info['advantage'] ?? '' }}</textarea>
+                        </div>
+                        <div class="qingchu"></div>
                     </div>
-                </div>
-                <div class="link"> <a href="javascript:void(0)">点击查看各类型广告术语解释</a></div>
-                <div class="dxk" id="price">
-                    <ul id="moneys">
-                        @if(isset($info['form_price']))
-                            @foreach($info['form_price'] as $form=>$price)
-                                <li class="form_{{ $form }}">{{ get_adform_filed($form) }}价格：<input type="text"  name="money[]" value="{{ $price }}">元</li>
-                            @endforeach
-                        @endif
-                    </ul>
-                </div>
-                <div class="wenben">
-                    <p>接单备注：<textarea name="note"  id="note" cols="91" rows="5">{{ $info['note'] ?? '' }}</textarea></p>
-                    <p>资源优势：<textarea name="advantage"  id="advantage"  cols="91" rows="5">{{ $info['advantage'] ?? '' }}</textarea></p>
-                    <p>案例介绍：<textarea name="introduce" id="introduce" cols="91" rows="5">{{ $info['introduce'] ?? '' }}</textarea></p>
-                </div>
-                <div class="sub2">
-                    <input type="hidden" name="type" value="2">
-                    <input type="submit" class="ajax-post" value="完成提交">
+                    <div class="formdl">
+                        <div class="formzi fl">案例介绍：</div>
+                        <div class="wenben fl">
+                            <textarea name="introduce" id="introduce" cols="91" rows="5">{{ $info['introduce'] ?? '' }}</textarea>
+                        </div>
+                        <div class="qingchu"></div>
+                    </div>
+                    <div class="sub">
+                        <input type="hidden" name="type" value="2">
+                        <input type="submit" class="ajax-post" value="完成提交">
+                    </div>
                 </div>
             </form>
         </div>
     </div>
-    <div class="qingchu"></div>
+
 @endsection

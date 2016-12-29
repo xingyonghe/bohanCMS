@@ -9,7 +9,7 @@
     </script>
 @endsection
 @section('body')
-    <div class="juzhong">
+    <div class="inner_c">
         <div class="zhongxin">
             <div class="member fl">
                 <div class="member_tittle"><p>会员中心</p></div>
@@ -36,14 +36,14 @@
                     <div class="balance fl">
                         账户余额：<span>{{ auth()->user()->balance }}</span><b>元</b>
                     </div>
-                    <div class="withdrawal fl"> <a href="{{ route('netred.account.cash') }}">立即提现</a></div>
+                    <div class="withdrawal fl"><a href="{{ route('netred.account.cash') }}">立即提现</a></div>
                 </div>
             </div>
             <div class="message fr">
                 <div class="message_tittle"><p>消息中心</p></div>
                 <div class="xiaoxi">
                     <ul>
-                        <li><a href="#">【公告】今晚服务器维护！<img src="{{ asset('assets/member/images/weidu.png') }}"/><span>2016-12-28</span></a></li>
+                        <li><a href="#">【公告】今晚服务器维护！<img src="{{ asset('assets/member/netred/images/weidu.png') }}"/><span>2016-12-28</span></a></li>
                         <li><a href="#">【消息】任务已经审核！<span>2016-12-28</span></a></li>
                         <li><a href="#">【消息】费用已经支持完！<span>2016-12-28</span></a></li>
                         <li><a href="#">【公告】今晚服务器维护！<span>2016-12-28</span></a></li>
@@ -87,6 +87,5 @@
                 </div>
             </div>
         </div>
-        <div class="qingchu"></div>
     </div>
 @endsection

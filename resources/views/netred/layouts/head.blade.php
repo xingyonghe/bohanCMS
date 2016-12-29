@@ -1,11 +1,15 @@
-<div class="header_top">
-    <div class="fl">
-        <a href="{{ route('home.index.index') }}">
-            <img src="{{ asset('assets/member/images/logo.png') }}" width="151"; height="55"/>
-        </a>
-    </div>
-    <div class="kefuqq fr"><p>专属客服QQ<a href="{{ get_custom_qq(auth()->user()->custom_id) }}"><img src="{{ asset('assets/member/images/qq.png') }}"/></a></p></div>
+<div class="zhong">
+    <div class="fr"> 欢迎您！ 用户名：{{ auth()->user()->username }}&nbsp; | <a href="{{ route('netred.login.logout') }}">退出登录</a></div>
 </div>
+<div class="inner_c">
+    <div class="header_top">
+        <div class="fl">
+            <a href="{{ route('home.index.index') }}"><img src="{{ asset('assets/member/netred/images/logo.png') }}" width="151"; height="55"/></a>
+        </div>
+        <div class="kefuqq fr"><p>专属客服QQ<a href="{{ get_custom_qq(auth()->user()->custom_id) }}"><img src="{{ asset('assets/member/netred/images/qq.png') }}"/></a></p></div>
+    </div>
+</div>
+<!--S导航条-->
 <div class="nav_bg">
     <div class="nav">
         <ul>
@@ -19,4 +23,4 @@
         </ul>
     </div>
 </div>
-<div class="qingchu"></div>
+<!--E导航条-->

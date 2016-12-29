@@ -23,6 +23,8 @@ Route::group(['namespace'=>'Admin'],function(){
         Route::group(['namespace'=>'Index'],function(){
             /**--后台首页--**/
             Route::get('index/index', 'IndexController@index')->name('admin.index.index');//首页
+            //后台通用demo
+            Route::get('demo/index',  'DemoController@index')->name('admin.demo.index');//通用首页
         });
 
         /**--**--**--**--**--**--**--**--**--**系统**--**--**--**--**--**--**--**--**--**--**/

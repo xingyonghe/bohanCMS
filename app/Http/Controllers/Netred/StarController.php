@@ -144,7 +144,7 @@ class StarController extends Controller{
         }
         //后面待完善
         $rules = [
-            'avatar'     => 'required|image',
+            'avatar'     => 'required',
             'stage_name' => 'required',
             'sex'       => 'required',
             'province'   => 'required',
@@ -161,7 +161,6 @@ class StarController extends Controller{
         ];
         $msgs = [
             'avatar.required'     => '请上传头像',
-            'avatar.image'        => '头像格式不正确',
             'stage_name.required'   => '请填写用户名',
             'sex.required'       => '请选择资源类别',
             'province.required'   => '请选择直播平台',

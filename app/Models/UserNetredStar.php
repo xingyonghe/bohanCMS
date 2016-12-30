@@ -60,7 +60,6 @@ class UserNetredStar extends CommonModel{
         $data['min_money'] = head($money);
         $data['max_money'] = last($money);
         //组装广告形式和相应价格及有效期到form_price字段
-//        array_combine($data['form'],)
         $money_term = [];
         foreach($data['money'] as $key=>$item){
             $money_term[$key] = ['price'=>$item,'term'=>$data['term'][$key]];
@@ -81,6 +80,9 @@ class UserNetredStar extends CommonModel{
         }else{
             //编辑
             $info = $this->find($data['id']);
+            if($info['status'] == self::STATUS_FEILED){
+                $info['status'] == self::STATUS_VERIFY;
+            }
             if(empty($info) || $info->update($data)===false){
                 return false;
             }

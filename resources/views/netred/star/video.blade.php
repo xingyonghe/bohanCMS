@@ -316,33 +316,33 @@
                                         </li>
                                     @endforeach
                                 </ul>
-                                <div id="moneys">
-                                    @if(isset($info))
-                                        @foreach($adforms as $key=>$adform)
-                                            @if(array_has($info['form_price'],$key))
-                                                <div class="form_{{ $key }}">
-                                                    <div class="kuang fl"><span>{{ $adform }}:价格：</span><input name="money[]" value="{{ $info['form_price'][$key]['price'] }}" type="text"> <span>元</span></div>
-                                                    <div class="kuang fl"><span>有效期: </span><input type="text" value="{{ $info['form_price'][$key]['term'] }}" placeholder="请选择活动截至时间"  class="datetimepicker"/></div>
-                                                    <div class="qingchu"></div>
-                                                </div>
-                                            @else
-                                                <div class="form_{{ $key }}" style="display: none">
-                                                    <div class="kuang fl"><span>{{ $adform }}:价格：</span><input name="money[]" value="" type="text"> <span>元</span></div>
-                                                    <div class="kuang fl"><span>有效期: </span><input type="text" name="term[]" placeholder="请选择活动截至时间"  class="datetimepicker"/></div>
-                                                    <div class="qingchu"></div>
-                                                </div>
-                                            @endif
-                                        @endforeach
-                                    @else
-                                        @foreach($adforms as $key=>$adform)
+                            </div>
+                            <div id="moneys">
+                                @if(isset($info))
+                                    @foreach($adforms as $key=>$adform)
+                                        @if(array_has($info['form_price'],$key))
+                                            <div class="form_{{ $key }}">
+                                                <div class="kuang fl"><span>{{ $adform }}:价格：</span><input name="money[]" value="{{ $info['form_price'][$key]['price'] }}" type="text"> <span>元</span></div>
+                                                <div class="kuang fl"><span>有效期: </span><input name="term[]" type="text" value="{{ $info['form_price'][$key]['term'] }}" placeholder="请选择活动截至时间"  class="datetimepicker"/></div>
+                                                <div class="qingchu"></div>
+                                            </div>
+                                        @else
                                             <div class="form_{{ $key }}" style="display: none">
                                                 <div class="kuang fl"><span>{{ $adform }}:价格：</span><input name="money[]" value="" type="text"> <span>元</span></div>
                                                 <div class="kuang fl"><span>有效期: </span><input type="text" name="term[]" placeholder="请选择活动截至时间"  class="datetimepicker"/></div>
                                                 <div class="qingchu"></div>
                                             </div>
-                                        @endforeach
-                                    @endif
-                                </div>
+                                        @endif
+                                    @endforeach
+                                @else
+                                    @foreach($adforms as $key=>$adform)
+                                        <div class="form_{{ $key }}" style="display: none">
+                                            <div class="kuang fl"><span>{{ $adform }}:价格：</span><input name="money[]" value="" type="text"> <span>元</span></div>
+                                            <div class="kuang fl"><span>有效期: </span><input type="text" name="term[]" placeholder="请选择活动截至时间"  class="datetimepicker"/></div>
+                                            <div class="qingchu"></div>
+                                        </div>
+                                    @endforeach
+                                @endif
                             </div>
                         </div>
                     </div>
